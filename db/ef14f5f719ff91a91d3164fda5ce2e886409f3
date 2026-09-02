@@ -1,0 +1,21 @@
+src/agents/heuristic.py
+  s_59b5c86cad00eb::t_e3b001b61a980d 105-106
+  s_59b5c86cad00eb::t_b68a1b26f9b6c6 243-258,260
+  s_59b5c86cad00eb::t_4c54f2a424f46e 227
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "dbef14f5f719ff91a91d3164fda5ce2e886409f3",
+  "prompts": {},
+  "sessions": {
+    "s_59b5c86cad00eb": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "2c4808d8-d87f-426a-b4a7-ca3381eb94f2",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
