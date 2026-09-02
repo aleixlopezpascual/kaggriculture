@@ -103,3 +103,38 @@ def test_heuristic_drives_cow_target():
     # Since cow count is 0 and target_cows is 1, and we have enough money,
     # the agent should trigger a "BUY_ANIMAL" or "BUY_COW" market/farm action.
     assert "BUY_COW" in joint_actions["farm_actions"]
+
+
+def test_mcts_caches_and_selects_target():
+    """Verify that MCTSAgent selects and caches a StrategicTarget at Turn 0."""
+    from src.agents.mcts import MCTSAgent
+
+    farmer = WorkerState(
+        worker_id=1,
+        x=0,
+        y=0,
+        carrying=None,
+        is_busy=False,
+    )
+    farm = FarmState(
+        gold=1000,
+        inventory={"Wheat": 0},
+        workers=(farmer,),
+        expansion_quadrants=1,
+    )
+    state = WorldState(
+        turn=0,
+        weather="Sunny",
+        grid_width=5,
+        grid_height=5,
+        crops=(),
+        animals=(),
+        farm=farm,
+        tilled_tiles=(),
+    )
+    agent = MCTSAgent(num_simulations=5)
+    assert agent.active_target is None
+
+    # Calling act() should run strategic planning and cache an active_target
+    _ = agent.act(state)
+    assert agent.active_target is not None

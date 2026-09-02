@@ -1,22 +1,21 @@
 """Kaggriculture Monte Carlo Tree Search (MCTS) agent."""
 
 import math
-import random
 from dataclasses import dataclass
 
 from src.agents.base import BaseAgent
 from src.agents.heuristic import HeuristicAgent
-from src.env.state import WorldState
+from src.env.state import StrategicTarget, WorldState
 from src.env.transitions import step_world
 
 
 @dataclass
 class MCTSNode:
-    """A node in the Monte Carlo Tree Search tree."""
+    """A node in the MCTS tree, branching on macro StrategicTargets."""
 
     state: WorldState
     parent: "MCTSNode | None" = None
-    action: dict | None = None
+    target: StrategicTarget | None = None
     visits: int = 0
     value: float = 0.0
     children: list["MCTSNode"] = None
@@ -27,55 +26,143 @@ class MCTSNode:
 
 
 class MCTSAgent(BaseAgent):
-    """Monte Carlo Tree Search decision agent utilizing stateless transitions."""
+    """Monte Carlo Tree Search decision agent using stateless macro targets."""
 
     def __init__(self, num_simulations: int = 20, exploration_weight: float = 1.414):
         self.num_simulations = num_simulations
         self.exploration_weight = exploration_weight
         self.heuristic_fallback = HeuristicAgent()
+        self.active_target: StrategicTarget | None = None
 
     def act(self, state: WorldState) -> dict:
-        """Runs MCTS to select the best joint action from the current state."""
+        """Runs MCTS to select the best target, then acts heuristically."""
         if not state.farm.workers:
             return {"worker_actions": {}, "farm_actions": []}
 
-        root = MCTSNode(state=state)
-
-        for _ in range(self.num_simulations):
-            # 1. Selection
-            node = root
-            while node.children:
-                node = self._select_ucb(node)
-
-            # 2. Expansion
-            if node.visits > 0 or node == root:
-                self._expand(node)
-                if node.children:
-                    node = random.choice(node.children)
-
-            # 3. Simulation (Rollout)
-            reward = self._rollout(node.state)
-
-            # 4. Backpropagation
-            curr = node
-            while curr is not None:
-                curr.visits += 1
-                curr.value += reward
-                curr = curr.parent
-
-        # Choose child with maximum visits or highest value
-        if not root.children:
-            return self.heuristic_fallback.act(state)
-
-        best_child = max(root.children, key=lambda c: c.visits)
-        return (
-            best_child.action
-            if best_child.action
-            else {"worker_actions": {}, "farm_actions": []}
+        # 1. Check if we need to re-plan strategic targets
+        # Re-plan at Turn 0, start of each day, or if we have no target yet
+        should_replan = (
+            self.active_target is None
+            or state.turn == 0
+            or state.turn % 24 == 0
+            or self._is_target_achieved(state, self.active_target)
         )
 
+        if should_replan:
+            self.active_target = self._search_best_target(state)
+
+        # 2. Execute the current strategic target hourly via the Heuristic Core
+        return self.heuristic_fallback.act(state, target=self.active_target)
+
+    def _is_target_achieved(self, state: WorldState, target: StrategicTarget) -> bool:
+        """Determines if the active strategic target's counts are satisfied."""
+        workers_satisfied = len(state.farm.workers) >= target.target_workers
+        cows = sum(1 for a in state.animals if a.animal_type == "Cow")
+        sheep = sum(1 for a in state.animals if a.animal_type == "Sheep")
+        geese = sum(1 for a in state.animals if a.animal_type == "Goose")
+
+        animals_satisfied = (
+            cows >= target.target_cows
+            and sheep >= target.target_sheep
+            and geese >= target.target_geese
+        )
+
+        # Check crops
+        crop_counts = {}
+        for c in state.crops:
+            crop_counts[c.crop_type] = crop_counts.get(c.crop_type, 0) + 1
+
+        crops_satisfied = True
+        for crop, count in target.crop_priorities.items():
+            if crop_counts.get(crop, 0) < count:
+                crops_satisfied = False
+                break
+
+        return workers_satisfied and animals_satisfied and crops_satisfied
+
+    def _search_best_target(self, state: WorldState) -> StrategicTarget:
+        """MCTS search over the set of candidate targets."""
+        # Setup Candidates
+        candidates = []
+
+        if state.turn >= 680:
+            # Late-game liquidation target
+            candidates.append(
+                StrategicTarget(
+                    target_workers=len(state.farm.workers),
+                    target_cows=0,
+                    target_sheep=0,
+                    target_geese=0,
+                    crop_priorities={},
+                    budget_reserved_for_seeds=0.0,
+                    is_liquidating=True,
+                )
+            )
+        else:
+            # Focus 1: Baseline strawberry rush (high-yield)
+            candidates.append(
+                StrategicTarget(
+                    target_workers=3,
+                    target_cows=0,
+                    target_sheep=0,
+                    target_geese=0,
+                    crop_priorities={"Strawberries": 10},
+                    budget_reserved_for_seeds=100.0,
+                    is_liquidating=False,
+                )
+            )
+            # Focus 2: Self-sustaining livestock and wheat feed loop
+            candidates.append(
+                StrategicTarget(
+                    target_workers=4,
+                    target_cows=3,
+                    target_sheep=1,
+                    target_geese=0,
+                    crop_priorities={"Wheat": 8, "Strawberries": 4},
+                    budget_reserved_for_seeds=150.0,
+                    is_liquidating=False,
+                )
+            )
+            # Focus 3: Heavy scaling (5 hands, diversified pasture)
+            candidates.append(
+                StrategicTarget(
+                    target_workers=5,
+                    target_cows=2,
+                    target_sheep=2,
+                    target_geese=2,
+                    crop_priorities={"Wheat": 10, "Strawberries": 10},
+                    budget_reserved_for_seeds=200.0,
+                    is_liquidating=False,
+                )
+            )
+
+        root = MCTSNode(state=state)
+
+        # Expand root immediately with candidates
+        for target in candidates:
+            root.children.append(MCTSNode(state=state, parent=root, target=target))
+
+        for _ in range(self.num_simulations):
+            # Selection (always select from root's direct children for macro choice)
+            node = self._select_ucb(root)
+
+            # Simulation (Rollout) guided by candidate target
+            reward = self._rollout(node.state, node.target)
+
+            # Backpropagation
+            node.visits += 1
+            node.value += reward
+            root.visits += 1
+            root.value += reward
+
+        # Retrieve the target from the child with the highest average value
+        best_child = max(
+            root.children, key=lambda c: (c.value / c.visits) if c.visits > 0 else -1.0
+        )
+        return best_child.target if best_child.target else candidates[0]
+
     def _select_ucb(self, node: MCTSNode) -> MCTSNode:
-        """Selects a child node using Upper Confidence Bound (UCB1)."""
+        """Selects a child node using standard Upper Confidence Bound (UCB1)."""
         best_score = -float("inf")
         best_child = node.children[0]
 
@@ -93,47 +180,28 @@ class MCTSAgent(BaseAgent):
 
         return best_child
 
-    def _expand(self, node: MCTSNode):
-        """Expands a leaf node by adding children for possible actions."""
-        # Generate 3 candidate actions (using combinations of move/work choices)
-        candidates = []
-
-        # Candidate 1: The heuristic's best choice
-        candidates.append(self.heuristic_fallback.act(node.state))
-
-        # Candidate 2: Move randomly
-        random_worker_actions = {}
-        for worker in node.state.farm.workers:
-            rand_dir = random.choice(["UP", "DOWN", "LEFT", "RIGHT"])
-            random_worker_actions[worker.worker_id] = ("MOVE", rand_dir)
-        candidates.append({"worker_actions": random_worker_actions, "farm_actions": []})
-
-        # Candidate 3: Idle action
-        candidates.append({"worker_actions": {}, "farm_actions": []})
-
-        for act in candidates:
-            try:
-                next_state = step_world(node.state, act)
-                node.children.append(
-                    MCTSNode(state=next_state, parent=node, action=act)
-                )
-            except Exception:
-                continue
-
-    def _rollout(self, state: WorldState) -> float:
-        """Performs a brief simulation rollout using greedy actions."""
+    def _rollout(self, state: WorldState, target: StrategicTarget) -> float:
+        """Brief daily rollout of the fast simulator guided by the target."""
         curr_state = state
-        depth = 3  # short lookahead for efficiency (<100ms target)
-        total_gold_gained = 0
-
+        depth = 48  # Simulate 2 full days forward
         start_gold = state.farm.gold
 
         for _ in range(depth):
-            act = self.heuristic_fallback.act(curr_state)
-            curr_state = step_world(curr_state, act)
+            # Get tactical hourly worker actions for target
+            joint_actions = self.heuristic_fallback.act(curr_state, target=target)
+            try:
+                curr_state = step_world(curr_state, joint_actions)
+            except Exception:
+                break
 
-        total_gold_gained = curr_state.farm.gold - start_gold
-        # Add basic heuristic value for inventory counts as well
-        inv_value = sum(curr_state.farm.inventory.values()) * 50
+        # Value scoring: gold accumulated + asset values
+        gold_gained = curr_state.farm.gold - start_gold
+        cows = sum(1 for a in curr_state.animals if a.animal_type == "Cow")
+        sheep = sum(1 for a in curr_state.animals if a.animal_type == "Sheep")
+        geese = sum(1 for a in curr_state.animals if a.animal_type == "Goose")
 
-        return float(total_gold_gained + inv_value)
+        asset_valuation = cows * 400 + sheep * 240 + geese * 120
+        # Add basic weight for inventory items
+        asset_valuation += sum(curr_state.farm.inventory.values()) * 15
+
+        return float(gold_gained + asset_valuation)
