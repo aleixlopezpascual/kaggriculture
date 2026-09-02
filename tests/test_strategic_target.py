@@ -27,4 +27,3 @@ def test_worker_state_carrying_sequence():
     )
     assert worker.carrying == ("Wheat", "Strawberries")
     assert len(worker.carrying) == 2
-
