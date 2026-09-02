@@ -59,3 +59,16 @@ class WorldState:
     animals: tuple[AnimalState, ...]
     farm: FarmState
     tilled_tiles: tuple[tuple[int, int], ...]  # List of coordinates currently tilled
+
+
+@dataclass(frozen=True, slots=True)
+class StrategicTarget:
+    """Target resource objectives selected by the high-level MCTS Strategic Brain."""
+
+    target_workers: int
+    target_cows: int
+    target_sheep: int
+    target_geese: int
+    crop_priorities: dict[str, int]
+    budget_reserved_for_seeds: float
+    is_liquidating: bool

@@ -5,6 +5,7 @@ from src.env.state import (
     AnimalState,
     CropState,
     FarmState,
+    StrategicTarget,
     WorkerState,
     WorldState,
 )
@@ -16,6 +17,7 @@ __all__ = [
     "WorkerState",
     "FarmState",
     "WorldState",
+    "StrategicTarget",
     "step_crop",
     "step_world",
     "parse_world_state",
