@@ -43,29 +43,47 @@ class LocalArena:
             tilled_tiles=(),
         )
 
-    def run_match(self, seed: int = 42) -> float:
-        """Runs a complete local farming run and returns terminal gold."""
+    def run_match(self, seed: int = 42, replay_file: str | None = None) -> float:
+        """Runs a complete local farming run and returns terminal gold.
+        
+        If replay_file is provided, it saves a Krobus-compatible JSON log.
+        """
         state = self.create_initial_state(seed)
+        
+        logger = None
+        if replay_file:
+            from src.arena.logger import ReplayLogger
+            logger = ReplayLogger(replay_file)
 
         for _ in range(self.turns):
             if state.turn >= self.turns:
                 break
+                
             # Query agent for actions based on the current state
             joint_actions = self.agent.act(state)
+
+            if logger:
+                logger.log_turn(state, joint_actions)
 
             # Apply pure environment transition step
             state = step_world(state, joint_actions)
 
             # Standard incremental turn ticking
             state = replace(state, turn=state.turn + 1)
+            
+        if logger:
+            logger.save_replay()
 
         return state.farm.gold
 
-    def benchmark(self, seeds: list[int]) -> dict[str, float]:
+    def benchmark(
+        self, seeds: list[int], save_replays: bool = False
+    ) -> dict[str, float | int]:
         """Runs the agent across multiple seeds and aggregates final balances."""
         results = []
         for seed in seeds:
-            results.append(self.run_match(seed))
+            replay_path = f"replays/krobus_seed_{seed}.json" if save_replays else None
+            results.append(self.run_match(seed, replay_file=replay_path))
 
         return {
             "avg_gold": sum(results) / len(results),
