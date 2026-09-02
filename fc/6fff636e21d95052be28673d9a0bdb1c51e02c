@@ -1,0 +1,23 @@
+src/env/state.py
+  s_59b5c86cad00eb::t_b64600e16cd059 62-74
+src/env/__init__.py
+  s_59b5c86cad00eb::t_37d58c5fe10d12 8,20
+tests/test_strategic_target.py
+  s_59b5c86cad00eb::t_498604abe9ce7f 1-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "fc6fff636e21d95052be28673d9a0bdb1c51e02c",
+  "prompts": {},
+  "sessions": {
+    "s_59b5c86cad00eb": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "2c4808d8-d87f-426a-b4a7-ca3381eb94f2",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
