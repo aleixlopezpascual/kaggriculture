@@ -102,8 +102,8 @@ class HeuristicAgent(BaseAgent):
 
         seed_prices = {"Wheat": 5, "Carrot": 10, "Melons": 25, "Strawberries": 40}
 
-        # Buy seeds for crop deficits
-        if not target.is_liquidating:
+        # Buy seeds for crop deficits (stop buying seeds near the end of the match)
+        if not target.is_liquidating and state.turn < 710:
             for crop_type, target_count in target.crop_priorities.items():
                 current_planted = active_crop_counts.get(crop_type, 0)
                 current_seeds = state.farm.seed_inventory.get(crop_type, 0)
@@ -224,7 +224,7 @@ class HeuristicAgent(BaseAgent):
                     best_dist = dist
                     best_tile = tile
 
-            if best_tile and not target.is_liquidating:
+            if best_tile and not target.is_liquidating and state.turn < 715:
                 tx, ty = best_tile
                 if best_dist <= 1:
                     worker_actions[worker.worker_id] = (
@@ -240,17 +240,24 @@ class HeuristicAgent(BaseAgent):
                 assigned_tasks.add((tx, ty))
                 continue
 
-            # 5. DEFAULT TILL/MOVE IDLE (till nearest untilled tile to expand)
-            target_x = (worker.x + 1) % state.grid_width
-            target_y = worker.y
-            if (
-                target_x,
-                target_y,
-            ) not in state.tilled_tiles and not target.is_liquidating:
-                if abs(worker.x - target_x) <= 1:
-                    worker_actions[worker.worker_id] = ("TILE", target_x, target_y)
+            # 5. DEFAULT TILL/MOVE IDLE (till nearest untilled tile in entire grid)
+            best_untilled = None
+            best_dist = float("inf")
+            if not target.is_liquidating:
+                for y in range(state.grid_height):
+                    for x in range(state.grid_width):
+                        if (x, y) not in state.tilled_tiles:
+                            dist = manhattan_distance(worker.x, worker.y, x, y)
+                            if dist < best_dist:
+                                best_dist = dist
+                                best_untilled = (x, y)
+
+            if best_untilled:
+                tx, ty = best_untilled
+                if best_dist <= 1:
+                    worker_actions[worker.worker_id] = ("TILE", tx, ty)
                 else:
-                    path = find_shortest_path(worker.x, worker.y, target_x, target_y)
+                    path = find_shortest_path(worker.x, worker.y, tx, ty)
                     if path:
                         worker_actions[worker.worker_id] = path[0]
             else:
