@@ -106,7 +106,7 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
                     worker_id=next_worker_idx,
                     x=0,
                     y=0,
-                    carrying=None,
+                    carrying=(),
                     is_busy=False,
                 )
                 workers_list.append(new_worker)

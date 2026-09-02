@@ -33,7 +33,7 @@ class WorkerState:
     worker_id: int
     x: int
     y: int
-    carrying: str | None  # Name of item carried or None
+    carrying: tuple[str, ...]  # Tuple of carried item names (e.g. ("WHEAT",))
     is_busy: bool
 
 

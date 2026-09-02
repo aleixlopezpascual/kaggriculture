@@ -1,4 +1,4 @@
-from src.env.state import StrategicTarget
+from src.env.state import StrategicTarget, WorkerState
 
 
 def test_strategic_target_instantiation():
@@ -15,3 +15,16 @@ def test_strategic_target_instantiation():
     assert target.target_cows == 3
     assert target.crop_priorities["Wheat"] == 8
     assert target.is_liquidating is False
+
+
+def test_worker_state_carrying_sequence():
+    worker = WorkerState(
+        worker_id=1,
+        x=2,
+        y=3,
+        carrying=("Wheat", "Strawberries"),
+        is_busy=False,
+    )
+    assert worker.carrying == ("Wheat", "Strawberries")
+    assert len(worker.carrying) == 2
+

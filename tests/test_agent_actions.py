@@ -19,7 +19,7 @@ def test_heuristic_agent_harvest_priority():
         worker_id=1,
         x=0,
         y=0,
-        carrying=None,
+        carrying=(),
         is_busy=False,
     )
     farm = FarmState(
@@ -70,7 +70,7 @@ def test_heuristic_drives_cow_target():
         worker_id=1,
         x=0,
         y=0,
-        carrying=None,
+        carrying=(),
         is_busy=False,
     )
     farm = FarmState(
@@ -115,7 +115,7 @@ def test_mcts_caches_and_selects_target():
         worker_id=1,
         x=0,
         y=0,
-        carrying=None,
+        carrying=(),
         is_busy=False,
     )
     farm = FarmState(

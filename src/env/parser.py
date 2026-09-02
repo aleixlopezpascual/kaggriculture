@@ -32,16 +32,24 @@ def parse_world_state(obs: dict) -> WorldState:
             )
         )
 
-    raw_farm = obs.get("farm", {})
+    raw_farm = raw_farm_dict
     raw_workers = raw_farm.get("workers", [])
     workers_list = []
     for w in raw_workers:
+        raw_carrying = w.get("carrying")
+        if isinstance(raw_carrying, list):
+            carrying_tuple = tuple(raw_carrying)
+        elif isinstance(raw_carrying, str):
+            carrying_tuple = (raw_carrying,)
+        else:
+            carrying_tuple = ()
+
         workers_list.append(
             WorkerState(
                 worker_id=w["worker_id"],
                 x=w["x"],
                 y=w["y"],
-                carrying=w.get("carrying"),
+                carrying=carrying_tuple,
                 is_busy=w.get("is_busy", False),
             )
         )

@@ -23,7 +23,7 @@ class LocalArena:
             worker_id=1,
             x=0,
             y=0,
-            carrying=None,
+            carrying=(),
             is_busy=False,
         )
         initial_farm = FarmState(
