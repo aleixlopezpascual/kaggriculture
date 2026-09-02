@@ -2,6 +2,7 @@
 
 import random
 from dataclasses import replace
+
 from src.agents.base import BaseAgent
 from src.env.state import FarmState, WorkerState, WorldState
 from src.env.transitions import step_world

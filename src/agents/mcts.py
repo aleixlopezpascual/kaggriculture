@@ -3,10 +3,11 @@
 import math
 import random
 from dataclasses import dataclass
+
 from src.agents.base import BaseAgent
+from src.agents.heuristic import HeuristicAgent
 from src.env.state import WorldState
 from src.env.transitions import step_world
-from src.agents.heuristic import HeuristicAgent
 
 
 @dataclass
@@ -67,7 +68,11 @@ class MCTSAgent(BaseAgent):
             return self.heuristic_fallback.act(state)
 
         best_child = max(root.children, key=lambda c: c.visits)
-        return best_child.action if best_child.action else {"worker_actions": {}, "farm_actions": []}
+        return (
+            best_child.action
+            if best_child.action
+            else {"worker_actions": {}, "farm_actions": []}
+        )
 
     def _select_ucb(self, node: MCTSNode) -> MCTSNode:
         """Selects a child node using Upper Confidence Bound (UCB1)."""

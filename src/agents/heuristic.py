@@ -147,9 +147,7 @@ class HeuristicAgent(BaseAgent):
                 if abs(worker.x - target_x) <= 1:
                     worker_actions[worker.worker_id] = ("TILE", target_x, target_y)
                 else:
-                    path = find_shortest_path(
-                        worker.x, worker.y, target_x, target_y
-                    )
+                    path = find_shortest_path(worker.x, worker.y, target_x, target_y)
                     if path:
                         worker_actions[worker.worker_id] = path[0]
             else:

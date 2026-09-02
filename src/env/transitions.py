@@ -1,8 +1,8 @@
 """Kaggriculture pure, stateless transition functions."""
 
 import random
-from dataclasses import replace
-from src.env.state import CropState, AnimalState, WorkerState, FarmState, WorldState
+
+from src.env.state import AnimalState, CropState, FarmState, WorkerState, WorldState
 
 
 def step_crop(crop: CropState, watered: bool, weather: str) -> CropState:
@@ -76,7 +76,11 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
     }
     """
     # Update weather
-    next_weather = random.choice(["Sunny", "Rainy", "Overcast"]) if state.turn % 5 == 0 else state.weather
+    next_weather = (
+        random.choice(["Sunny", "Rainy", "Overcast"])
+        if state.turn % 5 == 0
+        else state.weather
+    )
 
     # Current state views
     tilled = set(state.tilled_tiles)
@@ -151,54 +155,52 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
 
         elif act_type == "PLANT":
             tx, ty, c_type = act[1], act[2], act[3]
-            if abs(w.x - tx) + abs(w.y - ty) <= 1:
-                if (tx, ty) in tilled and (tx, ty) not in crops_map:
-                    # Remove from tilled, add to crops
-                    tilled.discard((tx, ty))
-                    crops_map[(tx, ty)] = CropState(
-                        crop_type=c_type,
-                        growth_stage=0,
-                        moisture=50,
-                        is_watered=False,
-                        x=tx,
-                        y=ty,
-                    )
+            if (
+                abs(w.x - tx) + abs(w.y - ty) <= 1
+                and (tx, ty) in tilled
+                and (tx, ty) not in crops_map
+            ):
+                # Remove from tilled, add to crops
+                tilled.discard((tx, ty))
+                crops_map[(tx, ty)] = CropState(
+                    crop_type=c_type,
+                    growth_stage=0,
+                    moisture=50,
+                    is_watered=False,
+                    x=tx,
+                    y=ty,
+                )
             updated_workers.append(w)
 
         elif act_type == "WATER":
             tx, ty = act[1], act[2]
-            if abs(w.x - tx) + abs(w.y - ty) <= 1:
-                if (tx, ty) in crops_map:
-                    crops_map[(tx, ty)] = step_crop(
-                        crops_map[(tx, ty)], watered=True, weather=state.weather
-                    )
+            if abs(w.x - tx) + abs(w.y - ty) <= 1 and (tx, ty) in crops_map:
+                crops_map[(tx, ty)] = step_crop(
+                    crops_map[(tx, ty)], watered=True, weather=state.weather
+                )
             updated_workers.append(w)
 
         elif act_type == "HARVEST":
             tx, ty = act[1], act[2]
-            if abs(w.x - tx) + abs(w.y - ty) <= 1:
-                if (tx, ty) in crops_map:
-                    crop = crops_map[(tx, ty)]
-                    if crop.growth_stage == 3:  # Harvestable
-                        inventory[crop.crop_type] = (
-                            inventory.get(crop.crop_type, 0) + 1
-                        )
-                        del crops_map[(tx, ty)]
-                        tilled.add((tx, ty))  # Returns to tilled state
+            if abs(w.x - tx) + abs(w.y - ty) <= 1 and (tx, ty) in crops_map:
+                crop = crops_map[(tx, ty)]
+                if crop.growth_stage == 3:  # Harvestable
+                    inventory[crop.crop_type] = inventory.get(crop.crop_type, 0) + 1
+                    del crops_map[(tx, ty)]
+                    tilled.add((tx, ty))  # Returns to tilled state
             updated_workers.append(w)
 
         elif act_type == "FEED":
             ax, ay = act[1], act[2]
-            if abs(w.x - ax) + abs(w.y - ay) <= 1:
-                if (ax, ay) in animals_map:
-                    anim = animals_map[(ax, ay)]
-                    animals_map[(ax, ay)] = AnimalState(
-                        animal_type=anim.animal_type,
-                        hunger=max(0, anim.hunger - 40),
-                        is_fed=True,
-                        x=anim.x,
-                        y=anim.y,
-                    )
+            if abs(w.x - ax) + abs(w.y - ay) <= 1 and (ax, ay) in animals_map:
+                anim = animals_map[(ax, ay)]
+                animals_map[(ax, ay)] = AnimalState(
+                    animal_type=anim.animal_type,
+                    hunger=max(0, anim.hunger - 40),
+                    is_fed=True,
+                    x=anim.x,
+                    y=anim.y,
+                )
             updated_workers.append(w)
         else:
             updated_workers.append(w)
@@ -238,5 +240,5 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
             workers=tuple(updated_workers),
             expansion_quadrants=expansion,
         ),
-        tilled_tiles=tuple(sorted(list(tilled))),
+        tilled_tiles=tuple(sorted(tilled)),
     )

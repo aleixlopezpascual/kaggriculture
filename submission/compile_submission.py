@@ -39,7 +39,7 @@ def compile_submission():
             continue
 
             # Parse files and strip localized imports
-        with open(mod_path, "r", encoding="utf-8") as f:
+        with open(mod_path, encoding="utf-8") as f:
             lines = f.readlines()
 
         out_lines.append(f"# === MODULE: {mod} ===")
@@ -66,7 +66,7 @@ def compile_submission():
         "",
         "def agent_entrypoint(obs_json: dict) -> dict:",
         "    # 1. Parse raw observation",
-        "    state = parse_observation(obs_json)",
+        "    state = parse_world_state(obs_json)",
         "    # 2. Query actions",
         "    joint_actions = agent.act(state)",
         "    # 3. Format output compatible with Kaggle match engine",

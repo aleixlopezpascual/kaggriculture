@@ -1,12 +1,6 @@
 """Kaggriculture Kaggle observation dictionary/array parser."""
 
-from src.env.state import (
-    CropState,
-    AnimalState,
-    WorkerState,
-    FarmState,
-    WorldState,
-)
+from src.env.state import AnimalState, CropState, FarmState, WorkerState, WorldState
 
 
 def parse_world_state(obs: dict) -> WorldState:

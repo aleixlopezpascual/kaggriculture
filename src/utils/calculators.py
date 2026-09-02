@@ -26,12 +26,8 @@ def estimate_crop_yield(
     if crop_type in {"Strawberries", "Melons"}:
         base_yield = 1.5
 
-    # Moisture penalty factor
-    if 20 <= moisture <= 90:
-        moisture_factor = 1.0
-    else:
-        # Penalize if too dry or flooded
-        moisture_factor = 0.4
+    # Moisture penalty factor (penalize if too dry or flooded)
+    moisture_factor = 1.0 if 20 <= moisture <= 90 else 0.4
 
     yield_val = base_yield * moisture_factor
     if has_care_bonus:

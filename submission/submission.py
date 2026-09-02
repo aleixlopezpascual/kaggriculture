@@ -74,6 +74,7 @@ class WorldState:
 
 
 
+
 def step_crop(crop: CropState, watered: bool, weather: str) -> CropState:
     """Updates the state of a single crop based on watering and weather.
 
@@ -145,7 +146,11 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
     }
     """
     # Update weather
-    next_weather = random.choice(["Sunny", "Rainy", "Overcast"]) if state.turn % 5 == 0 else state.weather
+    next_weather = (
+        random.choice(["Sunny", "Rainy", "Overcast"])
+        if state.turn % 5 == 0
+        else state.weather
+    )
 
     # Current state views
     tilled = set(state.tilled_tiles)
@@ -220,54 +225,52 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
 
         elif act_type == "PLANT":
             tx, ty, c_type = act[1], act[2], act[3]
-            if abs(w.x - tx) + abs(w.y - ty) <= 1:
-                if (tx, ty) in tilled and (tx, ty) not in crops_map:
-                    # Remove from tilled, add to crops
-                    tilled.discard((tx, ty))
-                    crops_map[(tx, ty)] = CropState(
-                        crop_type=c_type,
-                        growth_stage=0,
-                        moisture=50,
-                        is_watered=False,
-                        x=tx,
-                        y=ty,
-                    )
+            if (
+                abs(w.x - tx) + abs(w.y - ty) <= 1
+                and (tx, ty) in tilled
+                and (tx, ty) not in crops_map
+            ):
+                # Remove from tilled, add to crops
+                tilled.discard((tx, ty))
+                crops_map[(tx, ty)] = CropState(
+                    crop_type=c_type,
+                    growth_stage=0,
+                    moisture=50,
+                    is_watered=False,
+                    x=tx,
+                    y=ty,
+                )
             updated_workers.append(w)
 
         elif act_type == "WATER":
             tx, ty = act[1], act[2]
-            if abs(w.x - tx) + abs(w.y - ty) <= 1:
-                if (tx, ty) in crops_map:
-                    crops_map[(tx, ty)] = step_crop(
-                        crops_map[(tx, ty)], watered=True, weather=state.weather
-                    )
+            if abs(w.x - tx) + abs(w.y - ty) <= 1 and (tx, ty) in crops_map:
+                crops_map[(tx, ty)] = step_crop(
+                    crops_map[(tx, ty)], watered=True, weather=state.weather
+                )
             updated_workers.append(w)
 
         elif act_type == "HARVEST":
             tx, ty = act[1], act[2]
-            if abs(w.x - tx) + abs(w.y - ty) <= 1:
-                if (tx, ty) in crops_map:
-                    crop = crops_map[(tx, ty)]
-                    if crop.growth_stage == 3:  # Harvestable
-                        inventory[crop.crop_type] = (
-                            inventory.get(crop.crop_type, 0) + 1
-                        )
-                        del crops_map[(tx, ty)]
-                        tilled.add((tx, ty))  # Returns to tilled state
+            if abs(w.x - tx) + abs(w.y - ty) <= 1 and (tx, ty) in crops_map:
+                crop = crops_map[(tx, ty)]
+                if crop.growth_stage == 3:  # Harvestable
+                    inventory[crop.crop_type] = inventory.get(crop.crop_type, 0) + 1
+                    del crops_map[(tx, ty)]
+                    tilled.add((tx, ty))  # Returns to tilled state
             updated_workers.append(w)
 
         elif act_type == "FEED":
             ax, ay = act[1], act[2]
-            if abs(w.x - ax) + abs(w.y - ay) <= 1:
-                if (ax, ay) in animals_map:
-                    anim = animals_map[(ax, ay)]
-                    animals_map[(ax, ay)] = AnimalState(
-                        animal_type=anim.animal_type,
-                        hunger=max(0, anim.hunger - 40),
-                        is_fed=True,
-                        x=anim.x,
-                        y=anim.y,
-                    )
+            if abs(w.x - ax) + abs(w.y - ay) <= 1 and (ax, ay) in animals_map:
+                anim = animals_map[(ax, ay)]
+                animals_map[(ax, ay)] = AnimalState(
+                    animal_type=anim.animal_type,
+                    hunger=max(0, anim.hunger - 40),
+                    is_fed=True,
+                    x=anim.x,
+                    y=anim.y,
+                )
             updated_workers.append(w)
         else:
             updated_workers.append(w)
@@ -307,19 +310,13 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
             workers=tuple(updated_workers),
             expansion_quadrants=expansion,
         ),
-        tilled_tiles=tuple(sorted(list(tilled))),
+        tilled_tiles=tuple(sorted(tilled)),
     )
 
 
 # === MODULE: env/parser.py ===
 """Kaggriculture Kaggle observation dictionary/array parser."""
 
-    CropState,
-    AnimalState,
-    WorkerState,
-    FarmState,
-    WorldState,
-)
 
 
 def parse_world_state(obs: dict) -> WorldState:
@@ -475,12 +472,8 @@ def estimate_crop_yield(
     if crop_type in {"Strawberries", "Melons"}:
         base_yield = 1.5
 
-    # Moisture penalty factor
-    if 20 <= moisture <= 90:
-        moisture_factor = 1.0
-    else:
-        # Penalize if too dry or flooded
-        moisture_factor = 0.4
+    # Moisture penalty factor (penalize if too dry or flooded)
+    moisture_factor = 1.0 if 20 <= moisture <= 90 else 0.4
 
     yield_val = base_yield * moisture_factor
     if has_care_bonus:
@@ -493,6 +486,7 @@ def estimate_crop_yield(
 """Kaggriculture state featurizer converting WorldState to flat 2D numpy arrays."""
 
 import numpy as np
+
 
 
 def featurize_state(state: WorldState) -> dict[str, np.ndarray]:
@@ -540,6 +534,7 @@ def featurize_state(state: WorldState) -> dict[str, np.ndarray]:
 
 # === MODULE: agents/base.py ===
 """Kaggriculture abstract base agent interface."""
+
 
 
 
@@ -709,9 +704,7 @@ class HeuristicAgent(BaseAgent):
                 if abs(worker.x - target_x) <= 1:
                     worker_actions[worker.worker_id] = ("TILE", target_x, target_y)
                 else:
-                    path = find_shortest_path(
-                        worker.x, worker.y, target_x, target_y
-                    )
+                    path = find_shortest_path(worker.x, worker.y, target_x, target_y)
                     if path:
                         worker_actions[worker.worker_id] = path[0]
             else:
@@ -729,7 +722,7 @@ agent = HeuristicAgent(crop_to_plant='Strawberries')
 
 def agent_entrypoint(obs_json: dict) -> dict:
     # 1. Parse raw observation
-    state = parse_observation(obs_json)
+    state = parse_world_state(obs_json)
     # 2. Query actions
     joint_actions = agent.act(state)
     # 3. Format output compatible with Kaggle match engine

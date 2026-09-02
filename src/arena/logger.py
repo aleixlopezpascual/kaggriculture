@@ -1,6 +1,8 @@
 """Kaggriculture match state serialization and replay logging."""
 
 import json
+from pathlib import Path
+
 from src.env.state import WorldState
 
 
@@ -51,5 +53,5 @@ class ReplayLogger:
 
     def save_replay(self) -> None:
         """Writes the accumulated history array to disk."""
-        with open(self.output_path, "w", encoding="utf-8") as f:
+        with Path(self.output_path).open("w", encoding="utf-8") as f:
             json.dump({"replay": self.history}, f, indent=2)

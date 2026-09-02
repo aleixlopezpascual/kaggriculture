@@ -1,6 +1,7 @@
 """Kaggriculture abstract base agent interface."""
 
 from abc import ABC, abstractmethod
+
 from src.env.state import WorldState
 
 

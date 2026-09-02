@@ -47,5 +47,6 @@ def test_step_crop_growth_optimal():
         y=0,
     )
     next_crop = step_crop(crop, watered=True, weather="Sunny")
-    # Growth stage should advance since moisture was in optimal range (50) and it was watered
+    # Growth stage should advance since moisture was in optimal range (50)
+    # and it was watered
     assert next_crop.growth_stage == 2

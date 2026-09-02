@@ -1,6 +1,7 @@
 """Kaggriculture state featurizer converting WorldState to flat 2D numpy arrays."""
 
 import numpy as np
+
 from src.env.state import WorldState
 
 

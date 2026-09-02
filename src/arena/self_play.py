@@ -1,6 +1,7 @@
 """Kaggriculture parallel self-play simulation coordinator."""
 
 import concurrent.futures
+
 from src.agents.base import BaseAgent
 from src.arena.evaluator import LocalArena
 
