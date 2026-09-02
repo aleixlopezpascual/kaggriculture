@@ -1,0 +1,30 @@
+tests/test_agent_actions.py
+  s_59b5c86cad00eb::t_2b37340cebdc4b 73,118
+  s_59b5c86cad00eb::t_0bd48bf13d91de 22
+src/env/parser.py
+  s_59b5c86cad00eb::t_356b3d16f217d5 35,39-46,52
+tests/test_strategic_target.py
+  s_59b5c86cad00eb::t_cd398d799d2a64 1,18-30
+src/arena/evaluator.py
+  s_59b5c86cad00eb::t_936f0865007354 26
+src/env/state.py
+  s_59b5c86cad00eb::t_02b7fc4bd25735 36
+src/env/transitions.py
+  s_59b5c86cad00eb::t_358ba69bfcfe16 109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "36a63e90065508b91499858a219744806104c575",
+  "prompts": {},
+  "sessions": {
+    "s_59b5c86cad00eb": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "2c4808d8-d87f-426a-b4a7-ca3381eb94f2",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
