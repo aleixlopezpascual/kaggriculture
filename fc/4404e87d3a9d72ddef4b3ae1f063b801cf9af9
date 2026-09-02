@@ -1,0 +1,23 @@
+tests/test_simulator_parity.py
+  s_59b5c86cad00eb::t_a8e0b52ed8e188 1-7,9-30
+  s_59b5c86cad00eb::t_690be8ee64cc67 8
+src/env/parser.py
+  s_59b5c86cad00eb::t_dbb967fc48af4b 8-20,22-40,44-46,48-49,51-66,68-125,128-137,139-165,167-195,198-210
+  s_59b5c86cad00eb::t_e3c293c15ec754 1,7,21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "fc4404e87d3a9d72ddef4b3ae1f063b801cf9af9",
+  "prompts": {},
+  "sessions": {
+    "s_59b5c86cad00eb": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "2c4808d8-d87f-426a-b4a7-ca3381eb94f2",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
