@@ -1,6 +1,7 @@
 """Kaggriculture pure, stateless transition functions."""
 
 import random
+from dataclasses import replace
 
 from src.env.state import AnimalState, CropState, FarmState, WorkerState, WorldState
 
@@ -225,14 +226,48 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
             if abs(w.x - tx) + abs(w.y - ty) <= 1 and (tx, ty) in crops_map:
                 crop = crops_map[(tx, ty)]
                 if crop.growth_stage == 3:  # Harvestable
-                    inventory[crop.crop_type] = inventory.get(crop.crop_type, 0) + 1
+                    updated_carrying = list(w.carrying) + [crop.crop_type]
+                    w = replace(w, carrying=tuple(updated_carrying))
                     del crops_map[(tx, ty)]
                     tilled.add((tx, ty))  # Returns to tilled state
             updated_workers.append(w)
 
+        elif act_type == "DROP":
+            item_type, qty = act[1], act[2]
+            if abs(w.x - 4) + abs(w.y - 4) <= 1:
+                carried_list = list(w.carrying)
+                to_drop = [i for i in carried_list if i == item_type][:qty]
+                current_shed_load = sum(inventory.values())
+                space_available = max(0, 100 - current_shed_load)
+                droppable_qty = min(len(to_drop), space_available)
+
+                for _ in range(droppable_qty):
+                    carried_list.remove(item_type)
+                    inventory[item_type] = inventory.get(item_type, 0) + 1
+                w = replace(w, carrying=tuple(carried_list))
+            updated_workers.append(w)
+
+        elif act_type == "PICKUP":
+            item_type, qty = act[1], act[2]
+            if abs(w.x - 4) + abs(w.y - 4) <= 1:
+                available = inventory.get(item_type, 0)
+                pickup_qty = min(qty, available)
+                if pickup_qty > 0:
+                    inventory[item_type] -= pickup_qty
+                    updated_carrying = list(w.carrying) + [item_type] * pickup_qty
+                    w = replace(w, carrying=tuple(updated_carrying))
+            updated_workers.append(w)
+
         elif act_type == "FEED":
             ax, ay = act[1], act[2]
-            if abs(w.x - ax) + abs(w.y - ay) <= 1 and (ax, ay) in animals_map:
+            if (
+                abs(w.x - ax) + abs(w.y - ay) <= 1
+                and (ax, ay) in animals_map
+                and "Wheat" in w.carrying
+            ):
+                carried_list = list(w.carrying)
+                carried_list.remove("Wheat")
+                w = replace(w, carrying=tuple(carried_list))
                 anim = animals_map[(ax, ay)]
                 animals_map[(ax, ay)] = AnimalState(
                     animal_type=anim.animal_type,
@@ -266,6 +301,29 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
             x=anim.x,
             y=anim.y,
         )
+
+    # Hour 23 Auto-Drop & Shed Capacity Enforcement
+    if state.turn % 24 == 23:
+        final_workers = []
+        for w in updated_workers:
+            for item in w.carrying:
+                inventory[item] = inventory.get(item, 0) + 1
+            final_workers.append(replace(w, carrying=()))
+        updated_workers = final_workers
+
+        # Enforce 100-item shed capacity limit
+        total_shed = sum(inventory.values())
+        if total_shed > 100:
+            excess = total_shed - 100
+            for item in list(inventory.keys()):
+                if excess <= 0:
+                    break
+                count = inventory[item]
+                to_remove = min(excess, count)
+                inventory[item] -= to_remove
+                excess -= to_remove
+                if inventory[item] == 0:
+                    del inventory[item]
 
     return WorldState(
         turn=state.turn + 1,
