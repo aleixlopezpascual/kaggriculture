@@ -1,0 +1,19 @@
+docs/kaggle_discussions_summary.md
+  s_59b5c86cad00eb::t_f633c4152bd3cc 1-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "8f37c60882d4695b79ec70efc237ec555f8f24ba",
+  "prompts": {},
+  "sessions": {
+    "s_59b5c86cad00eb": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "2c4808d8-d87f-426a-b4a7-ca3381eb94f2",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
