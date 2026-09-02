@@ -51,7 +51,8 @@ class FarmState:
     """State of the player's farm financial and resource accounts."""
 
     gold: int
-    inventory: dict[str, int]  # Map of item_name -> count
+    inventory: dict[str, int]  # Map of harvested item_name -> count
+    seed_inventory: dict[str, int]  # Map of seed crop_name -> count
     workers: tuple[WorkerState, ...]
     expansion_quadrants: int  # Number of expanded quadrants purchased
 
@@ -173,6 +174,7 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
     workers_list = list(state.farm.workers)
     gold = state.farm.gold
     inventory = dict(state.farm.inventory)
+    seed_inventory = dict(state.farm.seed_inventory)
     expansion = state.farm.expansion_quadrants
 
     worker_actions = joint_actions.get("worker_actions", {})
@@ -193,11 +195,48 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
                     is_busy=False,
                 )
                 workers_list.append(new_worker)
-        elif action == "BUY_EXPANSION":
+        elif action == "BUY_LAND":
             cost = 1000 * (2**expansion)
             if gold >= cost:
                 gold -= cost
                 expansion += 1
+        elif isinstance(action, (tuple, list)):
+            act_type = action[0]
+            if act_type == "BUY_SEED":
+                seed_type, qty = action[1], action[2]
+                prices = {"Wheat": 5, "Carrot": 10, "Melon": 25, "Strawberries": 40}
+                cost = prices.get(seed_type, 10) * qty
+                if gold >= cost:
+                    gold -= cost
+                    seed_inventory[seed_type] = seed_inventory.get(seed_type, 0) + qty
+            elif act_type == "BUY_ANIMAL":
+                anim_type = action[1]
+                prices = {"Cow": 500, "Sheep": 300, "Goose": 150}
+                cost = prices.get(anim_type, 150)
+                if gold >= cost:
+                    gold -= cost
+                    # Add animal to the world state dynamically
+                    new_animal = AnimalState(
+                        animal_type=anim_type, hunger=0, is_fed=True, x=0, y=0
+                    )
+                    animals_map[(0, 0)] = (
+                        new_animal  # simplified placement for local simulator
+                    )
+            elif act_type == "SELL":
+                item, qty = action[1], action[2]
+                if inventory.get(item, 0) >= qty:
+                    inventory[item] -= qty
+                    # Simplified static market pricing for local emulator
+                    prices = {
+                        "Wheat": 10,
+                        "Carrot": 18,
+                        "Melon": 45,
+                        "Strawberries": 80,
+                        "Milk": 100,
+                        "Wool": 80,
+                        "Egg": 30,
+                    }
+                    gold += prices.get(item, 10) * qty
 
     # Process Worker-level actions and update coordinates/state
     updated_workers = []
@@ -243,9 +282,11 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
                 abs(w.x - tx) + abs(w.y - ty) <= 1
                 and (tx, ty) in tilled
                 and (tx, ty) not in crops_map
+                and seed_inventory.get(c_type, 0) > 0
             ):
-                # Remove from tilled, add to crops
+                # Remove from tilled, consume seed, add to crops
                 tilled.discard((tx, ty))
+                seed_inventory[c_type] -= 1
                 crops_map[(tx, ty)] = CropState(
                     crop_type=c_type,
                     growth_stage=0,
@@ -321,6 +362,7 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
         farm=FarmState(
             gold=gold,
             inventory=inventory,
+            seed_inventory=seed_inventory,
             workers=tuple(updated_workers),
             expansion_quadrants=expansion,
         ),
@@ -379,6 +421,7 @@ def parse_world_state(obs: dict) -> WorldState:
     farm_state = FarmState(
         gold=raw_farm.get("gold", 0),
         inventory=dict(raw_farm.get("inventory", {})),
+        seed_inventory=dict(raw_farm.get("seed_inventory", {})),
         workers=tuple(workers_list),
         expansion_quadrants=raw_farm.get("expansion_quadrants", 0),
     )
@@ -625,7 +668,7 @@ class HeuristicAgent(BaseAgent):
             cows < target.target_cows
             and gold_available >= 500 + target.budget_reserved_for_seeds
         ):
-            farm_actions.append("BUY_COW")
+            farm_actions.append(("BUY_ANIMAL", "Cow"))
             gold_available -= 500
             cows += 1
 
@@ -634,7 +677,7 @@ class HeuristicAgent(BaseAgent):
             sheep < target.target_sheep
             and gold_available >= 300 + target.budget_reserved_for_seeds
         ):
-            farm_actions.append("BUY_SHEEP")
+            farm_actions.append(("BUY_ANIMAL", "Sheep"))
             gold_available -= 300
             sheep += 1
 
@@ -643,7 +686,7 @@ class HeuristicAgent(BaseAgent):
             geese < target.target_geese
             and gold_available >= 150 + target.budget_reserved_for_seeds
         ):
-            farm_actions.append("BUY_GEESE")
+            farm_actions.append(("BUY_ANIMAL", "Goose"))
             gold_available -= 150
             geese += 1
 
@@ -671,11 +714,31 @@ class HeuristicAgent(BaseAgent):
             tile for tile in empty_tilled_tiles if tile not in crop_coords
         ]
 
-        # Determine best crop to plant based on targets and deficits
+        seed_prices = {"Wheat": 5, "Carrot": 10, "Melons": 25, "Strawberries": 40}
+
+        # Buy seeds for crop deficits
+        if not target.is_liquidating:
+            for crop_type, target_count in target.crop_priorities.items():
+                current_planted = active_crop_counts.get(crop_type, 0)
+                current_seeds = state.farm.seed_inventory.get(crop_type, 0)
+                deficit = target_count - current_planted - current_seeds
+                if deficit > 0:
+                    cost = seed_prices.get(crop_type, 10) * deficit
+                    if gold_available >= cost:
+                        farm_actions.append(("BUY_SEED", crop_type, deficit))
+                        gold_available -= cost
+                    elif gold_available >= seed_prices.get(crop_type, 10):
+                        affordable = gold_available // seed_prices.get(crop_type, 10)
+                        farm_actions.append(("BUY_SEED", crop_type, affordable))
+                        gold_available -= affordable * seed_prices.get(crop_type, 10)
+
+        # Determine best crop to plant based on targets and available seeds
         best_crop_to_plant = self.crop_to_plant
         max_deficit = 0
         for crop_type, target_count in target.crop_priorities.items():
-            deficit = target_count - active_crop_counts.get(crop_type, 0)
+            # Only consider crops we actually have seeds for (including newly bought)
+            current_planted = active_crop_counts.get(crop_type, 0)
+            deficit = target_count - current_planted
             if deficit > max_deficit:
                 max_deficit = deficit
                 best_crop_to_plant = crop_type
@@ -906,39 +969,39 @@ class MCTSAgent(BaseAgent):
                 )
             )
         else:
-            # Focus 1: Baseline strawberry rush (high-yield)
+            # Focus 1: Baseline strawberry rush (high-yield, early game)
             candidates.append(
                 StrategicTarget(
                     target_workers=3,
                     target_cows=0,
                     target_sheep=0,
                     target_geese=0,
-                    crop_priorities={"Strawberries": 10},
-                    budget_reserved_for_seeds=100.0,
-                    is_liquidating=False,
-                )
-            )
-            # Focus 2: Self-sustaining livestock and wheat feed loop
-            candidates.append(
-                StrategicTarget(
-                    target_workers=4,
-                    target_cows=3,
-                    target_sheep=1,
-                    target_geese=0,
-                    crop_priorities={"Wheat": 8, "Strawberries": 4},
+                    crop_priorities={"Strawberries": 15},
                     budget_reserved_for_seeds=150.0,
                     is_liquidating=False,
                 )
             )
-            # Focus 3: Heavy scaling (5 hands, diversified pasture)
+            # Focus 2: Mid-game Livestock Expansion (4C/2S)
+            candidates.append(
+                StrategicTarget(
+                    target_workers=4,
+                    target_cows=4,
+                    target_sheep=2,
+                    target_geese=0,
+                    crop_priorities={"Wheat": 6, "Strawberries": 8},
+                    budget_reserved_for_seeds=200.0,
+                    is_liquidating=False,
+                )
+            )
+            # Focus 3: The 8C/4S Absolute Gold-Medal Meta Ceiling
             candidates.append(
                 StrategicTarget(
                     target_workers=5,
-                    target_cows=2,
-                    target_sheep=2,
-                    target_geese=2,
-                    crop_priorities={"Wheat": 10, "Strawberries": 10},
-                    budget_reserved_for_seeds=200.0,
+                    target_cows=8,
+                    target_sheep=4,
+                    target_geese=0,
+                    crop_priorities={"Wheat": 12, "Melons": 4},
+                    budget_reserved_for_seeds=400.0,
                     is_liquidating=False,
                 )
             )

@@ -25,6 +25,7 @@ def test_heuristic_agent_harvest_priority():
     farm = FarmState(
         gold=3000,
         inventory={"Wheat": 0, "Strawberries": 0},
+        seed_inventory={},
         workers=(worker,),
         expansion_quadrants=1,
     )
@@ -75,6 +76,7 @@ def test_heuristic_drives_cow_target():
     farm = FarmState(
         gold=1000,
         inventory={"Wheat": 0},
+        seed_inventory={},
         workers=(farmer,),
         expansion_quadrants=1,
     )
@@ -102,7 +104,7 @@ def test_heuristic_drives_cow_target():
 
     # Since cow count is 0 and target_cows is 1, and we have enough money,
     # the agent should trigger a "BUY_ANIMAL" or "BUY_COW" market/farm action.
-    assert "BUY_COW" in joint_actions["farm_actions"]
+    assert ("BUY_ANIMAL", "Cow") in joint_actions["farm_actions"]
 
 
 def test_mcts_caches_and_selects_target():
@@ -119,6 +121,7 @@ def test_mcts_caches_and_selects_target():
     farm = FarmState(
         gold=1000,
         inventory={"Wheat": 0},
+        seed_inventory={},
         workers=(farmer,),
         expansion_quadrants=1,
     )

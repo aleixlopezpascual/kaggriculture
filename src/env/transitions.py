@@ -89,6 +89,7 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
     workers_list = list(state.farm.workers)
     gold = state.farm.gold
     inventory = dict(state.farm.inventory)
+    seed_inventory = dict(state.farm.seed_inventory)
     expansion = state.farm.expansion_quadrants
 
     worker_actions = joint_actions.get("worker_actions", {})
@@ -109,11 +110,48 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
                     is_busy=False,
                 )
                 workers_list.append(new_worker)
-        elif action == "BUY_EXPANSION":
+        elif action == "BUY_LAND":
             cost = 1000 * (2**expansion)
             if gold >= cost:
                 gold -= cost
                 expansion += 1
+        elif isinstance(action, (tuple, list)):
+            act_type = action[0]
+            if act_type == "BUY_SEED":
+                seed_type, qty = action[1], action[2]
+                prices = {"Wheat": 5, "Carrot": 10, "Melon": 25, "Strawberries": 40}
+                cost = prices.get(seed_type, 10) * qty
+                if gold >= cost:
+                    gold -= cost
+                    seed_inventory[seed_type] = seed_inventory.get(seed_type, 0) + qty
+            elif act_type == "BUY_ANIMAL":
+                anim_type = action[1]
+                prices = {"Cow": 500, "Sheep": 300, "Goose": 150}
+                cost = prices.get(anim_type, 150)
+                if gold >= cost:
+                    gold -= cost
+                    # Add animal to the world state dynamically
+                    new_animal = AnimalState(
+                        animal_type=anim_type, hunger=0, is_fed=True, x=0, y=0
+                    )
+                    animals_map[(0, 0)] = (
+                        new_animal  # simplified placement for local simulator
+                    )
+            elif act_type == "SELL":
+                item, qty = action[1], action[2]
+                if inventory.get(item, 0) >= qty:
+                    inventory[item] -= qty
+                    # Simplified static market pricing for local emulator
+                    prices = {
+                        "Wheat": 10,
+                        "Carrot": 18,
+                        "Melon": 45,
+                        "Strawberries": 80,
+                        "Milk": 100,
+                        "Wool": 80,
+                        "Egg": 30,
+                    }
+                    gold += prices.get(item, 10) * qty
 
     # Process Worker-level actions and update coordinates/state
     updated_workers = []
@@ -159,9 +197,11 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
                 abs(w.x - tx) + abs(w.y - ty) <= 1
                 and (tx, ty) in tilled
                 and (tx, ty) not in crops_map
+                and seed_inventory.get(c_type, 0) > 0
             ):
-                # Remove from tilled, add to crops
+                # Remove from tilled, consume seed, add to crops
                 tilled.discard((tx, ty))
+                seed_inventory[c_type] -= 1
                 crops_map[(tx, ty)] = CropState(
                     crop_type=c_type,
                     growth_stage=0,
@@ -237,6 +277,7 @@ def step_world(state: WorldState, joint_actions: dict) -> WorldState:
         farm=FarmState(
             gold=gold,
             inventory=inventory,
+            seed_inventory=seed_inventory,
             workers=tuple(updated_workers),
             expansion_quadrants=expansion,
         ),

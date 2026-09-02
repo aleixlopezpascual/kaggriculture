@@ -99,39 +99,39 @@ class MCTSAgent(BaseAgent):
                 )
             )
         else:
-            # Focus 1: Baseline strawberry rush (high-yield)
+            # Focus 1: Baseline strawberry rush (high-yield, early game)
             candidates.append(
                 StrategicTarget(
                     target_workers=3,
                     target_cows=0,
                     target_sheep=0,
                     target_geese=0,
-                    crop_priorities={"Strawberries": 10},
-                    budget_reserved_for_seeds=100.0,
-                    is_liquidating=False,
-                )
-            )
-            # Focus 2: Self-sustaining livestock and wheat feed loop
-            candidates.append(
-                StrategicTarget(
-                    target_workers=4,
-                    target_cows=3,
-                    target_sheep=1,
-                    target_geese=0,
-                    crop_priorities={"Wheat": 8, "Strawberries": 4},
+                    crop_priorities={"Strawberries": 15},
                     budget_reserved_for_seeds=150.0,
                     is_liquidating=False,
                 )
             )
-            # Focus 3: Heavy scaling (5 hands, diversified pasture)
+            # Focus 2: Mid-game Livestock Expansion (4C/2S)
+            candidates.append(
+                StrategicTarget(
+                    target_workers=4,
+                    target_cows=4,
+                    target_sheep=2,
+                    target_geese=0,
+                    crop_priorities={"Wheat": 6, "Strawberries": 8},
+                    budget_reserved_for_seeds=200.0,
+                    is_liquidating=False,
+                )
+            )
+            # Focus 3: The 8C/4S Absolute Gold-Medal Meta Ceiling
             candidates.append(
                 StrategicTarget(
                     target_workers=5,
-                    target_cows=2,
-                    target_sheep=2,
-                    target_geese=2,
-                    crop_priorities={"Wheat": 10, "Strawberries": 10},
-                    budget_reserved_for_seeds=200.0,
+                    target_cows=8,
+                    target_sheep=4,
+                    target_geese=0,
+                    crop_priorities={"Wheat": 12, "Melons": 4},
+                    budget_reserved_for_seeds=400.0,
                     is_liquidating=False,
                 )
             )

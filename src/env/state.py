@@ -42,7 +42,8 @@ class FarmState:
     """State of the player's farm financial and resource accounts."""
 
     gold: int
-    inventory: dict[str, int]  # Map of item_name -> count
+    inventory: dict[str, int]  # Map of harvested item_name -> count
+    seed_inventory: dict[str, int]  # Map of seed crop_name -> count
     workers: tuple[WorkerState, ...]
     expansion_quadrants: int  # Number of expanded quadrants purchased
 

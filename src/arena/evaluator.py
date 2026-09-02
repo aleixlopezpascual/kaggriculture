@@ -29,6 +29,7 @@ class LocalArena:
         initial_farm = FarmState(
             gold=3000,
             inventory={"Wheat": 0, "Strawberries": 0},
+            seed_inventory={},
             workers=(initial_worker,),
             expansion_quadrants=1,
         )
@@ -45,20 +46,21 @@ class LocalArena:
 
     def run_match(self, seed: int = 42, replay_file: str | None = None) -> float:
         """Runs a complete local farming run and returns terminal gold.
-        
+
         If replay_file is provided, it saves a Krobus-compatible JSON log.
         """
         state = self.create_initial_state(seed)
-        
+
         logger = None
         if replay_file:
             from src.arena.logger import ReplayLogger
+
             logger = ReplayLogger(replay_file)
 
         for _ in range(self.turns):
             if state.turn >= self.turns:
                 break
-                
+
             # Query agent for actions based on the current state
             joint_actions = self.agent.act(state)
 
@@ -70,7 +72,7 @@ class LocalArena:
 
             # Standard incremental turn ticking
             state = replace(state, turn=state.turn + 1)
-            
+
         if logger:
             logger.save_replay()
 

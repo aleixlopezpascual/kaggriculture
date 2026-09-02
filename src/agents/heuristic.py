@@ -54,7 +54,7 @@ class HeuristicAgent(BaseAgent):
             cows < target.target_cows
             and gold_available >= 500 + target.budget_reserved_for_seeds
         ):
-            farm_actions.append("BUY_COW")
+            farm_actions.append(("BUY_ANIMAL", "Cow"))
             gold_available -= 500
             cows += 1
 
@@ -63,7 +63,7 @@ class HeuristicAgent(BaseAgent):
             sheep < target.target_sheep
             and gold_available >= 300 + target.budget_reserved_for_seeds
         ):
-            farm_actions.append("BUY_SHEEP")
+            farm_actions.append(("BUY_ANIMAL", "Sheep"))
             gold_available -= 300
             sheep += 1
 
@@ -72,7 +72,7 @@ class HeuristicAgent(BaseAgent):
             geese < target.target_geese
             and gold_available >= 150 + target.budget_reserved_for_seeds
         ):
-            farm_actions.append("BUY_GEESE")
+            farm_actions.append(("BUY_ANIMAL", "Goose"))
             gold_available -= 150
             geese += 1
 
@@ -100,11 +100,31 @@ class HeuristicAgent(BaseAgent):
             tile for tile in empty_tilled_tiles if tile not in crop_coords
         ]
 
-        # Determine best crop to plant based on targets and deficits
+        seed_prices = {"Wheat": 5, "Carrot": 10, "Melons": 25, "Strawberries": 40}
+
+        # Buy seeds for crop deficits
+        if not target.is_liquidating:
+            for crop_type, target_count in target.crop_priorities.items():
+                current_planted = active_crop_counts.get(crop_type, 0)
+                current_seeds = state.farm.seed_inventory.get(crop_type, 0)
+                deficit = target_count - current_planted - current_seeds
+                if deficit > 0:
+                    cost = seed_prices.get(crop_type, 10) * deficit
+                    if gold_available >= cost:
+                        farm_actions.append(("BUY_SEED", crop_type, deficit))
+                        gold_available -= cost
+                    elif gold_available >= seed_prices.get(crop_type, 10):
+                        affordable = gold_available // seed_prices.get(crop_type, 10)
+                        farm_actions.append(("BUY_SEED", crop_type, affordable))
+                        gold_available -= affordable * seed_prices.get(crop_type, 10)
+
+        # Determine best crop to plant based on targets and available seeds
         best_crop_to_plant = self.crop_to_plant
         max_deficit = 0
         for crop_type, target_count in target.crop_priorities.items():
-            deficit = target_count - active_crop_counts.get(crop_type, 0)
+            # Only consider crops we actually have seeds for (including newly bought)
+            current_planted = active_crop_counts.get(crop_type, 0)
+            deficit = target_count - current_planted
             if deficit > max_deficit:
                 max_deficit = deficit
                 best_crop_to_plant = crop_type

@@ -14,7 +14,7 @@ class ReplayLogger:
         self.steps = []
 
     def _state_to_kaggle_dict(self, state: WorldState) -> dict:
-        """Serializes WorldState back into the raw Kaggle JSON format required by Krobus."""
+        """Serializes WorldState into the raw Kaggle JSON format expected by Krobus."""
         tiles = [None] * 100
         for x, y in state.tilled_tiles:
             tiles[y * state.grid_width + x] = {"kind": "TILLED"}

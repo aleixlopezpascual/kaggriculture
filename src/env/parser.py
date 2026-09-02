@@ -49,6 +49,7 @@ def parse_world_state(obs: dict) -> WorldState:
     farm_state = FarmState(
         gold=raw_farm.get("gold", 0),
         inventory=dict(raw_farm.get("inventory", {})),
+        seed_inventory=dict(raw_farm.get("seed_inventory", {})),
         workers=tuple(workers_list),
         expansion_quadrants=raw_farm.get("expansion_quadrants", 0),
     )
