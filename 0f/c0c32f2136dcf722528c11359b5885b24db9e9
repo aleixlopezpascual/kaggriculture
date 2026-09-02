@@ -1,0 +1,20 @@
+submission/compile_submission.py
+  s_59b5c86cad00eb::t_6431b2cfe2cd74 55,68
+  s_59b5c86cad00eb::t_1eb00448fe016c 23,31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "0fc0c32f2136dcf722528c11359b5885b24db9e9",
+  "prompts": {},
+  "sessions": {
+    "s_59b5c86cad00eb": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "2c4808d8-d87f-426a-b4a7-ca3381eb94f2",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
