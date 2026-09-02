@@ -1,0 +1,26 @@
+tests/test_env_transitions.py
+  s_59b5c86cad00eb::t_9066217634e886 53-56,58-117,119-127,129-133
+  s_59b5c86cad00eb::t_9311c87a75958a 230-231,233
+  s_59b5c86cad00eb::t_943a3c4e848693 134-137,139-173,175-229,235
+src/env/transitions.py
+  s_59b5c86cad00eb::t_9723282b15f058 4
+  s_59b5c86cad00eb::t_408a98fd8387db 263-270
+  s_59b5c86cad00eb::t_344e347c3e8764 305-327
+  s_59b5c86cad00eb::t_8d5976c7d6da0a 229-230,235-258
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "6866e08002df1e057b1c6d6545622cbdbe449216",
+  "prompts": {},
+  "sessions": {
+    "s_59b5c86cad00eb": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "2c4808d8-d87f-426a-b4a7-ca3381eb94f2",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
