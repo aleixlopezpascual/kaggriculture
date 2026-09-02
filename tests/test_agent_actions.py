@@ -59,3 +59,47 @@ def test_market_orders_priority_sorting():
     sorted_orders = sort_market_commands(orders)
     assert sorted_orders[0]["item"] in ["Milk", "Wool", "Melons"]
     assert sorted_orders[-1]["item"] == "Wheat"
+
+
+def test_heuristic_drives_cow_target():
+    """Verify that HeuristicAgent purchases a COW if below target."""
+    from src.env.state import StrategicTarget
+
+    farmer = WorkerState(
+        worker_id=1,
+        x=0,
+        y=0,
+        carrying=None,
+        is_busy=False,
+    )
+    farm = FarmState(
+        gold=1000,
+        inventory={"Wheat": 0},
+        workers=(farmer,),
+        expansion_quadrants=1,
+    )
+    state = WorldState(
+        turn=10,
+        weather="Sunny",
+        grid_width=5,
+        grid_height=5,
+        crops=(),
+        animals=(),
+        farm=farm,
+        tilled_tiles=(),
+    )
+    target = StrategicTarget(
+        target_workers=1,
+        target_cows=1,
+        target_sheep=0,
+        target_geese=0,
+        crop_priorities={},
+        budget_reserved_for_seeds=50.0,
+        is_liquidating=False,
+    )
+    agent = HeuristicAgent()
+    joint_actions = agent.act(state, target=target)
+
+    # Since cow count is 0 and target_cows is 1, and we have enough money,
+    # the agent should trigger a "BUY_ANIMAL" or "BUY_COW" market/farm action.
+    assert "BUY_COW" in joint_actions["farm_actions"]

@@ -1,7 +1,7 @@
-"""Kaggriculture greedy heuristic-based rule agent."""
+"""Kaggriculture greedy heuristic-based rule agent with strategic target support."""
 
 from src.agents.base import BaseAgent
-from src.env.state import WorldState
+from src.env.state import StrategicTarget, WorldState
 from src.utils.routing import find_shortest_path, manhattan_distance
 
 
@@ -11,12 +11,84 @@ class HeuristicAgent(BaseAgent):
     def __init__(self, crop_to_plant: str = "Strawberries"):
         self.crop_to_plant = crop_to_plant
 
-    def act(self, state: WorldState) -> dict:
-        """Determines prioritized actions for each worker."""
+    def act(self, state: WorldState, target: StrategicTarget | None = None) -> dict:
+        """Determines prioritized actions driven by a strategic target."""
+        # 1. Fallback / default target if none is supplied
+        if target is None:
+            target = StrategicTarget(
+                target_workers=3,
+                target_cows=0,
+                target_sheep=0,
+                target_geese=0,
+                crop_priorities={self.crop_to_plant: 10},
+                budget_reserved_for_seeds=100.0,
+                is_liquidating=False,
+            )
+
         worker_actions = {}
         farm_actions = []
 
-        # Find critical tasks on the grid
+        # Current livestock counts
+        cows = sum(1 for a in state.animals if a.animal_type == "Cow")
+        sheep = sum(1 for a in state.animals if a.animal_type == "Sheep")
+        geese = sum(1 for a in state.animals if a.animal_type == "Goose")
+
+        # Current crop counts
+        active_crop_counts = {}
+        for c in state.crops:
+            active_crop_counts[c.crop_type] = active_crop_counts.get(c.crop_type, 0) + 1
+
+        # 2. Macro Farm Actions (Hiring, Purchases)
+        gold_available = state.farm.gold
+
+        # Scale Labor
+        if (
+            len(state.farm.workers) < target.target_workers
+            and gold_available >= 500 + target.budget_reserved_for_seeds
+        ):
+            farm_actions.append("HIRE_WORKER")
+            gold_available -= 500
+
+        # Purchase Cows (Cost $500)
+        if (
+            cows < target.target_cows
+            and gold_available >= 500 + target.budget_reserved_for_seeds
+        ):
+            farm_actions.append("BUY_COW")
+            gold_available -= 500
+            cows += 1
+
+        # Purchase Sheep (Cost $300)
+        if (
+            sheep < target.target_sheep
+            and gold_available >= 300 + target.budget_reserved_for_seeds
+        ):
+            farm_actions.append("BUY_SHEEP")
+            gold_available -= 300
+            sheep += 1
+
+        # Purchase Geese (Cost $150)
+        if (
+            geese < target.target_geese
+            and gold_available >= 150 + target.budget_reserved_for_seeds
+        ):
+            farm_actions.append("BUY_GEESE")
+            gold_available -= 150
+            geese += 1
+
+        # Compile sell actions for gathered inventory (Market front-running)
+        sell_orders = []
+        for item, qty in state.farm.inventory.items():
+            if qty > 0:
+                sell_orders.append(("SELL", item, qty))
+
+        # Sort sell orders so premium goods are processed first (milk, wool, etc.)
+        premium_goods = {"Milk", "Wool", "Strawberries", "Melons", "Eggs"}
+        sell_orders.sort(key=lambda o: 0 if o[1] in premium_goods else 1)
+        farm_actions.extend(sell_orders)
+
+        # 3. Dynamic Task Allocation for Workers
+        # Emergency tasks
         harvestable_crops = [c for c in state.crops if c.growth_stage == 3]
         hungry_animals = [a for a in state.animals if a.hunger >= 50]
         thirsty_crops = [c for c in state.crops if c.moisture <= 30]
@@ -27,6 +99,15 @@ class HeuristicAgent(BaseAgent):
         empty_tilled_tiles = [
             tile for tile in empty_tilled_tiles if tile not in crop_coords
         ]
+
+        # Determine best crop to plant based on targets and deficits
+        best_crop_to_plant = self.crop_to_plant
+        max_deficit = 0
+        for crop_type, target_count in target.crop_priorities.items():
+            deficit = target_count - active_crop_counts.get(crop_type, 0)
+            if deficit > max_deficit:
+                max_deficit = deficit
+                best_crop_to_plant = crop_type
 
         assigned_tasks = set()
 
@@ -112,7 +193,7 @@ class HeuristicAgent(BaseAgent):
                 assigned_tasks.add((best_thirsty.x, best_thirsty.y))
                 continue
 
-            # 4. PLANT ON EMPTY TILLED TILES
+            # 4. PLANT ON EMPTY TILLED TILES (driven by target deficits)
             best_tile = None
             best_dist = float("inf")
             for tile in empty_tilled_tiles:
@@ -123,14 +204,14 @@ class HeuristicAgent(BaseAgent):
                     best_dist = dist
                     best_tile = tile
 
-            if best_tile:
+            if best_tile and not target.is_liquidating:
                 tx, ty = best_tile
                 if best_dist <= 1:
                     worker_actions[worker.worker_id] = (
                         "PLANT",
                         tx,
                         ty,
-                        self.crop_to_plant,
+                        best_crop_to_plant,
                     )
                 else:
                     path = find_shortest_path(worker.x, worker.y, tx, ty)
@@ -139,11 +220,13 @@ class HeuristicAgent(BaseAgent):
                 assigned_tasks.add((tx, ty))
                 continue
 
-            # 5. DEFAULT TILL/MOVE IDLE
-            # If nothing else, till nearest untilled tile or move randomly
+            # 5. DEFAULT TILL/MOVE IDLE (till nearest untilled tile to expand)
             target_x = (worker.x + 1) % state.grid_width
             target_y = worker.y
-            if (target_x, target_y) not in state.tilled_tiles:
+            if (
+                target_x,
+                target_y,
+            ) not in state.tilled_tiles and not target.is_liquidating:
                 if abs(worker.x - target_x) <= 1:
                     worker_actions[worker.worker_id] = ("TILE", target_x, target_y)
                 else:
@@ -152,9 +235,5 @@ class HeuristicAgent(BaseAgent):
                         worker_actions[worker.worker_id] = path[0]
             else:
                 worker_actions[worker.worker_id] = ("MOVE", "RIGHT")
-
-        # Farm action: Hire worker if we can afford and have few workers
-        if len(state.farm.workers) < 3 and state.farm.gold >= 500:
-            farm_actions.append("HIRE_WORKER")
 
         return {"worker_actions": worker_actions, "farm_actions": farm_actions}
