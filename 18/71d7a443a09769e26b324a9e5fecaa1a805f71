@@ -1,0 +1,41 @@
+src/agents/heuristic.py
+  s_59b5c86cad00eb::t_fb9606148fe5ab 103-121,126-127
+  s_59b5c86cad00eb::t_232064d5ae24b2 125
+  s_59b5c86cad00eb::t_eb880bae004817 57,66,75
+src/env/state.py
+  s_59b5c86cad00eb::t_e164e3920aaed6 45-46
+tests/test_agent_actions.py
+  s_59b5c86cad00eb::t_e4879942fa80df 79,124
+  s_59b5c86cad00eb::t_0e00c61296a431 107
+  s_59b5c86cad00eb::t_1fb890c36e2406 28
+src/env/parser.py
+  s_59b5c86cad00eb::t_33f71492f7e8b4 52
+src/env/transitions.py
+  s_59b5c86cad00eb::t_1a6d784753003d 118
+  s_59b5c86cad00eb::t_60bffed7793d19 92,126
+  s_59b5c86cad00eb::t_4f308e6c9f273e 113,119-125,127-136,138-151,153-154
+  s_59b5c86cad00eb::t_8f85b5e21bf3f3 280
+  s_59b5c86cad00eb::t_f2f4f55e7a59c9 200,202,204
+src/arena/evaluator.py
+  s_59b5c86cad00eb::t_86c2d793531936 32
+src/arena/logger.py
+  s_59b5c86cad00eb::t_cecc775214e8e1 17
+src/agents/mcts.py
+  s_59b5c86cad00eb::t_f423ab0a4ce811 102,109-110,114,118-119,121-122,126,130-134
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "1871d7a443a09769e26b324a9e5fecaa1a805f71",
+  "prompts": {},
+  "sessions": {
+    "s_59b5c86cad00eb": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "2c4808d8-d87f-426a-b4a7-ca3381eb94f2",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
