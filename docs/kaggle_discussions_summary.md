@@ -31,3 +31,25 @@ Because the public ladder is so noisy, competitors must understand that the live
 1. **Stop Chasing the Live Ladder:** We should not submit 10 times a day trying to get a lucky streak. We should rely exclusively on our `src/arena/evaluator.py` running 50–100 random seeds offline to mathematically prove our bot is better.
 2. **We Built the Correct Architecture:** The top community minds have realized that End-to-End RL is dead, and "Decoupled Execution" is the only path forward. Our `MCTSAgent` (Strategic Brain) + `HeuristicAgent` (Tactical Execution Core) is exactly the architecture the community is begging for.
 3. **Focus on Robustness:** Because early random weeds or dry spells can ruin a match, our focus must remain on ensuring our Heuristic Core handles "Weed Slips" perfectly. If our bot never crashes and never lets a crop die, it will inevitably conquer the final private tournament.
+
+---
+
+## 🧠 4. Deep Dive: Behavioral Cloning (BC) & DAgger in Kaggriculture
+
+Based on an audit of the top competitor notebooks (specifically `kaggriculture-breaking-the-tie.ipynb`), here is the exact methodology top competitors use to train and deploy neural networks in Kaggriculture.
+
+### A. The Model Architecture (`RouterNet`)
+Top teams utilize a highly compact, 3-layer Multilayer Perceptron (MLP) built in PyTorch:
+- **Layers:** `Linear(d -> 96)` $\to$ `ReLU` $\to$ `Linear(96 -> 64)` $\to$ `ReLU` $\to$ `Linear(64 -> 5)`.
+- **Output:** Logits for 5 classes.
+- **The Classes:** The outputs correspond to **5 discrete pre-compiled macro-policies (or routes)** (e.g. Strawberry NW focus, Pasture transition, Hired Hand scaling limits, or terminal liquidation), rather than individual grid coordinates or micro-actions.
+
+### B. The Zero-Dependency Inference Trick (`py_predict`)
+Importing PyTorch inside a Kaggle evaluation container takes **2–3 seconds**, causing instant timeout on Turn 1.
+To bypass this, competitors train the MLP offline, extract the weights and biases into flat Python float lists inside a JSON file, and write a **custom linear algebra matrix multiplier in pure Python** for the live container. This runs the forward-pass inference in **under 0.1ms** with zero external dependencies.
+
+### C. The DAgger (Dataset Aggregation) Loop
+Because a cloned agent will inevitably drift into unfamiliar, messy states during self-play, competitors use **DAgger** to teach the student network how to self-heal and recover under random seed disturbances:
+1. **Round 0 (Imitation):** Train student model on public high-Elo teacher replays.
+2. **Round 1 (Rollout):** Let student play matches. When the student drifts into an unfamiliar state, query a heavy **offline search (Oracle/C95)** to calculate the correct recovery move.
+3. **Dataset Aggregation:** Append these new "self-healing" states to the dataset and re-train the student. This completely eliminates the "compounding error" problem.
