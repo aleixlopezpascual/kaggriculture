@@ -15,6 +15,7 @@ sys.path.append(str(PROJECT_ROOT / "docs" / "six_day_agent_source"))
 
 from src.agents.heuristic import HeuristicAgent
 from src.agents.mcts import MCTSAgent
+from src.agents.escalation import EscalationAgent
 from src.env.parser import parse_world_state
 from src.agents.base import BaseAgent
 from agent_main import agent as six_day_agent_fn
@@ -203,6 +204,8 @@ def get_agent_callable(agent_name: str):
     """Returns a fresh callable for the requested agent."""
     if agent_name == "Heuristic":
         return wrap_agent(HeuristicAgent())
+    elif agent_name == "Heuristic v2 (Escalation)":
+        return wrap_agent(EscalationAgent())
     elif agent_name == "MCTS":
         # Create a fresh MCTS instance to avoid state leakage across matches
         return wrap_agent(MCTSAgent(num_simulations=20))
@@ -272,6 +275,7 @@ def main():
     # 1. Define participants and seeds
     agents = [
         "Heuristic",
+        "Heuristic v2 (Escalation)",
         "MCTS",
         "Six-Day Fieldbook",
         "Kaito v27",

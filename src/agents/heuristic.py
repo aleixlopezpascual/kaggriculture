@@ -82,9 +82,9 @@ class HeuristicAgent(BaseAgent):
             if qty > 0:
                 sell_orders.append(("SELL", item, qty))
 
-        # Sort sell orders so premium goods are processed first (milk, wool, etc.)
-        premium_goods = {"Milk", "Wool", "Strawberry", "Melon", "Egg"}
-        sell_orders.sort(key=lambda o: 0 if o[1] in premium_goods else 1)
+        # Sort sell orders using price impact logic (falls back to static premium sorting if offline)
+        from src.utils.market import rank_sell_orders
+        sell_orders = rank_sell_orders(sell_orders)
         farm_actions.extend(sell_orders)
 
         # 3. Dynamic Task Allocation for Workers
@@ -100,7 +100,7 @@ class HeuristicAgent(BaseAgent):
             tile for tile in empty_tilled_tiles if tile not in crop_coords
         ]
 
-        seed_prices = {"Wheat": 5, "Carrot": 10, "Melon": 25, "Strawberry": 40}
+        seed_prices = {"Wheat": 10, "Carrot": 20, "Tomato": 50, "Strawberry": 100, "Melon": 80}
 
         # Buy seeds for crop deficits (stop buying seeds near the end of the match)
         if not target.is_liquidating and state.turn < 710:

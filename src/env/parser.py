@@ -9,6 +9,9 @@ def parse_world_state(obs: dict) -> WorldState:
     is_official_kaggle = "farms" in obs
 
     if is_official_kaggle:
+        from src.utils.market import update_market_state
+        update_market_state(obs)
+
         player_idx = obs.get("player", 0)
         official_farm = obs["farms"][player_idx]
 

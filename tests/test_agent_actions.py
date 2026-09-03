@@ -141,3 +141,35 @@ def test_mcts_caches_and_selects_target():
     # Calling act() should run strategic planning and cache an active_target
     _ = agent.act(state)
     assert agent.active_target is not None
+
+
+def test_price_impact_seller_ranking():
+    """Verify that rank_sell_orders correctly ranks orders dynamically based on price impact."""
+    from src.utils.market import rank_sell_orders, update_market_state
+
+    # 1. Setup a mocked observation with low inventory for strawberries (volatile) vs high for wheat
+    obs = {
+        "market": {
+            "inventory": {
+                "STRAWBERRY": 500,
+                "WHEAT": 9900,
+            },
+            # Do not mock prices; let the pricing curves compute them dynamically
+        },
+        "town": {
+            "unlocked_shops": ["BAKERY"]
+        }
+    }
+    # Update cache
+    update_market_state(obs)
+
+    # 2. Test ranking of strawberries (highly volatile, high impact) vs wheat (stable, low impact)
+    orders = [
+        ("SELL", "Wheat", 100),
+        ("SELL", "Strawberry", 20),
+    ]
+    ranked = rank_sell_orders(orders)
+
+    # Strawberry should be ranked first (index 0) due to massive price impact score
+    assert ranked[0][1] == "Strawberry"
+    assert ranked[1][1] == "Wheat"

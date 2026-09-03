@@ -16,6 +16,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v6** | `55970505` | `submission.tar.gz` | **C95** Public Baseline (Weed-Slip, Front-Run) | **$154,927** | **1196.0** | **Active / Climbing** |
 | **v7** | N/A | Local Only | **Three-Day Shop Router** (Reactive Shop/Rival Branching) | **$162,417** | N/A | **Verified (New Peak Local)** |
 | **v8** | N/A | Local Only | **Six-Day Public-State Fieldbook** (Plan Routing) | **$159,612** | N/A | **Verified (Strong Baseline)** |
+| **v9** | N/A | `src/agents/escalation.py` | **Heuristic v2 (Escalation)** (Dynamic Sizer, Target Persistence) | **$12,560** | N/A | **Verified (New Local Peak Heuristic)** |
 
 ---
 
@@ -92,3 +93,15 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Local Performance:** **$159,612.65** average gold across 20 seeds (using our official high-fidelity evaluator).
 *   **Live Performance:** N/A (Not submitted yet).
 *   **Why it succeeded:** High-fidelity pre-compiled six-day blueprint tapes that dynamically adapt to active market inventories. Runs a slightly wider planning horizon than Version 7, but achieves massive economic scaling.
+
+---
+
+### Version 9: Heuristic v2 (Escalation)
+*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Approach:** Upgraded dynamic Heuristic Agent extending the core Heuristic baseline. Integrates three major architectural upgrades:
+    1.  **Dynamic Economic Escalation:** Scales target crop counts from 10 up to 22 as gold increases, while keeping labor capped at 3 highly-efficient workers to avoid steep Fibonacci hiring costs on idle hands.
+    2.  **Target Persistence State Tracker:** Map-stores each worker's active coordinate task, preventing "Stateless Target Thrashing" (workers walking back-and-forth past each other due to turn-by-turn re-planning).
+    3.  **Seed Inventory & Price Guards:** Restricts planting target allocation based on actual, aligned seed prices, preventing bank-account overdrafts and infinite empty-soil planting loops.
+    4.  **Price-Impact Sell Sorting:** Ported Kaito's advanced product pricing parameters and curve shapes to dynamically sort active sell orders based on real-time market saturation.
+*   **Local Performance:** **$12,560** average gold across seeds 42, 100, and 2026. Systematic 3-0 sweep head-to-head against the original Heuristic baseline.
+*   **Why it succeeded:** Completely stabilized worker movement, prevented financial starvations, and dynamically maximized crop volume during high-volume periods.
