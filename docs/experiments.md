@@ -14,6 +14,8 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v4** | `55964622` | `submission.tar.gz` | **v16-rc5** Public Baseline (8C/4S Replay Clone) | N/A | **1281.1** | **Peak Public Rating** |
 | **v5** | `55966120` | `submission.py` | Full-Grid Till + End-game Cut-offs | **$10,814** | 178.2 | Complete (Discrepancy) |
 | **v6** | `55970505` | `submission.tar.gz` | **C95** Public Baseline (Weed-Slip, Front-Run) | **$154,927** | **1196.0** | **Active / Climbing** |
+| **v7** | N/A | Local Only | **Three-Day Shop Router** (Reactive Shop/Rival Branching) | **$162,417** | N/A | **Verified (New Peak Local)** |
+| **v8** | N/A | Local Only | **Six-Day Public-State Fieldbook** (Plan Routing) | N/A | N/A | **Uncompilable (Missing C++ source dataset)** |
 
 ---
 
@@ -72,3 +74,20 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Local Performance:** **$154,927.4** average gold across 20 seeds (using the official high-fidelity `kaggle-environments` engine).
 *   **Live Performance:** **`1196.0`** Elo (Active / Climbing).
 *   **Why it succeeded:** True physical drop coordination, automated end-of-day backups, and dynamic, error-free path recovery under random seeds.
+
+---
+
+### Version 7: Three-Day Shop Router (New Local Peak)
+*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Approach:** Extracted and compiled from `1788429286524-three-day-shop-router.ipynb`. Utilizes compiled C++ shared library containing the pathfinding and search engine. Implements a highly reactive 3-day macro-target router that dynamically branches at turn 360 depending on the first shop unlocked (e.g. Bakery vs Pet Cafe) and the rival's farm size.
+*   **Local Performance:** **$162,417.05** average gold across 20 seeds (using our official high-fidelity evaluator).
+*   **Live Performance:** N/A (Not submitted yet).
+*   **Why it succeeded:** Extremely smart, conditional mid-game path-switching that optimizes fertilizer purchases and animal care depending on real-time market data and opponent presence.
+
+---
+
+### Version 8: Six-Day Public-State Fieldbook
+*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Approach:** Analyzed from `1788429286516-six-day-public-state-fieldbook.ipynb`. Designed to compile C++ shared libraries similar to Version 7, routing six-day macro-plans based on real-time public state and market inventories.
+*   **Local Performance:** N/A (Uncompilable locally due to missing external C++ source files, which are hosted in a Kaggle-only input dataset).
+*   **Live Performance:** N/A (Not submitted yet).
