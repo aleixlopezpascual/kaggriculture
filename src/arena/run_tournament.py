@@ -11,7 +11,7 @@ from kaggle_environments import make
 # Add project root and C++ source directory to Python path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.append(str(PROJECT_ROOT))
-sys.path.append(str(PROJECT_ROOT / "docs" / "six_day_agent_source"))
+sys.path.append(str(PROJECT_ROOT / "competitors" / "six_day_agent_source"))
 
 from src.agents.heuristic import HeuristicAgent
 from src.agents.mcts import MCTSAgent
@@ -193,7 +193,7 @@ import importlib.util
 
 def load_competitor_agent(name: str, filename: str):
     """Loads a compiled or extracted competitor agent from our notebooks directory."""
-    path = PROJECT_ROOT / "docs" / "competitor_notebooks" / filename
+    path = PROJECT_ROOT / "competitors" / "notebooks" / filename
     spec = importlib.util.spec_from_file_location(name, str(path))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

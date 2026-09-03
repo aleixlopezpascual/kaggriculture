@@ -7,8 +7,8 @@ from pathlib import Path
 
 
 def extract_v14():
-    notebook_path = Path("docs/competitor_notebooks/84-84-base-public-holdout-v14-clone-preemption.ipynb")
-    out_path = Path("docs/competitor_notebooks/v14_main.py")
+    notebook_path = Path("competitors/notebooks/84-84-base-public-holdout-v14-clone-preemption.ipynb")
+    out_path = Path("competitors/notebooks/v14_main.py")
     print(f"Extracting V14 Agent from {notebook_path}...")
 
     with open(notebook_path, "r", encoding="utf-8") as f:
@@ -49,8 +49,8 @@ def extract_v14():
 
 
 def extract_v27():
-    notebook_path = Path("docs/competitor_notebooks/25-27-strict-future-v27-midgame-meta-reset.ipynb")
-    out_path = Path("docs/competitor_notebooks/v27_main.py")
+    notebook_path = Path("competitors/notebooks/25-27-strict-future-v27-midgame-meta-reset.ipynb")
+    out_path = Path("competitors/notebooks/v27_main.py")
     print(f"Extracting V27 Agent from {notebook_path}...")
 
     with open(notebook_path, "r", encoding="utf-8") as f:
@@ -89,8 +89,8 @@ def extract_v27():
 
 
 def extract_bruceqdu():
-    notebook_path = Path("docs/competitor_notebooks/my-2026-08-04-high-score-pipeline.ipynb")
-    out_path = Path("docs/competitor_notebooks/bruceqdu_main.py")
+    notebook_path = Path("competitors/notebooks/my-2026-08-04-high-score-pipeline.ipynb")
+    out_path = Path("competitors/notebooks/bruceqdu_main.py")
     print(f"Extracting Bruceqdu Agent from {notebook_path}...")
 
     with open(notebook_path, "r", encoding="utf-8") as f:
