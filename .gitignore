@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# C++ Build Artifacts and Shared Libraries
+*.so
+*.dylib
+*.o
+*.a
+*.out
+competitors/six_day_agent_source/agent.dylib
+competitors/six_day_agent_source/agent.so
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Testing and Linting Cache
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Local build / packaging artifacts
+submission.tar.gz
+submission/*.tar.gz
+submission/*.zip
+
+# Replays and local logs
+replays/submission_2am_log.txt
+replays/*.json
