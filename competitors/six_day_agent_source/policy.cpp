@@ -1973,30 +1973,58 @@ int select_segment_3(const FeatureCache& features) {
         }
     }
 }
+#ifndef THRESHOLD_CARROT
+#define THRESHOLD_CARROT 65.5
+#endif
+
+#ifndef THRESHOLD_WOOL
+#define THRESHOLD_WOOL 227.5
+#endif
+
+#ifndef THRESHOLD_FERT_1
+#define THRESHOLD_FERT_1 12.0
+#endif
+
+#ifndef THRESHOLD_STRAWBERRY
+#define THRESHOLD_STRAWBERRY 11.5
+#endif
+
+#ifndef THRESHOLD_CASH_1
+#define THRESHOLD_CASH_1 5000.0
+#endif
+
+#ifndef THRESHOLD_CASH_2
+#define THRESHOLD_CASH_2 700.0
+#endif
+
+#ifndef THRESHOLD_FERT_2
+#define THRESHOLD_FERT_2 32.5
+#endif
+
 int select_segment_4(const FeatureCache& features) {
-    if (features.price_carrot <= 65.5) {
-        if (features.price_wool <= 227.5) {
-            if (features.price_fertilizer <= 12) {
+    if (features.price_carrot <= THRESHOLD_CARROT) {
+        if (features.price_wool <= THRESHOLD_WOOL) {
+            if (features.price_fertilizer <= THRESHOLD_FERT_1) {
                 return 4;
             } else {
                 return 0;
             }
         } else {
-            if (features.price_strawberry <= 11.5) {
+            if (features.price_strawberry <= THRESHOLD_STRAWBERRY) {
                 return 4;
             } else {
                 return 2;
             }
         }
     } else {
-        if (features.cash_gap <= 3935) {
-            if (features.cash_gap <= 340.5) {
+        if (features.cash_gap <= THRESHOLD_CASH_1) {
+            if (features.cash_gap <= THRESHOLD_CASH_2) {
                 return 3;
             } else {
                 return 4;
             }
         } else {
-            if (features.price_fertilizer <= 32.5) {
+            if (features.price_fertilizer <= THRESHOLD_FERT_2) {
                 return 4;
             } else {
                 return 1;
