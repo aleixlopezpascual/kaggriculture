@@ -4,7 +4,7 @@ import math
 from dataclasses import dataclass
 
 from src.agents.base import BaseAgent
-from src.agents.heuristic import HeuristicAgent
+from src.agents.escalation import EscalationAgent
 from src.env.state import StrategicTarget, WorldState
 from src.env.transitions import step_world
 
@@ -31,7 +31,7 @@ class MCTSAgent(BaseAgent):
     def __init__(self, num_simulations: int = 20, exploration_weight: float = 1.414):
         self.num_simulations = num_simulations
         self.exploration_weight = exploration_weight
-        self.heuristic_fallback = HeuristicAgent()
+        self.heuristic_fallback = EscalationAgent()
         self.active_target: StrategicTarget | None = None
 
     def act(self, state: WorldState) -> dict:
