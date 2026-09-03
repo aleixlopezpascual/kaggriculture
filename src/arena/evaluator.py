@@ -1,82 +1,83 @@
-"""Kaggriculture local agent benchmarking arena."""
+"""Kaggriculture high-fidelity local agent benchmarking arena."""
 
-import random
-from dataclasses import replace
+import json
+from pathlib import Path
+
+from kaggle_environments import make
 
 from src.agents.base import BaseAgent
-from src.env.state import FarmState, WorkerState, WorldState
-from src.env.transitions import step_world
+from src.env.parser import parse_world_state
 
 
 class LocalArena:
-    """Evaluates agent performance under local simulation parameters."""
+    """Evaluates agent performance with 100% Kaggle parity."""
 
     def __init__(self, agent: BaseAgent, turns: int = 720):
         self.agent = agent
         self.turns = turns
 
-    def create_initial_state(self, seed: int = 42) -> WorldState:
-        """Generates a consistent deterministic initial state."""
-        random.seed(seed)
-        # Starting with $3000, 1 farmer worker at (0, 0)
-        initial_worker = WorkerState(
-            worker_id=1,
-            x=0,
-            y=0,
-            carrying=(),
-            is_busy=False,
-        )
-        initial_farm = FarmState(
-            gold=3000,
-            inventory={"Wheat": 0, "Strawberries": 0},
-            seed_inventory={},
-            workers=(initial_worker,),
-            expansion_quadrants=1,
-        )
-        return WorldState(
-            turn=0,
-            weather="Sunny",
-            grid_width=5,
-            grid_height=5,
-            crops=(),
-            animals=(),
-            farm=initial_farm,
-            tilled_tiles=(),
-        )
+    def _wrap_agent(self, custom_agent: BaseAgent):
+        """Wraps our custom BaseAgent into a Kaggle callable agent."""
+
+        def kaggle_agent_fn(obs, config):
+            try:
+                # 1. Parse official Kaggle observation dict into immutable WorldState
+                state = parse_world_state(obs)
+                # 2. Get actions from our custom strategic planner
+                joint_actions = custom_agent.act(state)
+                # 3. Map actions to official schema
+                farmer_action = joint_actions.get("worker_actions", {}).get(1, ["PASS"])
+
+                hands_actions = []
+                for worker_id, act in sorted(
+                    joint_actions.get("worker_actions", {}).items()
+                ):
+                    if worker_id > 1:
+                        hands_actions.append(act)
+
+                market_actions = joint_actions.get("farm_actions", [])
+
+                return {
+                    "farmer": list(farmer_action),
+                    "hands": [list(h) for h in hands_actions],
+                    "market": [
+                        list(m) if isinstance(m, (list, tuple)) else [m]
+                        for m in market_actions
+                    ],
+                }
+            except Exception:
+                # Safe fallback to prevent crash penalty
+                return {"farmer": ["PASS"], "hands": [], "market": []}
+
+        return kaggle_agent_fn
 
     def run_match(self, seed: int = 42, replay_file: str | None = None) -> float:
-        """Runs a complete local farming run and returns terminal gold.
+        """Runs a complete official farming simulation match."""
+        # Setup agents
+        if callable(self.agent):
+            player_agent = self.agent
+        else:
+            player_agent = self._wrap_agent(self.agent)
 
-        If replay_file is provided, it saves a Krobus-compatible JSON log.
-        """
-        state = self.create_initial_state(seed)
+        def dummy_opponent(obs, config):
+            return {"farmer": ["PASS"], "hands": [], "market": []}
 
-        logger = None
+        # Initialize official environments engine
+        env = make(
+            "kaggriculture", configuration={"episodeSteps": self.turns, "seed": seed}
+        )
+
+        # Execute entire 720-step match head-to-head
+        env.run([player_agent, dummy_opponent])
+
         if replay_file:
-            from src.arena.logger import ReplayLogger
+            path = Path(replay_file)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            with path.open("w", encoding="utf-8") as f:
+                json.dump(env.render(mode="json"), f)
 
-            logger = ReplayLogger(replay_file)
-
-        for _ in range(self.turns):
-            if state.turn >= self.turns:
-                break
-
-            # Query agent for actions based on the current state
-            joint_actions = self.agent.act(state)
-
-            if logger:
-                logger.log_turn(state, joint_actions)
-
-            # Apply pure environment transition step
-            state = step_world(state, joint_actions)
-
-            # Standard incremental turn ticking
-            state = replace(state, turn=state.turn + 1)
-
-        if logger:
-            logger.save_replay()
-
-        return state.farm.gold
+        # Retrieve player 0's final accumulated gold (reward)
+        return float(env.state[0].reward)
 
     def benchmark(
         self, seeds: list[int], save_replays: bool = False
