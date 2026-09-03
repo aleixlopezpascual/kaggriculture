@@ -23,7 +23,7 @@ def estimate_crop_yield(
     Care bonus provides a 1.25x multiplier on the resulting yield.
     """
     base_yield = 1.0
-    if crop_type in {"Strawberries", "Melons"}:
+    if crop_type in {"Strawberries", "Melons", "Strawberry", "Melon"}:
         base_yield = 1.5
 
     # Moisture penalty factor (penalize if too dry or flooded)

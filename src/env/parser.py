@@ -67,22 +67,20 @@ def parse_world_state(obs: dict) -> WorldState:
             )
 
         # 2. Parse tiles board grid for crops, animals, and tilled status
-        tilled_tiles = []
         crops_list = []
         animals_list = []
         tiles_board = official_farm.get("tiles", [])
+
+        occupied = set()
 
         for y, row in enumerate(tiles_board):
             for x, cell in enumerate(row):
                 if cell and isinstance(cell, dict):
                     kind = cell.get("kind")
-                    if kind == "TILLED":
-                        tilled_tiles.append((x, y))
-                    elif kind == "PLANT":
+                    if kind == "PLANT":
                         crop_type = str(cell.get("crop", "WHEAT")).capitalize()
-                        growth_stage = int(
-                            cell.get("growth_stage", 3)
-                        )  # mature/harvestable default
+                        yield_units = int(cell.get("yield_units", 0))
+                        growth_stage = 3 if yield_units > 0 else 0
                         watered = bool(cell.get("watered_today", False))
                         crops_list.append(
                             CropState(
@@ -94,6 +92,7 @@ def parse_world_state(obs: dict) -> WorldState:
                                 y=y,
                             )
                         )
+                        occupied.add((x, y))
                     elif kind == "ANIMAL":
                         animal_type = str(cell.get("animal", "COW")).capitalize()
                         hunger = int(cell.get("hunger", 0))
@@ -106,6 +105,31 @@ def parse_world_state(obs: dict) -> WorldState:
                                 y=y,
                             )
                         )
+                        occupied.add((x, y))
+                    elif kind in {"COOP", "PASTURE", "WEED", "LOCKED", "SHED"}:
+                        occupied.add((x, y))
+                    elif kind == "TILLED":
+                        occupied.add((x, y))
+
+        # Generate tilled_tiles as all unoccupied unlocked coordinates
+        unlocked_quads = official_farm.get("unlocked_quadrants", ["NW"])
+        unlocked_coords = set()
+        for q in unlocked_quads:
+            if q == "NW":
+                xs, ys = range(0, 5), range(0, 5)
+            elif q == "NE":
+                xs, ys = range(5, 10), range(0, 5)
+            elif q == "SW":
+                xs, ys = range(0, 5), range(5, 10)
+            elif q == "SE":
+                xs, ys = range(5, 10), range(5, 10)
+            else:
+                continue
+            for x in xs:
+                for y in ys:
+                    unlocked_coords.add((x, y))
+
+        tilled_tiles = [coord for coord in unlocked_coords if coord not in occupied]
 
         # 3. Assemble FarmState and WorldState
         gold = int(official_farm.get("money", 3000))

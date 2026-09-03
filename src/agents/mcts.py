@@ -106,7 +106,7 @@ class MCTSAgent(BaseAgent):
                     target_cows=0,
                     target_sheep=0,
                     target_geese=0,
-                    crop_priorities={"Strawberries": 15},
+                    crop_priorities={"Strawberry": 15},
                     budget_reserved_for_seeds=150.0,
                     is_liquidating=False,
                 )
@@ -118,7 +118,7 @@ class MCTSAgent(BaseAgent):
                     target_cows=4,
                     target_sheep=2,
                     target_geese=0,
-                    crop_priorities={"Wheat": 6, "Strawberries": 8},
+                    crop_priorities={"Wheat": 6, "Strawberry": 8},
                     budget_reserved_for_seeds=200.0,
                     is_liquidating=False,
                 )
@@ -130,7 +130,7 @@ class MCTSAgent(BaseAgent):
                     target_cows=8,
                     target_sheep=4,
                     target_geese=0,
-                    crop_priorities={"Wheat": 12, "Melons": 4},
+                    crop_priorities={"Wheat": 12, "Melon": 4},
                     budget_reserved_for_seeds=400.0,
                     is_liquidating=False,
                 )

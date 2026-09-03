@@ -8,7 +8,7 @@ from src.utils.routing import find_shortest_path, manhattan_distance
 class HeuristicAgent(BaseAgent):
     """Greedy rule-based agent prioritizing critical farm duties."""
 
-    def __init__(self, crop_to_plant: str = "Strawberries"):
+    def __init__(self, crop_to_plant: str = "Strawberry"):
         self.crop_to_plant = crop_to_plant
 
     def act(self, state: WorldState, target: StrategicTarget | None = None) -> dict:
@@ -83,7 +83,7 @@ class HeuristicAgent(BaseAgent):
                 sell_orders.append(("SELL", item, qty))
 
         # Sort sell orders so premium goods are processed first (milk, wool, etc.)
-        premium_goods = {"Milk", "Wool", "Strawberries", "Melons", "Eggs"}
+        premium_goods = {"Milk", "Wool", "Strawberry", "Melon", "Egg"}
         sell_orders.sort(key=lambda o: 0 if o[1] in premium_goods else 1)
         farm_actions.extend(sell_orders)
 
@@ -91,7 +91,7 @@ class HeuristicAgent(BaseAgent):
         # Emergency tasks
         harvestable_crops = [c for c in state.crops if c.growth_stage == 3]
         hungry_animals = [a for a in state.animals if a.hunger >= 50]
-        thirsty_crops = [c for c in state.crops if c.moisture <= 30]
+        thirsty_crops = [c for c in state.crops if c.moisture <= 30 or not c.is_watered]
         empty_tilled_tiles = list(state.tilled_tiles)
 
         # Filter out tilled tiles that already have crops
@@ -100,7 +100,7 @@ class HeuristicAgent(BaseAgent):
             tile for tile in empty_tilled_tiles if tile not in crop_coords
         ]
 
-        seed_prices = {"Wheat": 5, "Carrot": 10, "Melons": 25, "Strawberries": 40}
+        seed_prices = {"Wheat": 5, "Carrot": 10, "Melon": 25, "Strawberry": 40}
 
         # Buy seeds for crop deficits (stop buying seeds near the end of the match)
         if not target.is_liquidating and state.turn < 710:

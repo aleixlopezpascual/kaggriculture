@@ -1,6 +1,6 @@
 """Kaggriculture market prioritizing and sequential order utilities."""
 
-PREMIUM_GOODS = {"Milk", "Wool", "Strawberries", "Melons"}
+PREMIUM_GOODS = {"Milk", "Wool", "Strawberries", "Melons", "Strawberry", "Melon"}
 
 
 def sort_market_commands(commands: list[dict]) -> list[dict]:
