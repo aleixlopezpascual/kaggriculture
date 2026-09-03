@@ -1,0 +1,38 @@
+src/env/parser.py
+  s_3bdc713b9dc5a7::t_44a98868562558 109
+  s_3bdc713b9dc5a7::t_c1110464a892c7 82-83
+  s_3bdc713b9dc5a7::t_819ccf8d828642 80
+  s_3bdc713b9dc5a7::t_66308182f639db 74-75,95,108,110-132
+src/arena/run_tournament.py
+  s_3bdc713b9dc5a7::t_b63ab8a07d9446 1-22,137-143,157,159,161-163,172,175-178,180,185-270,272,274-275,288-395
+  s_3bdc713b9dc5a7::t_0a647f31eda73b 23-136,144-156,158,160,164-171,173-174,179
+  s_3bdc713b9dc5a7::t_d6eab4d5cf132a 271,273,276-287
+  s_3bdc713b9dc5a7::t_388c51dee54644 181-184
+src/agents/heuristic.py
+  s_3bdc713b9dc5a7::t_273475cc766da0 11
+  s_3bdc713b9dc5a7::t_4c57ee97d87c5b 86,94,103
+docs/tournament_results_2026_09_03.md
+  s_3bdc713b9dc5a7::t_48cd055403cf34 1-68
+src/agents/mcts.py
+  s_3bdc713b9dc5a7::t_997de452241a87 109,121,133
+src/utils/market.py
+  s_3bdc713b9dc5a7::t_a70eb28a9e8e08 3
+src/utils/calculators.py
+  s_3bdc713b9dc5a7::t_f4081ab650ecf4 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "af42fbfffe41fa020ac0df673c8496888c47089d",
+  "prompts": {},
+  "sessions": {
+    "s_3bdc713b9dc5a7": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "099b53b4-1b0f-4a46-a0ea-f04dab7caca8",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
