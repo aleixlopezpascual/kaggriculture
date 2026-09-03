@@ -15,7 +15,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v5** | `55966120` | `submission.py` | Full-Grid Till + End-game Cut-offs | **$10,814** | 178.2 | Complete (Discrepancy) |
 | **v6** | `55970505` | `submission.tar.gz` | **C95** Public Baseline (Weed-Slip, Front-Run) | **$154,927** | **1196.0** | **Active / Climbing** |
 | **v7** | N/A | Local Only | **Three-Day Shop Router** (Reactive Shop/Rival Branching) | **$162,417** | N/A | **Verified (New Peak Local)** |
-| **v8** | N/A | Local Only | **Six-Day Public-State Fieldbook** (Plan Routing) | N/A | N/A | **Uncompilable (Missing C++ source dataset)** |
+| **v8** | N/A | Local Only | **Six-Day Public-State Fieldbook** (Plan Routing) | **$159,612** | N/A | **Verified (Strong Baseline)** |
 
 ---
 
@@ -88,6 +88,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 
 ### Version 8: Six-Day Public-State Fieldbook
 *   **Ref ID:** N/A (Local Benchmark Only)
-*   **Approach:** Analyzed from `1788429286516-six-day-public-state-fieldbook.ipynb`. Designed to compile C++ shared libraries similar to Version 7, routing six-day macro-plans based on real-time public state and market inventories.
-*   **Local Performance:** N/A (Uncompilable locally due to missing external C++ source files, which are hosted in a Kaggle-only input dataset).
+*   **Approach:** Extracted and compiled from `1788429286516-six-day-public-state-fieldbook.ipynb` using the newly provided `yhay81/six-day-public-state-agent-source` dataset. Utilizes a compiled C++ shared library, routing six-day macro-plans based on real-time public state and market inventories.
+*   **Local Performance:** **$159,612.65** average gold across 20 seeds (using our official high-fidelity evaluator).
 *   **Live Performance:** N/A (Not submitted yet).
+*   **Why it succeeded:** High-fidelity pre-compiled six-day blueprint tapes that dynamically adapt to active market inventories. Runs a slightly wider planning horizon than Version 7, but achieves massive economic scaling.
