@@ -13,9 +13,9 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v3** | `55964001` | `submission.py` | Buy-Grammar Corrected MCTS Hybrid | $7,522 | 156.2 | Complete (Discrepancy) |
 | **v4** | `55964622` | `submission.tar.gz` | **v16-rc5** Public Baseline (8C/4S Replay Clone) | N/A | **1281.1** | **Peak Public Rating** |
 | **v5** | `55966120` | `submission.py` | Full-Grid Till + End-game Cut-offs | **$10,814** | 178.2 | Complete (Discrepancy) |
-| **v6** | `55970505` | `submission.tar.gz` | **C95** Public Baseline (Weed-Slip, Front-Run) | **$154,927** | **1196.0** | **Active / Climbing** |
-| **v7** | N/A | Local Only | **Three-Day Shop Router** (Reactive Shop/Rival Branching) | **$162,417** | N/A | **Verified (New Peak Local)** |
-| **v8** | N/A | Local Only | **Six-Day Public-State Fieldbook** (Plan Routing) | **$159,612** | N/A | **Verified (Strong Baseline)** |
+| **v6** | `55970505` | `submission.tar.gz` | **C95** Public Baseline (Weed-Slip, Front-Run) | **$154,927** | **1209.8** | Complete (Retired) |
+| **v7** | `55979231` | `submission_three_day.tar.gz` | **Three-Day Shop Router** (Reactive Shop/Rival Branching) | **$162,417** | **2293.0** | **Active (Top-10)** |
+| **v8** | `55979233` | `submission_six_day.tar.gz` | **Six-Day Public-State Fieldbook** (Plan Routing) | **$159,612** | **2400.7** | **Active (Peak Elite)** |
 | **v9** | N/A | `src/agents/escalation.py` | **Heuristic v2 (Escalation)** (Dynamic Sizer, Target Persistence) | **$12,560** | N/A | **Verified (New Local Peak Heuristic)** |
 
 ---
@@ -73,25 +73,25 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Ref ID:** `55970505`
 *   **Approach:** Extracted the state-of-the-art `C95` agent. Combines the world-champion trajectory script with dynamic weed-slip recovery (automatic A* detour clearing) and sequential sell preemption (front-running market prices).
 *   **Local Performance:** **$154,927.4** average gold across 20 seeds (using the official high-fidelity `kaggle-environments` engine).
-*   **Live Performance:** **`1196.0`** Elo (Active / Climbing).
+*   **Live Performance:** **`1209.8`** Elo (Retired).
 *   **Why it succeeded:** True physical drop coordination, automated end-of-day backups, and dynamic, error-free path recovery under random seeds.
 
 ---
 
 ### Version 7: Three-Day Shop Router (New Local Peak)
-*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Ref ID:** `55979231`
 *   **Approach:** Extracted and compiled from `1788429286524-three-day-shop-router.ipynb`. Utilizes compiled C++ shared library containing the pathfinding and search engine. Implements a highly reactive 3-day macro-target router that dynamically branches at turn 360 depending on the first shop unlocked (e.g. Bakery vs Pet Cafe) and the rival's farm size.
 *   **Local Performance:** **$162,417.05** average gold across 20 seeds (using our official high-fidelity evaluator).
-*   **Live Performance:** N/A (Not submitted yet).
+*   **Live Performance:** **`2293.0`** Elo (Active - Top-10).
 *   **Why it succeeded:** Extremely smart, conditional mid-game path-switching that optimizes fertilizer purchases and animal care depending on real-time market data and opponent presence.
 
 ---
 
 ### Version 8: Six-Day Public-State Fieldbook
-*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Ref ID:** `55979233`
 *   **Approach:** Extracted and compiled from `1788429286516-six-day-public-state-fieldbook.ipynb` using the newly provided `yhay81/six-day-public-state-agent-source` dataset. Utilizes a compiled C++ shared library, routing six-day macro-plans based on real-time public state and market inventories.
 *   **Local Performance:** **$159,612.65** average gold across 20 seeds (using our official high-fidelity evaluator).
-*   **Live Performance:** N/A (Not submitted yet).
+*   **Live Performance:** **`2400.7`** Elo (Active - Peak Elite).
 *   **Why it succeeded:** High-fidelity pre-compiled six-day blueprint tapes that dynamically adapt to active market inventories. Runs a slightly wider planning horizon than Version 7, but achieves massive economic scaling.
 
 ---
