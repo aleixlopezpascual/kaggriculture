@@ -33,3 +33,10 @@ This workspace is optimized for the Kaggle Kaggriculture 720-turn simulation com
 
 - Write new tests under `/tests` for every bug fix or feature addition.
 - Run `pytest` and verify linting with `ruff check .` before completing any development task.
+
+---
+
+## 🏆 5. Kaggle Submission & Matchmaking Constraints
+
+- **The Active Matchmaking Limit (The Two-Agent Rule):** Only the **latest two submissions** are active in the live simulation pool. All older submissions are retired and freeze their Elo ratings (no new matches are played for them).
+- **Evaluating Live Submissions:** Any comparison against the active leaderboard must be performed using exclusively the latest two submitted agents. Do not rely on scores of older submissions to evaluate real-time agent strength, as they are no longer playing new matches.
