@@ -187,6 +187,18 @@ def wrap_agent(agent_instance: BaseAgent):
     return kaggle_agent_fn
 
 
+import importlib.util
+
+
+def load_competitor_agent(name: str, filename: str):
+    """Loads a compiled or extracted competitor agent from our notebooks directory."""
+    path = PROJECT_ROOT / "docs" / "competitor_notebooks" / filename
+    spec = importlib.util.spec_from_file_location(name, str(path))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.agent
+
+
 def get_agent_callable(agent_name: str):
     """Returns a fresh callable for the requested agent."""
     if agent_name == "Heuristic":
@@ -197,6 +209,12 @@ def get_agent_callable(agent_name: str):
     elif agent_name == "Six-Day Fieldbook":
         # The C++ agent is stateless on the Python side
         return six_day_agent_fn
+    elif agent_name == "Kaito v27":
+        return load_competitor_agent("v27_agent", "v27_main.py")
+    elif agent_name == "Boatlee v14":
+        return load_competitor_agent("v14_agent", "v14_main.py")
+    elif agent_name == "Bruceqdu High-Score":
+        return load_competitor_agent("bruceqdu_agent", "bruceqdu_main.py")
     else:
         raise ValueError(f"Unknown agent name: {agent_name}")
 
@@ -252,8 +270,15 @@ def main():
     print("=" * 70)
 
     # 1. Define participants and seeds
-    agents = ["Heuristic", "MCTS", "Six-Day Fieldbook"]
-    seeds = [42, 100, 2026, 999, 12345]
+    agents = [
+        "Heuristic",
+        "MCTS",
+        "Six-Day Fieldbook",
+        "Kaito v27",
+        "Boatlee v14",
+        "Bruceqdu High-Score",
+    ]
+    seeds = [42, 100, 2026]
 
     print(f"Participants: {', '.join(agents)}")
     print(f"Seeds:        {seeds}")
