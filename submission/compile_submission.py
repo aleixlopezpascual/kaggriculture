@@ -4,8 +4,8 @@ import os
 
 
 def compile_submission():
-    # Root path
-    root_dir = "/Users/aleix.lopez/kaggriculture"
+    # Relative root path to support any machine environment
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     src_dir = os.path.join(root_dir, "src")
     sub_path = os.path.join(root_dir, "submission", "submission.py")
 
@@ -21,6 +21,7 @@ def compile_submission():
         "agents/base.py",
         "agents/heuristic.py",
         "agents/mcts.py",
+        "agents/escalation.py",
     ]
 
     out_lines = [

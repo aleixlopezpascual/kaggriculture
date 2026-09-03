@@ -438,6 +438,8 @@ def parse_world_state(obs: dict) -> WorldState:
     is_official_kaggle = "farms" in obs
 
     if is_official_kaggle:
+        update_market_state(obs)
+
         player_idx = obs.get("player", 0)
         official_farm = obs["farms"][player_idx]
 
@@ -496,22 +498,20 @@ def parse_world_state(obs: dict) -> WorldState:
             )
 
         # 2. Parse tiles board grid for crops, animals, and tilled status
-        tilled_tiles = []
         crops_list = []
         animals_list = []
         tiles_board = official_farm.get("tiles", [])
+
+        occupied = set()
 
         for y, row in enumerate(tiles_board):
             for x, cell in enumerate(row):
                 if cell and isinstance(cell, dict):
                     kind = cell.get("kind")
-                    if kind == "TILLED":
-                        tilled_tiles.append((x, y))
-                    elif kind == "PLANT":
+                    if kind == "PLANT":
                         crop_type = str(cell.get("crop", "WHEAT")).capitalize()
-                        growth_stage = int(
-                            cell.get("growth_stage", 3)
-                        )  # mature/harvestable default
+                        yield_units = int(cell.get("yield_units", 0))
+                        growth_stage = 3 if yield_units > 0 else 0
                         watered = bool(cell.get("watered_today", False))
                         crops_list.append(
                             CropState(
@@ -523,6 +523,7 @@ def parse_world_state(obs: dict) -> WorldState:
                                 y=y,
                             )
                         )
+                        occupied.add((x, y))
                     elif kind == "ANIMAL":
                         animal_type = str(cell.get("animal", "COW")).capitalize()
                         hunger = int(cell.get("hunger", 0))
@@ -535,6 +536,31 @@ def parse_world_state(obs: dict) -> WorldState:
                                 y=y,
                             )
                         )
+                        occupied.add((x, y))
+                    elif kind in {"COOP", "PASTURE", "WEED", "LOCKED", "SHED"}:
+                        occupied.add((x, y))
+                    elif kind == "TILLED":
+                        occupied.add((x, y))
+
+        # Generate tilled_tiles as all unoccupied unlocked coordinates
+        unlocked_quads = official_farm.get("unlocked_quadrants", ["NW"])
+        unlocked_coords = set()
+        for q in unlocked_quads:
+            if q == "NW":
+                xs, ys = range(0, 5), range(0, 5)
+            elif q == "NE":
+                xs, ys = range(5, 10), range(0, 5)
+            elif q == "SW":
+                xs, ys = range(0, 5), range(5, 10)
+            elif q == "SE":
+                xs, ys = range(5, 10), range(5, 10)
+            else:
+                continue
+            for x in xs:
+                for y in ys:
+                    unlocked_coords.add((x, y))
+
+        tilled_tiles = [coord for coord in unlocked_coords if coord not in occupied]
 
         # 3. Assemble FarmState and WorldState
         gold = int(official_farm.get("money", 3000))
@@ -681,7 +707,8 @@ def find_shortest_path(
 # === MODULE: utils/market.py ===
 """Kaggriculture market prioritizing and sequential order utilities."""
 
-PREMIUM_GOODS = {"Milk", "Wool", "Strawberries", "Melons"}
+
+PREMIUM_GOODS = {"Milk", "Wool", "Strawberries", "Melons", "Strawberry", "Melon"}
 
 
 def sort_market_commands(commands: list[dict]) -> list[dict]:
@@ -697,6 +724,172 @@ def sort_market_commands(commands: list[dict]) -> list[dict]:
         return 0 if item in PREMIUM_GOODS else 1
 
     return sorted(commands, key=priority_key)
+
+
+# === KAITO'S PRICE-IMPACT SELLER PORT ===
+
+_LATEST_MARKET_STATE = {
+    "inventory": {},
+    "prices": {},
+    "unlocked_shops": ()
+}
+
+_PRICE_FLOOR = 1
+_DEMAND_ALPHA = 0.25
+
+_MARKET_PARAMS = {
+    "WHEAT": (25, 10000, 400, "sqrt", 0.8, "log", 0.2),
+    "CARROT": (35, 10000, 450, "log", 0.2, "sqrt", 0.7),
+    "TOMATO": (60, 10000, 200, "linear", 0.4, "sqrt", 0.6),
+    "STRAWBERRY": (120, 10000, 100, "sqrt", 0.7, "linear", 1.6),
+    "MELON": (250, 10000, 300, "log", 0.2, "sq", 3.6),
+    "EGG": (50, 10000, 332, "linear", 0.4, "log", 0.2),
+    "MILK": (160, 10000, 122, "sqrt", 0.6, "linear", 1.6),
+    "WOOL": (200, 10000, 105, "log", 0.2, "sq", 3.2),
+    "FERTILIZER": (100, 10000, 200, "linear", 0.4, "linear", 0.4),
+}
+
+_SHOP_PRODUCTS = {
+    "BAKERY": ("EGG", "WHEAT"),
+    "PIZZA_SHOP": ("MILK", "TOMATO", "WHEAT"),
+    "BRUNCH_SPOT": ("EGG", "WHEAT", "STRAWBERRY"),
+    "SMOOTHIE_SHOP": ("STRAWBERRY", "MILK"),
+    "ICE_CREAM_SHOP": ("STRAWBERRY", "MILK", "WHEAT"),
+    "FARMERS_MARKET": ("TOMATO", "STRAWBERRY", "MELON", "CARROT"),
+    "COFFEE_SHOP": ("MILK",),
+    "BURGER_JOINT": ("TOMATO", "CARROT"),
+    "TACO_STAND": ("TOMATO", "WHEAT"),
+    "SOUVENIR_SHOP": ("WOOL",),
+}
+
+_ITEM_NAME_MAP = {
+    "WHEAT": "WHEAT",
+    "CARROT": "CARROT",
+    "TOMATO": "TOMATO",
+    "STRAWBERRY": "STRAWBERRY",
+    "MELON": "MELON",
+    "EGG": "EGG",
+    "MILK": "MILK",
+    "WOOL": "WOOL",
+    "FERTILIZER": "FERTILIZER",
+    "CARROTS": "CARROT",
+    "TOMATOES": "TOMATO",
+    "STRAWBERRIES": "STRAWBERRY",
+    "MELONS": "MELON",
+    "EGGS": "EGG",
+}
+
+
+def update_market_state(obs: dict) -> None:
+    """Updates the internal market state cache with the latest official observation."""
+    global _LATEST_MARKET_STATE
+    market_data = obs.get("market", {}) or {}
+
+    # Store uppercase keys
+    inventory_raw = market_data.get("inventory", {}) or {}
+    _LATEST_MARKET_STATE["inventory"] = {
+        str(k).upper(): int(v) for k, v in inventory_raw.items()
+    }
+
+    prices_raw = market_data.get("prices", {}) or {}
+    _LATEST_MARKET_STATE["prices"] = {
+        str(k).upper(): float(v) for k, v in prices_raw.items()
+    }
+
+    town_data = obs.get("town", {}) or {}
+    unlocked_raw = town_data.get("unlocked_shops", []) or []
+    _LATEST_MARKET_STATE["unlocked_shops"] = tuple(
+        str(s).upper() for s in unlocked_raw
+    )
+
+
+def _shape(name: str, value: float) -> float:
+    if name == "linear":
+        return value
+    if name == "sq":
+        return value * value
+    if name == "sqrt":
+        return math.sqrt(value)
+    if name == "log":
+        return math.log1p(value)
+    if name == "log10":
+        return math.log10(1.0 + value)
+    raise ValueError(f"Unknown shape function: {name}")
+
+
+def _market_price(item: str, inventory: int) -> int:
+    params = _MARKET_PARAMS.get(item)
+    if not params:
+        return 1
+    base, equilibrium, scale, below_func, below_target, above_func, above_target = params
+    if inventory < equilibrium:
+        amplitude = below_target * base / _shape(below_func, scale)
+        price = base + amplitude * _shape(below_func, equilibrium - inventory)
+    else:
+        amplitude = above_target * base / _shape(above_func, scale)
+        price = base - amplitude * _shape(above_func, inventory - equilibrium)
+    return max(_PRICE_FLOOR, int(round(price)))
+
+
+def _demand_per_day(item_upper: str, unlocked_shops: tuple[str, ...]) -> float:
+    turns_per_day = 24
+    shop_interval = 4
+    demand = 0.0
+    for shop in unlocked_shops:
+        products = _SHOP_PRODUCTS.get(shop, ())
+        if item_upper in products:
+            demand += (turns_per_day / shop_interval) * (
+                2 if len(products) == 1 else 1
+            )
+    if item_upper != "FERTILIZER":
+        center_interval = 24
+        demand += (turns_per_day / center_interval)
+    return demand
+
+
+def _impact_score(item_upper: str, quantity: int) -> float:
+    current_inventory = int(_LATEST_MARKET_STATE["inventory"].get(item_upper, 10000))
+    current_quote = float(_LATEST_MARKET_STATE["prices"].get(
+        item_upper, _market_price(item_upper, current_inventory)
+    ))
+    later_quote = float(_market_price(item_upper, current_inventory + quantity))
+    return float(quantity) * max(0.0, current_quote - later_quote)
+
+
+def _order_score(item_upper: str, quantity: int) -> float:
+    score = _impact_score(item_upper, quantity)
+    if score <= 0:
+        return score
+
+    current_inventory = int(_LATEST_MARKET_STATE["inventory"].get(item_upper, 10000))
+    unlocked_shops = _LATEST_MARKET_STATE["unlocked_shops"]
+    demand = max(0.25, _demand_per_day(item_upper, unlocked_shops))
+    excess = max(0.0, current_inventory + quantity - 10000)
+    urgency = min(1.0, (excess / demand) / 10.0)
+    return score * (1.0 + _DEMAND_ALPHA * urgency)
+
+
+def rank_sell_orders(sell_orders: list[tuple[str, str, int]]) -> list[tuple[str, str, int]]:
+    """Ranks and sorts sell orders using Kaito's price-impact scoring algorithm.
+
+    Falls back to normal static premium-goods ordering if no market state is active.
+    """
+    if not _LATEST_MARKET_STATE["inventory"] or not _LATEST_MARKET_STATE["prices"]:
+        # Fallback to static premium goods sorting
+        premium_goods = {"Milk", "Wool", "Strawberry", "Melon", "Egg"}
+        return sorted(sell_orders, key=lambda o: 0 if o[1] in premium_goods else 1)
+
+    rows = []
+    for index, (action, item, qty) in enumerate(sell_orders):
+        item_upper = _ITEM_NAME_MAP.get(str(item).upper(), str(item).upper())
+        if item_upper in _MARKET_PARAMS:
+            score = _order_score(item_upper, qty)
+        else:
+            score = 0.0
+        rows.append((score, -index, (action, item, qty)))
+
+    rows.sort(reverse=True)
+    return [row[2] for row in rows]
 
 
 # === MODULE: utils/calculators.py ===
@@ -724,7 +917,7 @@ def estimate_crop_yield(
     Care bonus provides a 1.25x multiplier on the resulting yield.
     """
     base_yield = 1.0
-    if crop_type in {"Strawberries", "Melons"}:
+    if crop_type in {"Strawberries", "Melons", "Strawberry", "Melon"}:
         base_yield = 1.5
 
     # Moisture penalty factor (penalize if too dry or flooded)
@@ -820,7 +1013,7 @@ class BaseAgent(ABC):
 class HeuristicAgent(BaseAgent):
     """Greedy rule-based agent prioritizing critical farm duties."""
 
-    def __init__(self, crop_to_plant: str = "Strawberries"):
+    def __init__(self, crop_to_plant: str = "Strawberry"):
         self.crop_to_plant = crop_to_plant
 
     def act(self, state: WorldState, target: StrategicTarget | None = None) -> dict:
@@ -894,16 +1087,15 @@ class HeuristicAgent(BaseAgent):
             if qty > 0:
                 sell_orders.append(("SELL", item, qty))
 
-        # Sort sell orders so premium goods are processed first (milk, wool, etc.)
-        premium_goods = {"Milk", "Wool", "Strawberries", "Melons", "Eggs"}
-        sell_orders.sort(key=lambda o: 0 if o[1] in premium_goods else 1)
+        # Sort sell orders using price impact logic (falls back to static premium sorting if offline)
+        sell_orders = rank_sell_orders(sell_orders)
         farm_actions.extend(sell_orders)
 
         # 3. Dynamic Task Allocation for Workers
         # Emergency tasks
         harvestable_crops = [c for c in state.crops if c.growth_stage == 3]
         hungry_animals = [a for a in state.animals if a.hunger >= 50]
-        thirsty_crops = [c for c in state.crops if c.moisture <= 30]
+        thirsty_crops = [c for c in state.crops if c.moisture <= 30 or not c.is_watered]
         empty_tilled_tiles = list(state.tilled_tiles)
 
         # Filter out tilled tiles that already have crops
@@ -912,7 +1104,7 @@ class HeuristicAgent(BaseAgent):
             tile for tile in empty_tilled_tiles if tile not in crop_coords
         ]
 
-        seed_prices = {"Wheat": 5, "Carrot": 10, "Melons": 25, "Strawberries": 40}
+        seed_prices = {"Wheat": 10, "Carrot": 20, "Tomato": 50, "Strawberry": 100, "Melon": 80}
 
         # Buy seeds for crop deficits (stop buying seeds near the end of the match)
         if not target.is_liquidating and state.turn < 710:
@@ -1181,7 +1373,7 @@ class MCTSAgent(BaseAgent):
                     target_cows=0,
                     target_sheep=0,
                     target_geese=0,
-                    crop_priorities={"Strawberries": 15},
+                    crop_priorities={"Strawberry": 15},
                     budget_reserved_for_seeds=150.0,
                     is_liquidating=False,
                 )
@@ -1193,7 +1385,7 @@ class MCTSAgent(BaseAgent):
                     target_cows=4,
                     target_sheep=2,
                     target_geese=0,
-                    crop_priorities={"Wheat": 6, "Strawberries": 8},
+                    crop_priorities={"Wheat": 6, "Strawberry": 8},
                     budget_reserved_for_seeds=200.0,
                     is_liquidating=False,
                 )
@@ -1205,7 +1397,7 @@ class MCTSAgent(BaseAgent):
                     target_cows=8,
                     target_sheep=4,
                     target_geese=0,
-                    crop_priorities={"Wheat": 12, "Melons": 4},
+                    crop_priorities={"Wheat": 12, "Melon": 4},
                     budget_reserved_for_seeds=400.0,
                     is_liquidating=False,
                 )
@@ -1280,6 +1472,250 @@ class MCTSAgent(BaseAgent):
         asset_valuation += sum(curr_state.farm.inventory.values()) * 15
 
         return float(gold_gained + asset_valuation)
+
+
+# === MODULE: agents/escalation.py ===
+"""Kaggriculture Dynamic Escalation Agent."""
+
+
+
+class EscalationAgent(HeuristicAgent):
+    """Dynamic Escalation Agent with Target Persistence and Seed Inventory guards.
+
+    Caps labor count at 3 highly-efficient workers, dynamically scales crop volume based on gold,
+    and uses persisted targeting to ensure workers committed to tasks do not thrash. Uses strict
+    seed inventory checks to prevent infinite planting loops when seeds are out.
+    """
+
+    def __init__(self, crop_to_plant: str = "Strawberry"):
+        super().__init__(crop_to_plant=crop_to_plant)
+        # Map worker_id -> (tx, ty, task_type)
+        self.worker_targets = {}
+
+    def act(self, state: WorldState, target: StrategicTarget | None = None) -> dict:
+        # 1. Determine dynamic Strategic Target based on active gold
+        if target is None:
+            gold = state.farm.gold
+            t_workers = 3
+
+            if gold < 3000:
+                crop_count = 10
+                budget_seeds = 100.0
+            elif gold < 6000:
+                crop_count = 14
+                budget_seeds = 200.0
+            elif gold < 10000:
+                crop_count = 18
+                budget_seeds = 300.0
+            else:
+                crop_count = 22
+                budget_seeds = 400.0
+
+            # End-game liquidation: stop buying seeds after Turn 660 to ensure cashout before Turn 720
+            is_liq = state.turn >= 660
+            if is_liq:
+                crop_count = 0
+                budget_seeds = 0.0
+
+            target = StrategicTarget(
+                target_workers=t_workers,
+                target_cows=0,
+                target_sheep=0,
+                target_geese=0,
+                crop_priorities={self.crop_to_plant: crop_count},
+                budget_reserved_for_seeds=budget_seeds,
+                is_liquidating=is_liq,
+            )
+
+        # 2. Extract state variables
+        gold_available = state.farm.gold
+        active_crop_counts = {}
+        for c in state.crops:
+            active_crop_counts[c.crop_type] = active_crop_counts.get(c.crop_type, 0) + 1
+
+        # 3. Macro Farm Actions (Hiring, Purchases)
+        farm_actions = []
+
+        # HIRE
+        if (
+            len(state.farm.workers) < target.target_workers
+            and gold_available >= 500 + target.budget_reserved_for_seeds
+        ):
+            farm_actions.append("HIRE_WORKER")
+            gold_available -= 500
+
+        # Buy seeds for crop deficits
+        if not target.is_liquidating and state.turn < 710:
+            for crop_type, target_count in target.crop_priorities.items():
+                current_planted = active_crop_counts.get(crop_type, 0)
+                current_seeds = state.farm.seed_inventory.get(crop_type, 0)
+                deficit = target_count - current_planted - current_seeds
+                if deficit > 0:
+                    seed_prices = {"Wheat": 10, "Carrot": 20, "Tomato": 50, "Strawberry": 100, "Melon": 80}
+                    cost = seed_prices.get(crop_type, 10) * deficit
+                    if gold_available >= cost:
+                        farm_actions.append(("BUY_SEED", crop_type, deficit))
+                        gold_available -= cost
+
+        # SELL
+        sell_orders = []
+        for item, qty in state.farm.inventory.items():
+            if qty > 0:
+                sell_orders.append(("SELL", item, qty))
+        sell_orders = rank_sell_orders(sell_orders)
+        farm_actions.extend(sell_orders)
+
+        # 4. Stabilized Task Allocation for Workers
+        harvestable_crops = [c for c in state.crops if c.growth_stage == 3]
+        thirsty_crops = [c for c in state.crops if c.moisture <= 30 or not c.is_watered]
+        empty_tilled_tiles = list(state.tilled_tiles)
+        crop_coords = {(c.x, c.y) for c in state.crops}
+        empty_tilled_tiles = [
+            tile for tile in empty_tilled_tiles if tile not in crop_coords
+        ]
+
+        assigned_tasks = set()
+        worker_actions = {}
+
+        # First pass: validate and execute persisted targets
+        for worker in state.farm.workers:
+            wid = worker.worker_id
+            if wid in self.worker_targets:
+                tx, ty, task_type = self.worker_targets[wid]
+
+                # Validate target
+                valid = False
+                if task_type == "HARVEST":
+                    valid = any(c.x == tx and c.y == ty and c.growth_stage == 3 for c in state.crops)
+                elif task_type == "WATER":
+                    valid = any(c.x == tx and c.y == ty and (c.moisture <= 30 or not c.is_watered) for c in state.crops)
+                elif task_type == "PLANT":
+                    # Must actually have seeds to plant!
+                    has_seeds = state.farm.seed_inventory.get(self.crop_to_plant, 0) > 0
+                    valid = (tx, ty) in empty_tilled_tiles and has_seeds and not target.is_liquidating and state.turn < 715
+
+                if valid:
+                    # Re-assign same target
+                    assigned_tasks.add((tx, ty))
+                    dist = manhattan_distance(worker.x, worker.y, tx, ty)
+                    if dist <= 1:
+                        if task_type == "HARVEST":
+                            worker_actions[wid] = ("HARVEST", tx, ty)
+                        elif task_type == "WATER":
+                            worker_actions[wid] = ("WATER", tx, ty)
+                        elif task_type == "PLANT":
+                            best_crop = self.crop_to_plant
+                            max_deficit = 0
+                            for crop_type, target_count in target.crop_priorities.items():
+                                current_planted = active_crop_counts.get(crop_type, 0)
+                                deficit = target_count - current_planted
+                                if deficit > max_deficit:
+                                    max_deficit = deficit
+                                    best_crop = crop_type
+                            worker_actions[wid] = ("PLANT", tx, ty, best_crop)
+                    else:
+                        path = find_shortest_path(worker.x, worker.y, tx, ty)
+                        if path:
+                            worker_actions[wid] = path[0]
+                else:
+                    # Target is no longer valid, discard it
+                    if wid in self.worker_targets:
+                        del self.worker_targets[wid]
+
+        # Second pass: allocate new targets for idle workers
+        for worker in state.farm.workers:
+            wid = worker.worker_id
+            if wid in worker_actions:
+                continue  # Already has a validated persisted target
+
+            # Priority 1: HARVEST mature crops
+            best_harvest = None
+            best_dist = float("inf")
+            for c in harvestable_crops:
+                if (c.x, c.y) in assigned_tasks:
+                    continue
+                dist = manhattan_distance(worker.x, worker.y, c.x, c.y)
+                if dist < best_dist:
+                    best_dist = dist
+                    best_harvest = c
+
+            if best_harvest:
+                tx, ty = best_harvest.x, best_harvest.y
+                self.worker_targets[wid] = (tx, ty, "HARVEST")
+                assigned_tasks.add((tx, ty))
+
+                if best_dist <= 1:
+                    worker_actions[wid] = ("HARVEST", tx, ty)
+                else:
+                    path = find_shortest_path(worker.x, worker.y, tx, ty)
+                    if path:
+                        worker_actions[wid] = path[0]
+                continue
+
+            # Priority 2: WATER thirsty crops
+            best_thirsty = None
+            best_dist = float("inf")
+            for c in thirsty_crops:
+                if (c.x, c.y) in assigned_tasks:
+                    continue
+                dist = manhattan_distance(worker.x, worker.y, c.x, c.y)
+                if dist < best_dist:
+                    best_dist = dist
+                    best_thirsty = c
+
+            if best_thirsty:
+                tx, ty = best_thirsty.x, best_thirsty.y
+                self.worker_targets[wid] = (tx, ty, "WATER")
+                assigned_tasks.add((tx, ty))
+
+                if best_dist <= 1:
+                    worker_actions[wid] = ("WATER", tx, ty)
+                else:
+                    path = find_shortest_path(worker.x, worker.y, tx, ty)
+                    if path:
+                        worker_actions[wid] = path[0]
+                continue
+
+            # Priority 3: PLANT empty tilled tiles
+            has_seeds = state.farm.seed_inventory.get(self.crop_to_plant, 0) > 0
+            if has_seeds and not target.is_liquidating and state.turn < 715:
+                best_tile = None
+                best_dist = float("inf")
+                for tile in empty_tilled_tiles:
+                    if tile in assigned_tasks:
+                        continue
+                    dist = manhattan_distance(worker.x, worker.y, tile[0], tile[1])
+                    if dist < best_dist:
+                        best_dist = dist
+                        best_tile = tile
+
+                if best_tile:
+                    tx, ty = best_tile
+                    self.worker_targets[wid] = (tx, ty, "PLANT")
+                    assigned_tasks.add((tx, ty))
+
+                    # Determine best crop
+                    best_crop = self.crop_to_plant
+                    max_deficit = 0
+                    for crop_type, target_count in target.crop_priorities.items():
+                        current_planted = active_crop_counts.get(crop_type, 0)
+                        deficit = target_count - current_planted
+                        if deficit > max_deficit:
+                            max_deficit = deficit
+                            best_crop = crop_type
+
+                    if best_dist <= 1:
+                        worker_actions[wid] = ("PLANT", tx, ty, best_crop)
+                    else:
+                        path = find_shortest_path(worker.x, worker.y, tx, ty)
+                        if path:
+                            worker_actions[wid] = path[0]
+                    continue
+
+            # Priority 4: Default Idle Movement (move right)
+            worker_actions[wid] = ("MOVE", "RIGHT")
+
+        return {"worker_actions": worker_actions, "farm_actions": farm_actions}
 
 
 # === AGENT ENTRYPOINT ===
