@@ -278,9 +278,6 @@ def main():
 
     # 1. Define participants and seeds
     agents = [
-        "Heuristic",
-        "Heuristic v2 (Escalation)",
-        "MCTS",
         "Six-Day Fieldbook",
         "Three-Day Shop Router",
         "Three-Day Router (Optimized)",
