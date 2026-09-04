@@ -364,7 +364,97 @@ class FieldbookRuntime:
             action = _terminal_sale(observation, action, step, configuration)
             if self.settings["final_fertilizer_sweep"]:
                 action = _final_fertilizer_sweep(action, step, configuration)
+        
+        # Apply visible weed-slip transaction recovery to protect against random weed spawns!
+        action = _weed_repair_action(observation, action, step, route)
         return action
+
+
+_WEED_STATE = {0: {}, 1: {}}
+_WEED_REPLAY_STEPS = 8
+
+
+def _copy_action(action):
+    return {
+        "farmer": list(action.get("farmer") or ["PASS"]),
+        "hands": [list(h) for h in action.get("hands", [])],
+        "market": [list(m) for m in action.get("market", [])]
+    }
+
+
+def _tile_at(farm, position):
+    try:
+        x, y = int(position[0]), int(position[1])
+        return (_get(farm, "tiles", []) or [])[y][x]
+    except (IndexError, TypeError, ValueError):
+        return "LOCKED"
+
+
+def _trace_actor_action(step, actor, route):
+    trace = ROUTES[route][min(max(int(step), 0), 718)] or {}
+    if actor == "farmer":
+        return list(trace.get("farmer") or ["PASS"])
+    hands = trace.get("hands", []) or []
+    return list(hands[actor] if actor < len(hands) else ["PASS"])
+
+
+def _align_hands(action, obs):
+    seat = 1 if int(_get(obs, "player", 0) or 0) == 1 else 0
+    farms = list(_get(obs, "farms", []) or [])
+    farm = farms[seat] if seat < len(farms) else {}
+    expected = len(_get(farm, "hands", []) or [])
+    hands = list(action.get("hands") or [])
+    if len(hands) < expected:
+        hands.extend([["PASS"] for _ in range(expected - len(hands))])
+    action["hands"] = [list(order or ["PASS"]) for order in hands[:expected]]
+    return action
+
+
+def _weed_repair_action(obs, action, step, route):
+    """Repair a visible fixed-route PLANT/BUILD slip without touching market."""
+    action = _align_hands(action, obs)
+    seat = 1 if int(_get(obs, "player", 0) or 0) == 1 else 0
+    game = _WEED_STATE[seat]
+    if step == 0 or step < game.get("last_step", -1):
+        game = {"last_step": step, "active": {}}
+        _WEED_STATE[seat] = game
+    game["last_step"] = step
+
+    farms = list(_get(obs, "farms", []) or [])
+    farm = farms[seat] if seat < len(farms) else {}
+    positions = [_get(farm, "farmer"), *list(_get(farm, "hands", []) or [])]
+    unit_actions = [action.get("farmer", ["PASS"]), *list(action.get("hands") or [])]
+    active = game["active"]
+
+    for actor, transaction in list(active.items()):
+        index = 0 if actor == "farmer" else int(actor) + 1
+        if index >= len(unit_actions):
+            active.pop(actor, None)
+            continue
+        age = step - transaction["start"]
+        if age == 1:
+            unit_actions[index] = list(transaction["intended"])
+        elif 2 <= age <= 1 + _WEED_REPLAY_STEPS:
+            unit_actions[index] = _trace_actor_action(step - 1, actor, route)
+        else:
+            active.pop(actor, None)
+
+    for index, (position, intended) in enumerate(zip(positions, unit_actions)):
+        actor = "farmer" if index == 0 else index - 1
+        if actor in active or not isinstance(intended, list) or not intended:
+            continue
+        operation = intended[0]
+        if operation not in ("BUILD_PASTURE", "BUILD_COOP", "PLANT"):
+            continue
+        tile = _tile_at(farm, position)
+        if not isinstance(tile, dict) or tile.get("kind") != "WEED":
+            continue
+        active[actor] = {"start": step, "intended": list(intended)}
+        unit_actions[index] = ["DIG"]
+
+    action["farmer"] = unit_actions[0] if unit_actions else ["PASS"]
+    action["hands"] = unit_actions[1:]
+    return _align_hands(action, obs)
 
 
 def make_agent(**overrides):
