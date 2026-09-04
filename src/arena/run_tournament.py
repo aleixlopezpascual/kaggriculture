@@ -19,6 +19,7 @@ from src.agents.escalation import EscalationAgent
 from src.env.parser import parse_world_state
 from src.agents.base import BaseAgent
 from agent_main import agent as six_day_agent_fn
+from agent_main_v2 import agent as six_day_agent_fn_v2
 
 
 ITEM_NAME_MAP = {
@@ -212,9 +213,11 @@ def get_agent_callable(agent_name: str):
     elif agent_name == "Six-Day Fieldbook":
         # The C++ agent is stateless on the Python side
         return six_day_agent_fn
-    elif agent_name == "Three-Day Shop Router":
+    elif agent_name == "Six-Day Fieldbook v2":
+        return six_day_agent_fn_v2
+    elif agent_name == "Three-Day Shop Router (Original)":
         return load_competitor_agent("three_day_agent", "three_day_main.py")
-    elif agent_name == "Three-Day Router (Optimized)":
+    elif agent_name == "Three-Day Shop Router v2":
         return load_competitor_agent("three_day_optimized_agent", "three_day_optimized.py")
     elif agent_name == "Kaito v27":
         return load_competitor_agent("v27_agent", "v27_main.py")
@@ -279,8 +282,9 @@ def main():
     # 1. Define participants and seeds
     agents = [
         "Six-Day Fieldbook",
-        "Three-Day Shop Router",
-        "Three-Day Router (Optimized)",
+        "Six-Day Fieldbook v2",
+        "Three-Day Shop Router (Original)",
+        "Three-Day Shop Router v2",
         "Kaito v27",
         "Boatlee v14",
         "Bruceqdu High-Score",
