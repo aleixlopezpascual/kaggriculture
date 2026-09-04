@@ -1,0 +1,19 @@
+competitors/notebooks/fieldbook_logic.py
+  s_3bdc713b9dc5a7::t_902d57e90ce746 367-369,373-457
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "cfa53489c05ddafb8f5b8e0b15573d56f77d2148",
+  "prompts": {},
+  "sessions": {
+    "s_3bdc713b9dc5a7": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "099b53b4-1b0f-4a46-a0ea-f04dab7caca8",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
