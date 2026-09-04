@@ -212,6 +212,8 @@ def get_agent_callable(agent_name: str):
     elif agent_name == "Six-Day Fieldbook":
         # The C++ agent is stateless on the Python side
         return six_day_agent_fn
+    elif agent_name == "Three-Day Shop Router":
+        return load_competitor_agent("three_day_agent", "three_day_main.py")
     elif agent_name == "Kaito v27":
         return load_competitor_agent("v27_agent", "v27_main.py")
     elif agent_name == "Boatlee v14":
@@ -278,6 +280,7 @@ def main():
         "Heuristic v2 (Escalation)",
         "MCTS",
         "Six-Day Fieldbook",
+        "Three-Day Shop Router",
         "Kaito v27",
         "Boatlee v14",
         "Bruceqdu High-Score",
