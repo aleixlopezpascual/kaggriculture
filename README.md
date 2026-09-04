@@ -46,5 +46,7 @@ Market orders are executed in a sequential clearance queue. Agents prioritizing 
 - `src/utils/`: Pathfinding, pricing calculators, market queues, and state featurization.
 - `src/agents/`: Heuristic and Monte Carlo Tree Search agents.
 - `src/arena/`: Multi-agent evaluators, self-play loops, and replay loggers.
+- `competitors/`: Compiled and assembled elite-ladder competitor agents (Three-Day Shop Router v2, Six-Day Fieldbook v2, Kaito v27, Boatlee v14, Bruceqdu High-Score).
+- `data/`: Raw manifests, datasets, and telemetry logs.
 - `submission/`: Merging and flattening tool chain to build the submission script.
 - `tests/`: Automated unit tests covering transitions and agents.

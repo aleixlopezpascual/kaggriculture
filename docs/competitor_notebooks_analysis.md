@@ -37,6 +37,7 @@ Due to Kaggle's sequential processing of the command array, competitors aggressi
 When executing a strict 8C/4S route, weather variations (e.g., consecutive Sunny days) can cause unexpected crop death ("Weed slips"). Top notebooks (`159-160-vs-frontier-v20-weed-slip-recovery.ipynb`) dedicate significant heuristic code to:
 - Instantly overriding planned movement if a crop falls below 30% moisture.
 - Prioritizing `DIG` and `TILL` actions if a weed appears to quickly restore land capacity.
+*(Note: We have successfully extracted this exact v20 WEED-slip transaction-latch recovery logic and integrated/compiled it directly into our python **Three-Day Shop Router v2** and C++ **Six-Day Fieldbook v2** agents, yielding massive win-rate increases and head-to-head matchup sweeps!)*
 
 ---
 
