@@ -14,11 +14,12 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v4** | `55964622` | `submission.tar.gz` | **v16-rc5** Public Baseline (8C/4S Replay Clone) | N/A | **1281.1** | **Peak Public Rating** |
 | **v5** | `55966120` | `submission.py` | Full-Grid Till + End-game Cut-offs | **$10,814** | 178.2 | Complete (Discrepancy) |
 | **v6** | `55970505` | `submission.tar.gz` | **C95** Public Baseline (Weed-Slip, Front-Run) | **$154,927** | **1209.8** | Complete (Retired) |
-| **v7** | `55979231` | `competitors/notebooks/three_day_main.py` | **Three-Day Shop Router (Original)** (Reactive Shop/Rival Branching) | **$162,417** | **2293.0** | Complete (Retired) |
-| **v8** | `55979233` | `competitors/six_day_agent_source/agent_main.py` | **Six-Day Public-State Fieldbook** (Plan Routing) | **$159,612** | **2400.7** | Complete (Retired) |
+| **v7** | `55979231` | `competitors/notebooks/three_day_main.py` | **Three-Day Shop Router (Original)** (Reactive Shop/Rival Branching) | **$162,417** | **1807.7** | Complete (Retired) |
+| **v8** | `55979233` | `competitors/six_day_agent_source/agent_main.py` | **Six-Day Public-State Fieldbook** (Plan Routing) | **$159,612** | **1691.1** | Complete (Retired) |
 | **v9** | N/A | `src/agents/escalation.py` | **Heuristic v2 (Escalation)** (Dynamic Sizer, Target Persistence) | **$12,560** | N/A | **Verified (New Local Peak Heuristic)** |
 | **v10** | N/A | `competitors/notebooks/three_day_optimized.py` | **Three-Day Shop Router v2** (Weed-Slip Recovery, Optimized Splits) | **$111,028** | N/A | **Active (New Peak Python)** |
 | **v11** | N/A | `competitors/six_day_agent_source/agent_main_v2.py` | **Six-Day Fieldbook v2** (C++ Weed-Slip, Optimized Splits) | **$111,884** | N/A | **Active (New Peak C++)** |
+| **v12** | N/A | `competitors/notebooks/thomas_router.py` | **Thomas 93.8% Router** (Replay Portfolio, 44k Game Sweeps) | **$113,095** | N/A | **Champion (Verified Peak Portfolio)** |
 
 ---
 
@@ -84,7 +85,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Ref ID:** `55979231`
 *   **Approach:** Extracted and compiled from `1788429286524-three-day-shop-router.ipynb`. Utilizes compiled C++ shared library containing the pathfinding and search engine. Implements a highly reactive 3-day macro-target router that dynamically branches at turn 360 depending on the first shop unlocked (e.g. Bakery vs Pet Cafe) and the rival's farm size.
 *   **Local Performance:** **$162,417.05** average gold across 20 seeds (using our official high-fidelity evaluator).
-*   **Live Performance:** **`2293.0`** Elo (Active - Top-10).
+*   **Live Performance:** **`1807.7`** Elo (Retired).
 *   **Why it succeeded:** Extremely smart, conditional mid-game path-switching that optimizes fertilizer purchases and animal care depending on real-time market data and opponent presence.
 
 ---
@@ -93,7 +94,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Ref ID:** `55979233`
 *   **Approach:** Extracted and compiled from `1788429286516-six-day-public-state-fieldbook.ipynb` using the newly provided `yhay81/six-day-public-state-agent-source` dataset. Utilizes a compiled C++ shared library, routing six-day macro-plans based on real-time public state and market inventories.
 *   **Local Performance:** **$159,612.65** average gold across 20 seeds (using our official high-fidelity evaluator).
-*   **Live Performance:** **`2400.7`** Elo (Active - Peak Elite).
+*   **Live Performance:** **`1691.1`** Elo (Retired).
 *   **Why it succeeded:** High-fidelity pre-compiled six-day blueprint tapes that dynamically adapt to active market inventories. Runs a slightly wider planning horizon than Version 7, but achieves massive economic scaling.
 
 ---
@@ -126,4 +127,12 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
     1.  **C++ Weed-Slip Transaction Recovery:** Ported our identity-free transaction recovery logic directly into C++. Uses persistent state tracking inside `Context` memory per actor to intercept blocked plant/build steps and replace them with a `DIG` command while shifting the tape.
     2.  **Parametric Cash-Gap Splits:** Tuned decision split boundaries (`THRESHOLD_CASH_1=5000.0`, `THRESHOLD_CASH_2=700.0`) to avoid over-liquidation panic during tight cash-flow matches.
 *   **Local Performance:** **$111,884** average gold in our elite-bracket tournament sweep. **#1 Standing (Peak Dominance) with a 94.4% win rate and 0 losses!**
-*   **Why it succeeded:** Achieved absolute baseline-beating status, defeating the original Six-Day Fieldbook **2-0 head-to-head** in direct matchup sweeps!
+*   **Why it succeeded:** Achieved absolute baseline-beating status, defeating the original Six-Day Fieldbook **2-0 head-to-head in direct matchup sweeps!**
+
+---
+
+### Version 12: Thomas 93.8% Router
+*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Approach:** Downloaded and extracted from `/competitors/notebooks/kaggriculture-93-8-win-rate-public-state-router.ipynb`. Implements a highly sophisticated 6-day public-state decision tree portfolio fitted over **44,096 total game simulations**!
+*   **Local Performance:** **$113,095** average gold in our elite-bracket tournament sweep. **Absolute #1 Sweep World Champion with a perfect 100.0% win rate (42 wins out of 42 matches) and 0 losses!**
+*   **Why it succeeded:** Extremely deep parametric decision trees coupled with a comprehensive, robustly simulated, and weed-slip protected opening route portfolio that completely preempts market prices and sweeps the entire elite competitor pool.

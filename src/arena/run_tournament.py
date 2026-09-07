@@ -219,6 +219,8 @@ def get_agent_callable(agent_name: str):
         return load_competitor_agent("three_day_agent", "three_day_main.py")
     elif agent_name == "Three-Day Shop Router v2":
         return load_competitor_agent("three_day_optimized_agent", "three_day_optimized.py")
+    elif agent_name == "Thomas 93.8% Router":
+        return load_competitor_agent("thomas_agent", "thomas_router.py")
     elif agent_name == "Kaito v27":
         return load_competitor_agent("v27_agent", "v27_main.py")
     elif agent_name == "Boatlee v14":
@@ -285,6 +287,7 @@ def main():
         "Six-Day Fieldbook v2",
         "Three-Day Shop Router (Original)",
         "Three-Day Shop Router v2",
+        "Thomas 93.8% Router",
         "Kaito v27",
         "Boatlee v14",
         "Bruceqdu High-Score",
