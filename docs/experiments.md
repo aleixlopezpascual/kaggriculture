@@ -20,7 +20,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v10** | N/A | `competitors/notebooks/three_day_optimized.py` | **Three-Day Shop Router v2** (Weed-Slip Recovery, Optimized Splits) | **$111,028** | N/A | **Active (New Peak Python)** |
 | **v11** | N/A | `competitors/six_day_agent_source/agent_main_v2.py` | **Six-Day Fieldbook v2** (C++ Weed-Slip, Optimized Splits) | **$111,884** | N/A | **Active (New Peak C++)** |
 | **v12** | `56079009` | `competitors/notebooks/thomas_router.py` | **Thomas 93.8% Router** (Replay Portfolio, 44k Game Sweeps) | **$162,733** | PENDING | **Active (Peak Elite / Climbing)** |
-| **v13** | N/A | `competitors/notebooks/lynn_router.py` | **Lynn Mathematical Router** (Mathematical Farming-Score, One-Slot Reserve) | **$157,561** | N/A | **Elite Runner-up (Verified #2 Spot)** |
+| **v13** | `56079889` | `competitors/notebooks/lynn_router.py` | **Lynn Mathematical Router** (Mathematical Farming-Score, One-Slot Reserve) | **$157,561** | PENDING | **Active (Peak Elite / Climbing)** |
 | **v14** | N/A | `competitors/notebooks/kaito_v21_router.py` | **Kaito v21.1 Router** (Conditional Memory Router, 30 matches) | **$56,178** | N/A | **Decayed (Inefficient)** |
 
 ---
@@ -142,7 +142,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 ---
 
 ### Version 13: Lynn Mathematical Router
-*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Ref ID:** `56079889`
 *   **Approach:** Downloaded and extracted from `/competitors/notebooks/farming-score-a-mathematical-approach.ipynb`. Integrates long-route tapes with a highly advanced value-aware one-slot inventory capacity reserve. Prefers protecting the shed at day close and dynamically front-loading sales without changing overall quantities.
 *   **Local Performance:** **$157,561** average gold in solo-runs against Random. In our head-to-head elite-bracket tournament matchups, it scored **$80,050** average gold, securing the **#2 Standing in the entire tournament with an outstanding 81.5% win rate (44 wins, 10 losses)!**
 *   **Why it succeeded:** Exceptional competitive defense! Swept both our optimized `Six-Day Fieldbook v2` and original `Six-Day Fieldbook` **3W-0L-0T (100% win rate) head-to-head**! It prevents resource starvations by keeping exact mathematical capacities reserved.
