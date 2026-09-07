@@ -42,7 +42,7 @@ This workspace is optimized for the Kaggle Kaggriculture 720-turn simulation com
 
 ## 🏆 5. Kaggle Submission & Matchmaking Constraints
 
-- **The Active Matchmaking Limit (The Two-Agent Rule):** Only the **latest two submissions** are active in the live simulation pool. All older submissions are retired and freeze their Elo ratings (no new matches are played for them).
+- **The Active Matchmaking Limit (The Two-Agent Rule):** Only the **latest two submissions** are active in the live simulation pool. All older submissions are retired and freeze their Elo ratings. Currently, **Thomas 93.8% Router** (Ref `56079009`) and **Lynn Mathematical Router** (Ref `56079889`) are our active submissions climbing the live ladder side-by-side.
 - **Evaluating Live Submissions:** Any comparison against the active leaderboard must be performed using exclusively the latest two submitted agents. Do not rely on scores of older submissions to evaluate real-time agent strength, as they are no longer playing new matches.
 - **Leaderboard Ghosting (Hide-The-Meta Strategy):** To prevent competitor teams from scraping our match replays and performing Behavior Cloning / Imitation Learning on our elite trajectories, we must **NEVER** leave our absolute strongest agent active on the leaderboard for long periods. Once we upload a shiny new candidate and confirm it is highly competitive on the ladder, we should immediately submit a slightly weaker or older agent (a decoy) to replace it, taking our elite bot down from active evaluation until the final days of the competition.
 
@@ -74,3 +74,12 @@ All submissions must be compiled into a single file under `/submission/submissio
   .venv/bin/python submission/compile_submission.py
   ```
 - **Adding Modules:** To add a new file to the submission stack, register its relative path under the `modules` array inside `/submission/compile_submission.py` in its correct dependency order.
+
+---
+
+## ⚔️ 9. Elite Competitor Portfolios
+
+This repository integrates and benchmarks the highest-Elo competitor portfolios from the Kaggle ladder inside `/competitors/notebooks/`:
+- **`Thomas 93.8% Router` (`thomas_router.py`):** The world-champion baseline. Uses 6-day public-state decision tree portfolios evaluated over 44,096 games. Local Solo Avg Gold: **`$162,733`** (100% win rate in tournament).
+- **`Lynn Mathematical Router` (`lynn_router.py`):** The elite runner-up. Uses long-route tapes with value-aware one-slot inventory capacity reserves. Local Solo Avg Gold: **`$157,561`** (81.5% win rate in tournament).
+- **Evaluating Competitors:** Run the systematically streamlined tournament `src/arena/run_tournament.py` to evaluate your agent's win rate and average margin against these top-tier baselines.

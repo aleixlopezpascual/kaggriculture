@@ -25,3 +25,25 @@ Maintain these game parameters in all modifications:
 - Crop growth stages range from `0` (seed) to `3` (mature/harvestable).
 - Moisture bounds are `0` and `100` inclusive.
 - All coordinate accesses must reside within `(0, 0)` and `(grid_width-1, grid_height-1)` inclusive.
+
+---
+
+## 🏗️ C++ Dynamic Compilation Guardrails
+
+When working on or updating the C++ portfolios inside `/competitors/six_day_agent_source/`:
+- **macOS Compilation:** Always compile the shared library to a `.dylib` using `-O3` optimization:
+  ```bash
+  g++ -O3 -shared -fPIC -std=c++17 policy_v2.cpp submission_bridge.cpp -o agent_v2.dylib
+  ```
+- **Execution Testing:** Verify compiled binary integrity by running the tournament runner `src/arena/run_tournament.py` to confirm that the C++ agent is recognized and loaded dynamically.
+
+---
+
+## ⚔️ Systematic Tournament Evaluation Guidelines
+
+Before declaring any agent modification complete:
+- Run the systematic head-to-head tournament:
+  ```bash
+  .venv/bin/python src/arena/run_tournament.py
+  ```
+- Ensure the newly modified version preserves its competitive win rate against baseline and competitor portfolios (especially elite portfolios like `Thomas 93.8% Router` and `Lynn Mathematical Router`).
