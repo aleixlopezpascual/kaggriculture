@@ -1,0 +1,21 @@
+GEMINI.md
+  s_3bdc713b9dc5a7::t_b452b6d035c2aa 45,77-85
+AGENTS.md
+  s_3bdc713b9dc5a7::t_5734058264d949 28-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "2bc4d69670fa624a96fb5067b07449d94109868d",
+  "prompts": {},
+  "sessions": {
+    "s_3bdc713b9dc5a7": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "099b53b4-1b0f-4a46-a0ea-f04dab7caca8",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
