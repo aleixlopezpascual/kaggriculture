@@ -20,6 +20,8 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v10** | N/A | `competitors/notebooks/three_day_optimized.py` | **Three-Day Shop Router v2** (Weed-Slip Recovery, Optimized Splits) | **$111,028** | N/A | **Active (New Peak Python)** |
 | **v11** | N/A | `competitors/six_day_agent_source/agent_main_v2.py` | **Six-Day Fieldbook v2** (C++ Weed-Slip, Optimized Splits) | **$111,884** | N/A | **Active (New Peak C++)** |
 | **v12** | `56079009` | `competitors/notebooks/thomas_router.py` | **Thomas 93.8% Router** (Replay Portfolio, 44k Game Sweeps) | **$162,733** | PENDING | **Active (Peak Elite / Climbing)** |
+| **v13** | N/A | `competitors/notebooks/lynn_router.py` | **Lynn Mathematical Router** (Mathematical Farming-Score, One-Slot Reserve) | **$157,561** | N/A | **Elite Runner-up (Verified #2 Spot)** |
+| **v14** | N/A | `competitors/notebooks/kaito_v21_router.py` | **Kaito v21.1 Router** (Conditional Memory Router, 30 matches) | **$56,178** | N/A | **Decayed (Inefficient)** |
 
 ---
 
@@ -136,3 +138,19 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Approach:** Downloaded and extracted from `/competitors/notebooks/kaggriculture-93-8-win-rate-public-state-router.ipynb`. Implements a highly sophisticated 6-day public-state decision tree portfolio fitted over **44,096 total game simulations**!
 *   **Local Performance:** **$162,733** average gold in solo-runs against Random (our highest ever recorded!). In our head-to-head elite-bracket tournament matchups, it scored **$113,095** average gold, achieving absolute **#1 Standings with a perfect 100.0% win rate (42 wins, 0 losses) and 0 losses!**
 *   **Why it succeeded:** Extremely deep parametric decision trees coupled with a comprehensive, robustly simulated, and weed-slip protected opening route portfolio that completely preempts market prices and sweeps the entire elite competitor pool.
+
+---
+
+### Version 13: Lynn Mathematical Router
+*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Approach:** Downloaded and extracted from `/competitors/notebooks/farming-score-a-mathematical-approach.ipynb`. Integrates long-route tapes with a highly advanced value-aware one-slot inventory capacity reserve. Prefers protecting the shed at day close and dynamically front-loading sales without changing overall quantities.
+*   **Local Performance:** **$157,561** average gold in solo-runs against Random. In our head-to-head elite-bracket tournament matchups, it scored **$80,050** average gold, securing the **#2 Standing in the entire tournament with an outstanding 81.5% win rate (44 wins, 10 losses)!**
+*   **Why it succeeded:** Exceptional competitive defense! Swept both our optimized `Six-Day Fieldbook v2` and original `Six-Day Fieldbook` **3W-0L-0T (100% win rate) head-to-head**! It prevents resource starvations by keeping exact mathematical capacities reserved.
+
+---
+
+### Version 14: Kaito v21.1 Router
+*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Approach:** Downloaded and extracted from `/competitors/notebooks/177-180-fresh-top-30-v21-1-conditional-memory.ipynb`. Integrates 30 public route memories using nearest public-farm matches at current steps.
+*   **Local Performance:** **$56,178** average gold in our head-to-head tournament matches. Ended near the bottom of the standings with an **11.1% win rate (6 wins, 48 losses)**.
+*   **Why it failed:** Severe route decay! Its embedded opening public-state trajectories have completely decayed and lost their edge as the global elite bracket meta moved.
