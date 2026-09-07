@@ -227,6 +227,8 @@ def get_agent_callable(agent_name: str):
         return load_competitor_agent("v14_agent", "v14_main.py")
     elif agent_name == "Bruceqdu High-Score":
         return load_competitor_agent("bruceqdu_agent", "bruceqdu_main.py")
+    elif agent_name == "random":
+        return "random"
     else:
         raise ValueError(f"Unknown agent name: {agent_name}")
 

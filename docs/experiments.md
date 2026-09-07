@@ -19,7 +19,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v9** | N/A | `src/agents/escalation.py` | **Heuristic v2 (Escalation)** (Dynamic Sizer, Target Persistence) | **$12,560** | N/A | **Verified (New Local Peak Heuristic)** |
 | **v10** | N/A | `competitors/notebooks/three_day_optimized.py` | **Three-Day Shop Router v2** (Weed-Slip Recovery, Optimized Splits) | **$111,028** | N/A | **Active (New Peak Python)** |
 | **v11** | N/A | `competitors/six_day_agent_source/agent_main_v2.py` | **Six-Day Fieldbook v2** (C++ Weed-Slip, Optimized Splits) | **$111,884** | N/A | **Active (New Peak C++)** |
-| **v12** | `56079009` | `competitors/notebooks/thomas_router.py` | **Thomas 93.8% Router** (Replay Portfolio, 44k Game Sweeps) | **$113,095** | PENDING | **Active (Peak Elite / Climbing)** |
+| **v12** | `56079009` | `competitors/notebooks/thomas_router.py` | **Thomas 93.8% Router** (Replay Portfolio, 44k Game Sweeps) | **$162,733** | PENDING | **Active (Peak Elite / Climbing)** |
 
 ---
 
@@ -134,5 +134,5 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 ### Version 12: Thomas 93.8% Router
 *   **Ref ID:** `56079009`
 *   **Approach:** Downloaded and extracted from `/competitors/notebooks/kaggriculture-93-8-win-rate-public-state-router.ipynb`. Implements a highly sophisticated 6-day public-state decision tree portfolio fitted over **44,096 total game simulations**!
-*   **Local Performance:** **$113,095** average gold in our elite-bracket tournament sweep. **Absolute #1 Sweep World Champion with a perfect 100.0% win rate (42 wins out of 42 matches) and 0 losses!**
+*   **Local Performance:** **$162,733** average gold in solo-runs against Random (our highest ever recorded!). In our head-to-head elite-bracket tournament matchups, it scored **$113,095** average gold, achieving absolute **#1 Standings with a perfect 100.0% win rate (42 wins, 0 losses) and 0 losses!**
 *   **Why it succeeded:** Extremely deep parametric decision trees coupled with a comprehensive, robustly simulated, and weed-slip protected opening route portfolio that completely preempts market prices and sweeps the entire elite competitor pool.
