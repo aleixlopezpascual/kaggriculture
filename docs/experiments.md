@@ -19,11 +19,11 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v9** | N/A | `src/agents/escalation.py` | **Heuristic v2 (Escalation)** (Dynamic Sizer, Target Persistence) | **$12,560** | N/A | **Verified (New Local Peak Heuristic)** |
 | **v10** | N/A | `competitors/notebooks/three_day_optimized.py` | **Three-Day Shop Router v2** (Weed-Slip Recovery, Optimized Splits) | **$111,028** | N/A | **Active (New Peak Python)** |
 | **v11** | N/A | `competitors/six_day_agent_source/agent_main_v2.py` | **Six-Day Fieldbook v2** (C++ Weed-Slip, Optimized Splits) | **$111,884** | N/A | **Active (New Peak C++)** |
-| **v12** | `56079009` | `competitors/notebooks/thomas_router.py` | **Thomas 93.8% Router** (Replay Portfolio, 44k Game Sweeps) | **$162,733** | **1791.4** | **Active (Peak Elite / Climbing)** |
-| **v13** | `56079889` | `competitors/notebooks/lynn_router.py` | **Lynn Mathematical Router** (Mathematical Farming-Score, One-Slot Reserve) | **$157,561** | **1696.2** | **Active (Peak Elite / Climbing)** |
+| **v12** | `56079009` | `competitors/notebooks/thomas_router.py` | **Thomas 93.8% Router** (Replay Portfolio, 44k Game Sweeps) | **$162,733** | **1791.4** | Complete (Retired) |
+| **v13** | `56079889` | `competitors/notebooks/lynn_router.py` | **Lynn Mathematical Router** (Mathematical Farming-Score, One-Slot Reserve) | **$157,561** | **1696.2** | Complete (Retired) |
 | **v14** | N/A | `competitors/notebooks/kaito_v21_router.py` | **Kaito v21.1 Router** (Conditional Memory Router, 30 matches) | **$56,178** | N/A | **Decayed (Inefficient)** |
-| **v15** | N/A | `competitors/notebooks/fusion_router.py` | **EXP-173 Super-Fusion Router** (Fuses Thomas + Yusuke + Dmitrii + Aurax7) | **$172,897** | N/A | **Titan Runner-up (93.9% Win Rate)** |
-| **v16** | N/A | `competitors/notebooks/tetsu_smart_router/main.py` | **Tetsu Market-Smart Router** (4-Action Sale Reservation Router) | **$166,996** | N/A | **Supreme Champion (97.0% Win Rate)** |
+| **v15** | `56194677` | `competitors/notebooks/fusion_router.py` | **EXP-173 Super-Fusion Router** (Fuses Thomas + Yusuke + Dmitrii + Aurax7) | **$172,897** | PENDING | **Active (Peak Elite / Climbing)** |
+| **v16** | `56194679` | `competitors/notebooks/tetsu_smart_router/main.py` | **Tetsu Market-Smart Router** (4-Action Sale Reservation Router) | **$166,996** | PENDING | **Active (Peak Elite / Climbing)** |
 
 ---
 
@@ -162,15 +162,17 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 ---
 
 ### Version 15: EXP-173 Super-Fusion Router
-*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Ref ID:** `56194677`
 *   **Approach:** Downloaded and extracted from `/competitors/notebooks/kaggriculture-most-powerfull-route.ipynb`. Fuses Thomas's public-state decision trees, Yusuke's shop-router-0909 action tapes, Dmitrii's physical terminal rescue, and Aurax7's day-end storage guard.
 *   **Local Performance:** **$172,897** average gold in solo-runs against Random (our new absolute repository record!). In our head-to-head tournament matchups, it scored **$85,338** average gold, claiming the **#2 Spot with a magnificent 93.9% win rate (62 wins, 4 losses)!**
+*   **Live Performance:** **`PENDING`** Elo (Active - Peak Climbing).
 *   **Why it succeeded:** Incredible synergy! By combining all public meta advances into a single agent, it completely dominated other individual public agents head-to-head.
 
 ---
 
 ### Version 16: Tetsu Market-Smart Router
-*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Ref ID:** `56194679`
 *   **Approach:** Reconstructed and unpacked from `/competitors/notebooks/market-smart-farming-kaggriculture.ipynb`. Implements a highly robust 4-action sale reservation system that precisely guards market drop timings.
 *   **Local Performance:** **$166,996** average gold in solo-runs against Random. In our head-to-head tournament matchups, it scored **$85,263** average gold, claiming the **#1 Absolute Standings Position with an unmatched 97.0% win rate (64 wins, 2 losses)!**
+*   **Live Performance:** **`PENDING`** Elo (Active - Peak Climbing).
 *   **Why it succeeded:** Perfect economic defense! It completely prevents market pricing collapses and swept Thomas's Router **3W-0L-0T (100%) head-to-head**!
