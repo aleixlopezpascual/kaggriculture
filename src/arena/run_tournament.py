@@ -195,6 +195,12 @@ import importlib.util
 def load_competitor_agent(name: str, filename: str):
     """Loads a compiled or extracted competitor agent from our notebooks directory."""
     path = PROJECT_ROOT / "competitors" / "notebooks" / filename
+    
+    # Temporarily append the module's parent directory to sys.path to resolve local imports (e.g. multi-file agents)
+    module_dir = str(path.parent)
+    if module_dir not in sys.path:
+        sys.path.insert(0, module_dir)
+        
     spec = importlib.util.spec_from_file_location(name, str(path))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -223,6 +229,10 @@ def get_agent_callable(agent_name: str):
         return load_competitor_agent("thomas_agent", "thomas_router.py")
     elif agent_name == "Lynn Mathematical Router":
         return load_competitor_agent("lynn_agent", "lynn_router.py")
+    elif agent_name == "EXP-173 Super-Fusion Router":
+        return load_competitor_agent("fusion_agent", "fusion_router.py")
+    elif agent_name == "Tetsu Market-Smart Router":
+        return load_competitor_agent("tetsu_agent", "tetsu_smart_router/main.py")
     elif agent_name == "Kaito v21.1 Router":
         return load_competitor_agent("kaito_v21_agent", "kaito_v21_router.py")
     elif agent_name == "Kaito v27":
@@ -295,6 +305,8 @@ def main():
         "Three-Day Shop Router v2",
         "Thomas 93.8% Router",
         "Lynn Mathematical Router",
+        "EXP-173 Super-Fusion Router",
+        "Tetsu Market-Smart Router",
         "Kaito v21.1 Router",
         "Kaito v27",
         "Boatlee v14",

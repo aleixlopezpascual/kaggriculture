@@ -22,6 +22,8 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v12** | `56079009` | `competitors/notebooks/thomas_router.py` | **Thomas 93.8% Router** (Replay Portfolio, 44k Game Sweeps) | **$162,733** | **1791.4** | **Active (Peak Elite / Climbing)** |
 | **v13** | `56079889` | `competitors/notebooks/lynn_router.py` | **Lynn Mathematical Router** (Mathematical Farming-Score, One-Slot Reserve) | **$157,561** | **1696.2** | **Active (Peak Elite / Climbing)** |
 | **v14** | N/A | `competitors/notebooks/kaito_v21_router.py` | **Kaito v21.1 Router** (Conditional Memory Router, 30 matches) | **$56,178** | N/A | **Decayed (Inefficient)** |
+| **v15** | N/A | `competitors/notebooks/fusion_router.py` | **EXP-173 Super-Fusion Router** (Fuses Thomas + Yusuke + Dmitrii + Aurax7) | **$172,897** | N/A | **Titan Runner-up (93.9% Win Rate)** |
+| **v16** | N/A | `competitors/notebooks/tetsu_smart_router/main.py` | **Tetsu Market-Smart Router** (4-Action Sale Reservation Router) | **$166,996** | N/A | **Supreme Champion (97.0% Win Rate)** |
 
 ---
 
@@ -156,3 +158,19 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Approach:** Downloaded and extracted from `/competitors/notebooks/177-180-fresh-top-30-v21-1-conditional-memory.ipynb`. Integrates 30 public route memories using nearest public-farm matches at current steps.
 *   **Local Performance:** **$56,178** average gold in our head-to-head tournament matches. Ended near the bottom of the standings with an **11.1% win rate (6 wins, 48 losses)**.
 *   **Why it failed:** Severe route decay! Its embedded opening public-state trajectories have completely decayed and lost their edge as the global elite bracket meta moved.
+
+---
+
+### Version 15: EXP-173 Super-Fusion Router
+*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Approach:** Downloaded and extracted from `/competitors/notebooks/kaggriculture-most-powerfull-route.ipynb`. Fuses Thomas's public-state decision trees, Yusuke's shop-router-0909 action tapes, Dmitrii's physical terminal rescue, and Aurax7's day-end storage guard.
+*   **Local Performance:** **$172,897** average gold in solo-runs against Random (our new absolute repository record!). In our head-to-head tournament matchups, it scored **$85,338** average gold, claiming the **#2 Spot with a magnificent 93.9% win rate (62 wins, 4 losses)!**
+*   **Why it succeeded:** Incredible synergy! By combining all public meta advances into a single agent, it completely dominated other individual public agents head-to-head.
+
+---
+
+### Version 16: Tetsu Market-Smart Router
+*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Approach:** Reconstructed and unpacked from `/competitors/notebooks/market-smart-farming-kaggriculture.ipynb`. Implements a highly robust 4-action sale reservation system that precisely guards market drop timings.
+*   **Local Performance:** **$166,996** average gold in solo-runs against Random. In our head-to-head tournament matchups, it scored **$85,263** average gold, claiming the **#1 Absolute Standings Position with an unmatched 97.0% win rate (64 wins, 2 losses)!**
+*   **Why it succeeded:** Perfect economic defense! It completely prevents market pricing collapses and swept Thomas's Router **3W-0L-0T (100%) head-to-head**!
