@@ -1,0 +1,26 @@
+docs/experiments.md
+  s_3bdc713b9dc5a7::t_580b83fa260683 169,178,180-188
+  s_3bdc713b9dc5a7::t_1991691c32cb34 25-27
+GEMINI.md
+  s_3bdc713b9dc5a7::t_70c10ca726801f 83-84
+  s_3bdc713b9dc5a7::t_31d9983c097f45 45
+src/arena/run_tournament.py
+  s_3bdc713b9dc5a7::t_24394c2a09ec02 234-235
+  s_3bdc713b9dc5a7::t_5bdf80df615c62 311
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "a71de6f70a8a9bbdbd11061f0af9b438658481a8",
+  "prompts": {},
+  "sessions": {
+    "s_3bdc713b9dc5a7": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "099b53b4-1b0f-4a46-a0ea-f04dab7caca8",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
