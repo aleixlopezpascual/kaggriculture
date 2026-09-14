@@ -42,7 +42,7 @@ This workspace is optimized for the Kaggle Kaggriculture 720-turn simulation com
 
 ## 🏆 5. Kaggle Submission & Matchmaking Constraints
 
-- **The Active Matchmaking Limit (The Two-Agent Rule):** Only the **latest two submissions** are active in the live simulation pool. All older submissions are retired and freeze their Elo ratings. Currently, **EXP-173 Super-Fusion Router** (Ref `56194677`) and **Tetsu Market-Smart Router** (Ref `56194679`) are our active submissions climbing the live ladder side-by-side.
+- **The Active Matchmaking Limit (The Two-Agent Rule):** Only the **latest two submissions** are active in the live simulation pool. All older submissions are retired and freeze their Elo ratings. Currently, **EXP-173 v36 Fusion Router** (Ref `56229360`) and **Tetsu Market-Smart Router** (Ref `56194679`) are our active submissions climbing the live ladder side-by-side.
 - **Evaluating Live Submissions:** Any comparison against the active leaderboard must be performed using exclusively the latest two submitted agents. Do not rely on scores of older submissions to evaluate real-time agent strength, as they are no longer playing new matches.
 - **Leaderboard Ghosting (Hide-The-Meta Strategy):** To prevent competitor teams from scraping our match replays and performing Behavior Cloning / Imitation Learning on our elite trajectories, we must **NEVER** leave our absolute strongest agent active on the leaderboard for long periods. Once we upload a shiny new candidate and confirm it is highly competitive on the ladder, we should immediately submit a slightly weaker or older agent (a decoy) to replace it, taking our elite bot down from active evaluation until the final days of the competition.
 
@@ -80,6 +80,6 @@ All submissions must be compiled into a single file under `/submission/submissio
 ## ⚔️ 9. Elite Competitor Portfolios
 
 This repository integrates and benchmarks the highest-Elo competitor portfolios from the Kaggle ladder inside `/competitors/notebooks/`:
-- **`Tetsu Market-Smart Router` (`tetsu_smart_router/main.py`):** The world-champion router. Uses 4-action sale reservations to prevent market pricing collapses. Local Solo Avg Gold: **`$166,996`** (97.0% win rate in tournament).
-- **`EXP-173 Super-Fusion Router` (`fusion_router.py`):** The ultimate meta-collaboration agent. Fuses Thomas + Yusuke + Dmitrii + Aurax7. Local Solo Avg Gold: **`$172,897`** (93.9% win rate in tournament).
+- **`EXP-173 v36 Fusion Router` (`v36_fusion_router.py`):** The world-champion router. Fuses Thomas + Yusuke + Dmitrii + Aurax7 with optimized v36 guarded sale timings. Local Solo Avg Gold: **`$172,897`** (100.0% win rate in tournament).
+- **`Tetsu Market-Smart Router` (`tetsu_smart_router/main.py`):** The elite runner-up. Uses 4-action sale reservations to prevent market pricing collapses. Local Solo Avg Gold: **`$166,996`** (88.9% win rate in tournament).
 - **Evaluating Competitors:** Run the systematically streamlined tournament `src/arena/run_tournament.py` to evaluate your agent's win rate and average margin against these top-tier baselines.

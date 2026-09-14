@@ -231,6 +231,8 @@ def get_agent_callable(agent_name: str):
         return load_competitor_agent("lynn_agent", "lynn_router.py")
     elif agent_name == "EXP-173 Super-Fusion Router":
         return load_competitor_agent("fusion_agent", "fusion_router.py")
+    elif agent_name == "EXP-173 v36 Fusion Router":
+        return load_competitor_agent("v36_fusion_agent", "v36_fusion_router.py")
     elif agent_name == "Tetsu Market-Smart Router":
         return load_competitor_agent("tetsu_agent", "tetsu_smart_router/main.py")
     elif agent_name == "Kaito v21.1 Router":
@@ -306,6 +308,7 @@ def main():
         "Thomas 93.8% Router",
         "Lynn Mathematical Router",
         "EXP-173 Super-Fusion Router",
+        "EXP-173 v36 Fusion Router",
         "Tetsu Market-Smart Router",
         "Kaito v21.1 Router",
         "Kaito v27",

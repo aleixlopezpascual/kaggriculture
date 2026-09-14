@@ -22,8 +22,9 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v12** | `56079009` | `competitors/notebooks/thomas_router.py` | **Thomas 93.8% Router** (Replay Portfolio, 44k Game Sweeps) | **$162,733** | **1791.4** | Complete (Retired) |
 | **v13** | `56079889` | `competitors/notebooks/lynn_router.py` | **Lynn Mathematical Router** (Mathematical Farming-Score, One-Slot Reserve) | **$157,561** | **1696.2** | Complete (Retired) |
 | **v14** | N/A | `competitors/notebooks/kaito_v21_router.py` | **Kaito v21.1 Router** (Conditional Memory Router, 30 matches) | **$56,178** | N/A | **Decayed (Inefficient)** |
-| **v15** | `56194677` | `competitors/notebooks/fusion_router.py` | **EXP-173 Super-Fusion Router** (Fuses Thomas + Yusuke + Dmitrii + Aurax7) | **$172,897** | **2279.3** | **Active (Peak Elite / Climbing)** |
-| **v16** | `56194679` | `competitors/notebooks/tetsu_smart_router/main.py` | **Tetsu Market-Smart Router** (4-Action Sale Reservation Router) | **$166,996** | **2167.4** | **Active (Peak Elite / Climbing)** |
+| **v15** | `56194677` | `competitors/notebooks/fusion_router.py` | **EXP-173 Super-Fusion Router** (Fuses Thomas + Yusuke + Dmitrii + Aurax7) | **$172,897** | **2166.4** | Complete (Retired) |
+| **v16** | `56194679` | `competitors/notebooks/tetsu_smart_router/main.py` | **Tetsu Market-Smart Router** (4-Action Sale Reservation Router) | **$166,996** | **2162.4** | **Active (Peak Elite / Climbing)** |
+| **v17** | `56229360` | `competitors/notebooks/v36_fusion_router.py` | **EXP-173 v36 Fusion Router** (Guarded Four-Turn Sales Router) | **$172,897** | PENDING | **Active (Peak Elite / Climbing)** |
 
 ---
 
@@ -165,7 +166,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Ref ID:** `56194677`
 *   **Approach:** Downloaded and extracted from `/competitors/notebooks/kaggriculture-most-powerfull-route.ipynb`. Fuses Thomas's public-state decision trees, Yusuke's shop-router-0909 action tapes, Dmitrii's physical terminal rescue, and Aurax7's day-end storage guard.
 *   **Local Performance:** **$172,897** average gold in solo-runs against Random (our new absolute repository record!). In our head-to-head tournament matchups, it scored **$85,338** average gold, claiming the **#2 Spot with a magnificent 93.9% win rate (62 wins, 4 losses)!**
-*   **Live Performance:** **`2279.3`** Elo (Active - Peak Climbing).
+*   **Live Performance:** **`2166.4`** Elo (Retired).
 *   **Why it succeeded:** Incredible synergy! By combining all public meta advances into a single agent, it completely dominated other individual public agents head-to-head.
 
 ---
@@ -174,5 +175,14 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Ref ID:** `56194679`
 *   **Approach:** Reconstructed and unpacked from `/competitors/notebooks/market-smart-farming-kaggriculture.ipynb`. Implements a highly robust 4-action sale reservation system that precisely guards market drop timings.
 *   **Local Performance:** **$166,996** average gold in solo-runs against Random. In our head-to-head tournament matchups, it scored **$85,263** average gold, claiming the **#1 Absolute Standings Position with an unmatched 97.0% win rate (64 wins, 2 losses)!**
-*   **Live Performance:** **`2167.4`** Elo (Active - Peak Climbing).
+*   **Live Performance:** **`2162.4`** Elo (Active - Peak Climbing).
 *   **Why it succeeded:** Perfect economic defense! It completely prevents market pricing collapses and swept Thomas's Router **3W-0L-0T (100%) head-to-head**!
+
+---
+
+### Version 17: EXP-173 v36 Fusion Router
+*   **Ref ID:** `56229360`
+*   **Approach:** Downloaded and extracted from `/competitors/notebooks/kaggriculture-v36-guarded-four-turn-sales.ipynb`. Integrates Ahmed's brand-new, optimized v36 Guarded Four-Turn Sales sequence.
+*   **Local Performance:** **$172,897** average gold in solo-runs against Random. In our head-to-head elite-bracket tournament matchups, it scored **$84,588** average gold, achieving the **uncontested #1 standing with a perfect 100.0% win rate (72 wins, 0 losses) and 0 losses!**
+*   **Live Performance:** **`PENDING`** Elo (Active - Peak Climbing).
+*   **Why it succeeded:** Strictly superior guarded sale timings. Completely swept Tetsu's Market-Smart Router **3W-0L-0T (100% win rate) head-to-head**!
