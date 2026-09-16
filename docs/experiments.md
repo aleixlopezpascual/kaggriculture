@@ -23,8 +23,10 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v13** | `56079889` | `competitors/notebooks/lynn_router.py` | **Lynn Mathematical Router** (Mathematical Farming-Score, One-Slot Reserve) | **$157,561** | **1696.2** | Complete (Retired) |
 | **v14** | N/A | `competitors/notebooks/kaito_v21_router.py` | **Kaito v21.1 Router** (Conditional Memory Router, 30 matches) | **$56,178** | N/A | **Decayed (Inefficient)** |
 | **v15** | `56194677` | `competitors/notebooks/fusion_router.py` | **EXP-173 Super-Fusion Router** (Fuses Thomas + Yusuke + Dmitrii + Aurax7) | **$172,897** | **2166.4** | Complete (Retired) |
-| **v16** | `56194679` | `competitors/notebooks/tetsu_smart_router/main.py` | **Tetsu Market-Smart Router** (4-Action Sale Reservation Router) | **$166,996** | **2162.4** | **Active (Peak Elite / Climbing)** |
-| **v17** | `56229360` | `competitors/notebooks/v36_fusion_router.py` | **EXP-173 v36 Fusion Router** (Guarded Four-Turn Sales Router) | **$172,897** | PENDING | **Active (Peak Elite / Climbing)** |
+| **v16** | `56194679` | `competitors/notebooks/tetsu_smart_router/main.py` | **Tetsu Market-Smart Router** (4-Action Sale Reservation Router) | **$166,996** | **1885.2** | Complete (Retired) |
+| **v17** | `56229360` | `competitors/notebooks/v36_fusion_router.py` | **EXP-173 v36 Fusion Router** (Guarded Four-Turn Sales Router) | **$172,897** | **1969.3** | Complete (Retired) |
+| **v18** | `56276799` | `competitors/notebooks/v45_fusion_router.py` | **EXP-173 v45 Fusion Router** (First-Turn Wheat Round Trip) | **$172,897** | PENDING | **Active (Peak Elite / Climbing)** |
+| **v19** | `56276801` | `competitors/notebooks/reyhan_dynamic_router.py` | **Reyhan Dynamic Route Agent** (Dynamic 6-Day Decision Forest) | **$172,897** | PENDING | **Active (Peak Elite / Climbing)** |
 
 ---
 
@@ -175,7 +177,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Ref ID:** `56194679`
 *   **Approach:** Reconstructed and unpacked from `/competitors/notebooks/market-smart-farming-kaggriculture.ipynb`. Implements a highly robust 4-action sale reservation system that precisely guards market drop timings.
 *   **Local Performance:** **$166,996** average gold in solo-runs against Random. In our head-to-head tournament matchups, it scored **$85,263** average gold, claiming the **#1 Absolute Standings Position with an unmatched 97.0% win rate (64 wins, 2 losses)!**
-*   **Live Performance:** **`2162.4`** Elo (Active - Peak Climbing).
+*   **Live Performance:** **`2162.4`** Elo (Retired).
 *   **Why it succeeded:** Perfect economic defense! It completely prevents market pricing collapses and swept Thomas's Router **3W-0L-0T (100%) head-to-head**!
 
 ---
@@ -184,5 +186,23 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Ref ID:** `56229360`
 *   **Approach:** Downloaded and extracted from `/competitors/notebooks/kaggriculture-v36-guarded-four-turn-sales.ipynb`. Integrates Ahmed's brand-new, optimized v36 Guarded Four-Turn Sales sequence.
 *   **Local Performance:** **$172,897** average gold in solo-runs against Random. In our head-to-head elite-bracket tournament matchups, it scored **$84,588** average gold, achieving the **uncontested #1 standing with a perfect 100.0% win rate (72 wins, 0 losses) and 0 losses!**
-*   **Live Performance:** **`PENDING`** Elo (Active - Peak Climbing).
+*   **Live Performance:** **`1969.3`** Elo (Retired).
 *   **Why it succeeded:** Strictly superior guarded sale timings. Completely swept Tetsu's Market-Smart Router **3W-0L-0T (100% win rate) head-to-head**!
+
+---
+
+### Version 18: EXP-173 v45 Fusion Router
+*   **Ref ID:** `56276799`
+*   **Approach:** Downloaded and extracted from `/competitors/notebooks/kaggriculture-v45-first-turn-wheat-round-trip.ipynb`. Fuses atomic openings (Rayk opening assignment) with earlier reservation activation adapted from aurax7 Reactive V5.
+*   **Local Performance:** **$172,897** average gold in solo-runs against Random. In our head-to-head elite-bracket tournament matchups, it scored **$87,344** average gold, achieving **Joint #1 Undefeated Standings with an 87.5% win rate (42 wins, 0 losses, 6 ties) and 0 losses!**
+*   **Live Performance:** **`PENDING`** Elo (Active - Peak Climbing).
+*   **Why it succeeded:** Phenomenal opening-move trade optimization. Completely swept the previous v36 fusion router **3W-0L-0T (100%) head-to-head**!
+
+---
+
+### Version 19: Reyhan Dynamic Route Agent
+*   **Ref ID:** `56276801`
+*   **Approach:** Downloaded and extracted from `/competitors/notebooks/kaggriculture-dynamic-route-agent.ipynb`. Implements a slightly shifted, highly robust 6-day public-state decision forest.
+*   **Local Performance:** **$172,897** average gold in solo-runs against Random. In our head-to-head elite-bracket tournament matchups, it scored **$87,344** average gold, achieving **Joint #1 Undefeated Standings with an 87.5% win rate (42 wins, 0 losses, 6 ties) and 0 losses!**
+*   **Live Performance:** **`PENDING`** Elo (Active - Peak Climbing).
+*   **Why it succeeded:** Highly synergistic other-branch decision structures. Identical undefeated performance, completely tying with the v45 agent (0W-0L-3T head-to-head self-play ties).

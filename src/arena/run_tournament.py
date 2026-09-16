@@ -233,6 +233,12 @@ def get_agent_callable(agent_name: str):
         return load_competitor_agent("fusion_agent", "fusion_router.py")
     elif agent_name == "EXP-173 v36 Fusion Router":
         return load_competitor_agent("v36_fusion_agent", "v36_fusion_router.py")
+    elif agent_name == "EXP-173 v45 Fusion Router":
+        return load_competitor_agent("v45_fusion_agent", "v45_fusion_router.py")
+    elif agent_name == "Guru Master Engine V3":
+        return load_competitor_agent("guru_v3_agent", "guru_v3_router.py")
+    elif agent_name == "Reyhan Dynamic Route Agent":
+        return load_competitor_agent("reyhan_agent", "reyhan_dynamic_router.py")
     elif agent_name == "Tetsu Market-Smart Router":
         return load_competitor_agent("tetsu_agent", "tetsu_smart_router/main.py")
     elif agent_name == "Kaito v21.1 Router":
@@ -301,19 +307,15 @@ def main():
 
     # 1. Define participants and seeds
     agents = [
-        "Six-Day Fieldbook",
         "Six-Day Fieldbook v2",
-        "Three-Day Shop Router (Original)",
-        "Three-Day Shop Router v2",
         "Thomas 93.8% Router",
         "Lynn Mathematical Router",
         "EXP-173 Super-Fusion Router",
         "EXP-173 v36 Fusion Router",
+        "EXP-173 v45 Fusion Router",
+        "Guru Master Engine V3",
+        "Reyhan Dynamic Route Agent",
         "Tetsu Market-Smart Router",
-        "Kaito v21.1 Router",
-        "Kaito v27",
-        "Boatlee v14",
-        "Bruceqdu High-Score",
     ]
     seeds = [42, 100, 2026]
 
