@@ -128,6 +128,11 @@ def translate_farm_actions(farm_actions):
             qty = args[1] if len(args) > 1 else 1
             crop_upper = ITEM_NAME_MAP.get(crop, str(crop).upper())
             translated.append(["BUY_SEED", crop_upper, int(qty)])
+        elif act_type == "BUY_PRODUCT":
+            product = args[0]
+            qty = args[1] if len(args) > 1 else 1
+            product_upper = ITEM_NAME_MAP.get(product, str(product).upper())
+            translated.append(["BUY_PRODUCT", product_upper, int(qty)])
         elif act_type == "SELL":
             item = args[0]
             qty = args[1] if len(args) > 1 else 1
@@ -319,8 +324,9 @@ def main():
         "Reyhan Dynamic Route Agent",
         "Jaxa 2802 Elo Router",
         "Tetsu Market-Smart Router",
+        "Heuristic v2 (Escalation)",
     ]
-    seeds = [42, 100, 2026]
+    seeds = [42]
 
     print(f"Participants: {', '.join(agents)}")
     print(f"Seeds:        {seeds}")

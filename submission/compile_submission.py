@@ -66,7 +66,7 @@ def compile_submission():
     # Add the submission execution entrypoint
     entrypoint = [
         "# === AGENT ENTRYPOINT ===",
-        "agent = MCTSAgent()",
+        "agent = EscalationAgent()",
         "",
         "def agent_entrypoint(obs_json: dict) -> dict:",
         "    # 1. Parse raw observation",

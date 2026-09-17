@@ -15,9 +15,9 @@ competitors/six_day_agent_source/agent.so
 
 # Virtual Environments
 .venv/
-venv/
-env/
-ENV/
+/venv/
+/env/
+/ENV/
 
 # IDEs and Editors
 .vscode/
