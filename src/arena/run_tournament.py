@@ -239,6 +239,8 @@ def get_agent_callable(agent_name: str):
         return load_competitor_agent("guru_v3_agent", "guru_v3_router.py")
     elif agent_name == "Reyhan Dynamic Route Agent":
         return load_competitor_agent("reyhan_agent", "reyhan_dynamic_router.py")
+    elif agent_name == "Jaxa 2802 Elo Router":
+        return load_competitor_agent("jaxa_agent", "jaxa_2802_router/main.py")
     elif agent_name == "Tetsu Market-Smart Router":
         return load_competitor_agent("tetsu_agent", "tetsu_smart_router/main.py")
     elif agent_name == "Kaito v21.1 Router":
@@ -315,6 +317,7 @@ def main():
         "EXP-173 v45 Fusion Router",
         "Guru Master Engine V3",
         "Reyhan Dynamic Route Agent",
+        "Jaxa 2802 Elo Router",
         "Tetsu Market-Smart Router",
     ]
     seeds = [42, 100, 2026]
