@@ -1,0 +1,19 @@
+.superset/setup.sh
+  s_b8f855a5ae3c72::t_06d809ac0ddd67 5-8,11,14-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "5c8a6409a236ac859b0496276407dc9498883fef",
+  "prompts": {},
+  "sessions": {
+    "s_b8f855a5ae3c72": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "25ee4075-8d20-448a-bded-6a6bce770540",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Aleix López <aleix.lopez@glovoapp.com>"
+    }
+  }
+}
