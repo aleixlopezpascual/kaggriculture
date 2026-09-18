@@ -1,0 +1,28 @@
+src/arena/run_tournament.py
+  s_c608962170f445::t_0177fc30299642 249-250
+src/arena/eval_v48.py
+  s_c608962170f445::t_6c8a61e1a344f0 1-16
+src/arena/eval_v48_vs_v45.py
+  s_c608962170f445::t_d96f96b48bd4ff 1-14
+docs/experiments.md
+  s_c608962170f445::t_8b0fda15ed2a24 220-228
+  s_c608962170f445::t_208aca7b747a44 29-31
+docs/research_update_2026_09_18.md
+  s_c608962170f445::t_540d96979f285b 1-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "d33ea27643069bd0a6e89a38e60c2532c92c6a8f",
+  "prompts": {},
+  "sessions": {
+    "s_c608962170f445": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "4860c32e-476b-42d8-9542-56516af2c856",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleix.lopez@glovoapp.com>"
+    }
+  }
+}
