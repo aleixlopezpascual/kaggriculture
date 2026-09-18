@@ -26,8 +26,9 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v16** | `56194679` | `competitors/notebooks/tetsu_smart_router/main.py` | **Tetsu Market-Smart Router** (4-Action Sale Reservation Router) | **$166,996** | **1885.2** | Complete (Retired) |
 | **v17** | `56229360` | `competitors/notebooks/v36_fusion_router.py` | **EXP-173 v36 Fusion Router** (Guarded Four-Turn Sales Router) | **$172,897** | **1969.3** | Complete (Retired) |
 | **v18** | `56276799` | `competitors/notebooks/v45_fusion_router.py` | **EXP-173 v45 Fusion Router** (First-Turn Wheat Round Trip) | **$172,897** | **1942.8** | Complete (Retired) |
-| **v19** | `56276801` | `competitors/notebooks/reyhan_dynamic_router.py` | **Reyhan Dynamic Route Agent** (Dynamic 6-Day Decision Forest) | **$172,897** | **2502.1** | **Active (Peak Elite / Climbing)** |
-| **v20** | `56301961` | `competitors/notebooks/jaxa_2802_router/main.py` | **Jaxa 2802 Elo Router** (128/128 Worlds Multi-World Router) | **$161,858** | PENDING | **Active (Peak Elite / Climbing)** |
+| **v19** | `56276801` | `competitors/notebooks/reyhan_dynamic_router.py` | **Reyhan Dynamic Route Agent** (Dynamic 6-Day Decision Forest) | $172,897 | **2502.1** | **Active (Peak Elite / Climbing)** |
+| **v20** | `56301961` | `competitors/notebooks/jaxa_2802_router/main.py` | **Jaxa 2802 Elo Router** (128/128 Worlds Multi-World Router) | $161,858 | PENDING | **Active (Peak Elite / Climbing)** |
+| **v21** | N/A | `competitors/notebooks/v48_main.py` | **Jaxa V48 Clear-Queue** (2-Turn Advance, Horizon 24) | $76,436 | N/A | **Decayed (Inefficient)** |
 
 ---
 
@@ -216,3 +217,12 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Local Performance:** **$161,858** average gold in solo-runs against Random. In our head-to-head elite-bracket tournament matchups, it scored **$82,185** average gold, achieving the **uncontested #1 standing with a perfect 100.0% win rate (54 wins, 0 losses) and 0 losses!**
 *   **Live Performance:** **`PENDING`** Elo (Active - Peak Climbing).
 *   **Why it succeeded:** Superior decision forest accuracy. Completely swept both of our previously undefeated joint champions (**v45** and **Reyhan**) **3W-0L-0T (100% win rate) head-to-head!**
+
+---
+
+### Version 21: Jaxa V48 Clear-Queue
+*   **Ref ID:** N/A (Local Benchmark Only)
+*   **Approach:** Unpacked and decoded from `40-40-early-floor-39-46-top-10-v48-fast-routes.ipynb`. Implements a two-turn sale advance of pure cash products, a strict 24-turn optimal reservation horizon, and a 10-unit Step-0 Wheat Round Trip.
+*   **Local Performance:** **$76,436** average gold in head-to-head matchups against `Jaxa 2802 Elo Router` (securing a **0% win rate (0 wins, 10 losses)**), and **$75,608** average gold against `EXP-173 v45 Fusion Router` (securing a **0% win rate (0 wins, 6 losses)**).
+*   **Why it failed:** Severe market decay! Proactively advancing cash product sales by two turns chokes compound animal resource scaling and starves the Day 3 seed budget under our high-fidelity tournament engine. `Jaxa 2802` remains our undisputed peak climbing agent.
+

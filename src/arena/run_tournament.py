@@ -246,6 +246,8 @@ def get_agent_callable(agent_name: str):
         return load_competitor_agent("reyhan_agent", "reyhan_dynamic_router.py")
     elif agent_name == "Jaxa 2802 Elo Router":
         return load_competitor_agent("jaxa_agent", "jaxa_2802_router/main.py")
+    elif agent_name == "Jaxa V48 Clear-Queue":
+        return load_competitor_agent("jaxa_v48_agent", "v48_main.py")
     elif agent_name == "Tetsu Market-Smart Router":
         return load_competitor_agent("tetsu_agent", "tetsu_smart_router/main.py")
     elif agent_name == "Kaito v21.1 Router":
