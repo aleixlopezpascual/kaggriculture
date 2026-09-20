@@ -60,5 +60,5 @@ Our simulator logs identified a critical **market decay flaw** in the V48 action
 ## 🏁 Submission Status & Tactical Recommendation
 
 *   **No New Submission Necessary:** Our active climbing agent **`Jaxa 2802 Elo Router`** remains our absolute peak model. It easily absorbs the market front-running of V48 and maintains an average winning margin of **+$22,202 gold** over it.
-*   **Matchmaking Safety:** Submitting the V48 binary or compiling a fallback would overwrite one of our two active leaderboard slots (**`Reyhan`** at **2502.1 Elo** or **`Jaxa 2802`**).
+*   **Matchmaking Safety:** Submitting the V48 binary or compiling a fallback would overwrite one of our two active leaderboard slots (**`Reyhan`** at **2071.6 Elo** or **`Jaxa 2802`** at **2212.6 Elo**).
 *   **Decision:** Maintain our current dual-climber configuration on the Kaggle ladder. 
