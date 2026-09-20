@@ -1,0 +1,23 @@
+tests/test_agent_actions.py
+  s_eff4b5f6382826::t_847e84a5482347 275-288,294-296
+  s_eff4b5f6382826::t_038be0edd7f894 289-293
+src/agents/escalation.py
+  s_eff4b5f6382826::t_806c8082a71c83 7,34
+  s_eff4b5f6382826::t_e63e1e25c07817 447-456
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "72aa8e7d6ec3d372fc0eca098d502742b1d82ff6",
+  "prompts": {},
+  "sessions": {
+    "s_eff4b5f6382826": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "0415fc72-e275-47ed-a55e-3097bc523cdd",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
