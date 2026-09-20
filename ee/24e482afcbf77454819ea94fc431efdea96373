@@ -1,0 +1,19 @@
+submission/compile_submission.py
+  s_eff4b5f6382826::t_591adbd6b9eea4 21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "ee24e482afcbf77454819ea94fc431efdea96373",
+  "prompts": {},
+  "sessions": {
+    "s_eff4b5f6382826": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "0415fc72-e275-47ed-a55e-3097bc523cdd",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
