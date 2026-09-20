@@ -272,3 +272,25 @@ def test_escalation_agent_multi_hire():
     assert actions["farm_actions"].count("HIRE_WORKER") == 2
 
 
+def test_escalation_agent_with_sale_reservation_integration():
+    from src.agents.escalation import EscalationAgent
+    from src.env.state import FarmState, WorkerState, WorldState
+    
+    farmer = WorkerState(worker_id=1, x=4, y=4, carrying=(), is_busy=False)
+    # 10 Strawberries ready in shed
+    farm = FarmState(gold=3000, inventory={"Strawberry": 10}, seed_inventory={}, workers=(farmer,), expansion_quadrants=1)
+    
+    agent = EscalationAgent()
+    
+    # Run at turn 300 to activate lookahead pass
+    state = WorldState(turn=300, weather="Sunny", grid_width=10, grid_height=10, crops=(), animals=(), farm=farm, tilled_tiles=())
+    
+    actions = agent.act(state)
+    
+    # Check that optimizer pulled strawberry sales early
+    assert hasattr(agent, "reserver")
+    assert ("SELL", "Strawberry", 10) in actions["farm_actions"]
+
+
+
+

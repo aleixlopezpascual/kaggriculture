@@ -4,6 +4,7 @@ from dataclasses import replace
 from src.agents.heuristic import HeuristicAgent
 from src.env.state import StrategicTarget, WorldState
 from src.utils.routing import find_shortest_path, manhattan_distance
+from src.utils.sale_reservation import BoundedSaleReservation
 
 
 def get_fibonacci_wage(n: int) -> int:
@@ -30,6 +31,7 @@ class EscalationAgent(HeuristicAgent):
         super().__init__(crop_to_plant=crop_to_plant)
         # Map worker_id -> (tx, ty, task_type)
         self.worker_targets = {}
+        self.reserver = BoundedSaleReservation()
 
     def act(self, state: WorldState, target: StrategicTarget | None = None) -> dict:
         # 1. Determine dynamic Strategic Target based on active gold
@@ -442,6 +444,15 @@ class EscalationAgent(HeuristicAgent):
                                 worker_actions[wid] = ("PASS",)
 
             # No purchases/hiring in terminal steps, only sales
-            farm_actions = [act for act in farm_actions if act[0] == "SELL"]
+            farm_actions = [act for act in farm_actions if isinstance(act, tuple) and len(act) == 3 and act[0] == "SELL"]
+
+        # Wrap farm_actions with BoundedSaleReservation
+        future_tape = []
+        for item, qty in state.farm.inventory.items():
+            if qty > 0:
+                # Mock a future scheduled sale of these items
+                future_tape.append(("SELL", item, qty))
+        
+        farm_actions = self.reserver.process_turn_with_future(state, farm_actions, future_tape)
 
         return {"worker_actions": worker_actions, "farm_actions": farm_actions}
