@@ -18,6 +18,7 @@ def compile_submission():
         "utils/market.py",
         "utils/calculators.py",
         "utils/state_featurizer.py",
+        "utils/sale_reservation.py",
         "agents/base.py",
         "agents/heuristic.py",
         "agents/mcts.py",
