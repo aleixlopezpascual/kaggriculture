@@ -1,0 +1,23 @@
+docs/research_update_2026_09_18.md
+  s_8daf1e6a67c1f1::t_eadc5329516515 63
+docs/experiments.md
+  s_8daf1e6a67c1f1::t_fc7821dbfeea62 209
+  s_8daf1e6a67c1f1::t_5845e0c613168d 218
+  s_8daf1e6a67c1f1::t_f9f54028519841 29-30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "2424896f5243ef6d4d8f6777cc2ab795d0dbf385",
+  "prompts": {},
+  "sessions": {
+    "s_8daf1e6a67c1f1": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "4d827633-7381-4880-8ba1-f59f6b461d29",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López"
+    }
+  }
+}
