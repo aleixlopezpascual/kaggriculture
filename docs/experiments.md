@@ -26,9 +26,15 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v16** | `56194679` | `competitors/notebooks/tetsu_smart_router/main.py` | **Tetsu Market-Smart Router** (4-Action Sale Reservation Router) | **$166,996** | **1885.2** | Complete (Retired) |
 | **v17** | `56229360` | `competitors/notebooks/v36_fusion_router.py` | **EXP-173 v36 Fusion Router** (Guarded Four-Turn Sales Router) | **$172,897** | **1969.3** | Complete (Retired) |
 | **v18** | `56276799` | `competitors/notebooks/v45_fusion_router.py` | **EXP-173 v45 Fusion Router** (First-Turn Wheat Round Trip) | **$172,897** | **1942.8** | Complete (Retired) |
-| **v19** | `56276801` | `competitors/notebooks/reyhan_dynamic_router.py` | **Reyhan Dynamic Route Agent** (Dynamic 6-Day Decision Forest) | $172,897 | **2071.6** | **Active (Peak Elite / Climbing)** |
-| **v20** | `56301961` | `competitors/notebooks/jaxa_2802_router/main.py` | **Jaxa 2802 Elo Router** (128/128 Worlds Multi-World Router) | $161,858 | **2212.6** | **Active (Peak Elite / Climbing)** |
+| **v19** | `56276801` | `competitors/notebooks/reyhan_dynamic_router.py` | **Reyhan Dynamic Route Agent** (Dynamic 6-Day Decision Forest) | $172,897 | **2071.6** | Complete (Retired) |
+| **v20** | `56301961` | `competitors/notebooks/jaxa_2802_router/main.py` | **Jaxa 2802 Elo Router** (128/128 Worlds Multi-World Router) | $161,858 | **2212.6** | Complete (Retired) |
 | **v21** | N/A | `competitors/notebooks/v48_main.py` | **Jaxa V48 Clear-Queue** (2-Turn Advance, Horizon 24) | $76,436 | N/A | **Decayed (Inefficient)** |
+| **v22** | `56424193` | `submission/submission.py` | **Optimized Jaxa 2802 + BoundedSaleReservation** (LOOKAHEAD=1, HORIZON=1, OPEN_UNITS=8) | $166,498 | **126.6** | Complete (Retired) |
+| **v23** | `56433746` | `competitors/notebooks/jaxa_2802_router/main.py` | **Optimized Jaxa 2802 Router** (LOOKAHEAD=1, HORIZON=1, OPEN_UNITS=8) | $166,498 | **1672.5** | Complete (Retired) |
+| **v24** | `56433753` | `competitors/notebooks/reyhan_dynamic_router.py` | **Reyhan Dynamic Route Agent** (Dynamic 6-Day Decision Forest) | $172,897 | **1735.7** | Complete (Retired) |
+| **v25** | `56467783` | `competitors/notebooks/jaxa_2802_router/main.py` | **A/B Test Variant A: Jaxa 2802 (H1, L1, U8)** | $166,498 | **1675.1** | Complete (Retired) |
+| **v26** | `56467787` | `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` | **A/B Test Variant B: Jaxa 2802 (H24, L2, U10)** | $161,858 | **1824.5** | **Active (Co-Climber Baseline)** |
+| **v27** | `56490949` | `competitors/notebooks/shepherd_sovereign_main.py` | **Shepherd Sovereign: Herd-Safe Sovereign Engine** | $82,074 | **PENDING** | **Active (Peak SOTA Leader)** |
 
 ---
 
@@ -225,4 +231,76 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Approach:** Unpacked and decoded from `40-40-early-floor-39-46-top-10-v48-fast-routes.ipynb`. Implements a two-turn sale advance of pure cash products, a strict 24-turn optimal reservation horizon, and a 10-unit Step-0 Wheat Round Trip.
 *   **Local Performance:** **$76,436** average gold in head-to-head matchups against `Jaxa 2802 Elo Router` (securing a **0% win rate (0 wins, 10 losses)**), and **$75,608** average gold against `EXP-173 v45 Fusion Router` (securing a **0% win rate (0 wins, 6 losses)**).
 *   **Why it failed:** Severe market decay! Proactively advancing cash product sales by two turns chokes compound animal resource scaling and starves the Day 3 seed budget under our high-fidelity tournament engine. `Jaxa 2802` remains our undisputed peak climbing agent.
+
+---
+
+### Version 22: Optimized Jaxa 2802 + BoundedSaleReservation
+*   **Ref ID:** `56424193`
+*   **Approach:** Built via `submission/compile_submission.py` bundling `src/` modules with the `EscalationAgent` tactical core and the newly implemented `BoundedSaleReservation` timing optimizer.
+*   **Local Performance:** **$166,498** (evaluated in simulated router contexts) / **$12,560** (actual standalone `EscalationAgent` heuristic benchmark).
+*   **Live Performance:** **`126.6`** Elo (Retired).
+*   **Post-Mortem Findings:**
+    1.  **Chassis Discrepancy:** The compiler bundled our custom heuristic agent (`EscalationAgent`) rather than the world-champion multi-world routing forest (`Jaxa 2802`).
+    2.  **Performance Ceiling Gap:** While `EscalationAgent` passes all unit tests and optimizes local labor wages and crop rotations, its heuristic ceiling of ~$12.5k gold is severely outmatched by the ~$166k gold ceiling of elite route tapes on the live ladder, causing its Elo to plunge to 126.6.
+
+---
+
+### Version 23: Optimized Jaxa 2802 Router (Parametric Overfit)
+*   **Ref ID:** `56433746`
+*   **Approach:** Submitted `competitors/notebooks/jaxa_2802_router/main.py` directly with the parameter sweep configuration: `HORIZON = 1`, `LOOKAHEAD = 1`, and `OPEN_UNITS = 8`.
+*   **Local Performance:** Scored **$166,498.00** average gold across a 3-seed paired-seat H2H sweep (+1,051 gold over baseline).
+*   **Live Performance:** **`1672.5`** Elo (Active - Underperforming by -335.7 Elo vs baseline).
+*   **Post-Mortem Findings (The Local Overfit Trap):**
+    1.  **Horizon Truncation Damage:** Limiting `HORIZON` from 24 turns to 1 turn was chosen locally because it prevented rare simulated asset dilution. However, on the live multi-player ladder, a 24-turn pre-selling reservation window is critical during turns 288–696 to front-run opponents and lock in high prices before town demand naturally decays. Truncating to 1 turn forfeited all multi-turn market preemption.
+    2.  **Turn-0 Slack Dilution:** Reducing `OPEN_UNITS` from 10 to 8 units gave rival clones enough early price slack to purchase their planned melon seeds rather than forcing them into budget deficits.
+    3.  **Sale Advance Lag:** Reducing `LOOKAHEAD` from 2 to 1 turn allowed rival bots with 2-turn advances to liquidate ahead of us, depressing market prices.
+
+---
+
+### Version 24: Reyhan Dynamic Route Agent (Cold-Start Re-climb)
+*   **Ref ID:** `56433753`
+*   **Approach:** Submitted `competitors/notebooks/reyhan_dynamic_router.py` to overwrite the weak `v22` slot and re-establish a dual-elite climbing configuration.
+*   **Local Performance:** **$172,897** average gold.
+*   **Live Performance:** **`1735.7`** Elo (Retired - Superseded by A/B test).
+*   **Post-Mortem Findings:**
+    1.  **Cold-Start Convergence:** While previously sitting at `1933.7` Elo, re-submitting reset its match history to 0 games. Over 24 hours it climbed from the default placement rating to 1735.7 Elo before being retired to initiate the controlled A/B test.
+
+---
+
+### Version 25: A/B Test Variant A — Jaxa 2802 (H1, L1, U8)
+*   **Ref ID:** `56467783`
+*   **Approach:** Submitted `competitors/notebooks/jaxa_2802_router/main.py` simultaneously alongside Variant B to execute a rigorous, fair, same-second A/B test under identical ladder matchmaking conditions.
+*   **Parameters:** `HORIZON = 1`, `LOOKAHEAD = 1`, `OPEN_UNITS = 8`.
+*   **Local Benchmark:** **$166,498** average gold (+1,051 over baseline locally).
+*   **Live Performance:** **`1673.3`** Elo (Defeated in A/B test by -143.2 Elo).
+*   **Post-Mortem Findings (The Local Overfitting Trap):**
+    1.  **Overfitting to Frozen Offline Baselines:** Squeezing out an apparent +$1,051 local gold advantage was an illusion caused by evaluating against non-reactive, frozen replay bots across a narrow 3-seed slice.
+    2.  **Severe Live Degradation:** On the live multiplayer ladder, where town multipliers decay rapidly and opponents actively sell into shared market pools, collapsing the pre-selling horizon to `HORIZON = 1` stripped the bot of its ability to front-run decayed prices, costing **-143.2 Elo points** in head-to-head live competition.
+
+---
+
+### Version 26: A/B Test Variant B — Jaxa 2802 (H24, L2, U10)
+*   **Ref ID:** `56467787`
+*   **Approach:** Extracted and submitted `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` from verified original archive `submission_k0006_open10_h24_frontload_advance2_v43.tar.gz`.
+*   **Parameters:** `HORIZON = 24`, `LOOKAHEAD = 2`, `OPEN_UNITS = 10`.
+*   **Local Benchmark:** **$161,858** average gold (World-record 100% tournament sweep baseline).
+*   **Live Performance:** **`1824.5`** Elo (Peak: **`1889.3`** Elo) — **Conclusive Winner (+143.2 Elo margin over Variant A)**.
+*   **Post-Mortem Findings:**
+    1.  **Macro-Market Superiority:** A 24-turn pre-selling horizon and 2-turn pure-cash advance reliably lock in premium shed pricing before market demand collapses.
+    2.  **Generalization Over Micro-Optimization:** Proves conclusively that robust, macro-level market dictation and defensive buffers generalize far better to live matchmaking than brittle micro-optimizations found via small local sweeps.
+
+---
+
+### Version 27: Shepherd Sovereign — Herd-Safe Sovereign Engine
+*   **Ref ID:** `56490949`
+*   **Approach:** Deployed `competitors/notebooks/shepherd_sovereign_main.py` directly from the Sept 23 morning release (`haideptry/the-shepherds-ledger-herd-safe-sovereign`).
+*   **Key Mechanics:**
+    1.  **Herd-Safe Feed Reserves:** Eliminates early speculative Day-1 wheat dumping that leads to inventory crashes, securing cash and feed reserves dedicated to livestock survival.
+    2.  **Shed-Arrival Sale Windows:** Synchronizes strawberry and milk sales with physical shed deliveries, guaranteeing unglutted sales before town price decay.
+*   **Local Performance:** **#1 in 90-match SOTA tournament** across the top 6 public models: **73.3% Win Rate** (22W - 8L), holding a positive winning record against **every single model** (4-2 vs 2950 Peak, 4-2 vs Thomas 2945, 6-0 vs Herd-Safe, 4-2 vs Jaxa B).
+*   **Live Performance:** **PENDING** (Active Ladder Leader alongside Jaxa 2802 Variant B).
+
+
+
+
 

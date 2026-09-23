@@ -1,0 +1,241 @@
+{
+  "timestamp": "2026-09-23 12:06:13",
+  "matches_count": 90,
+  "seeds": [
+    42,
+    100,
+    2026
+  ],
+  "standings": [
+    {
+      "rank": 1,
+      "agent": "Jaxa 2802 Variant B",
+      "wins": 26,
+      "losses": 4,
+      "ties": 0,
+      "win_rate": 86.7,
+      "avg_gold": 78908.6,
+      "avg_margin": 4901.1,
+      "kaggle_elo": "1816.5 (Peaked 2008.2)"
+    },
+    {
+      "rank": 2,
+      "agent": "Herd-Safe Race",
+      "wins": 22,
+      "losses": 8,
+      "ties": 0,
+      "win_rate": 73.3,
+      "avg_gold": 83384.7,
+      "avg_margin": 3409.7,
+      "kaggle_elo": "Unsubmitted (New Sept 23 Meta)"
+    },
+    {
+      "rank": 3,
+      "agent": "Jaxa 2802 Variant A",
+      "wins": 18,
+      "losses": 12,
+      "ties": 0,
+      "win_rate": 60.0,
+      "avg_gold": 82793.1,
+      "avg_margin": 3364.9,
+      "kaggle_elo": "1673.3"
+    },
+    {
+      "rank": 4,
+      "agent": "V57 Invariant",
+      "wins": 14,
+      "losses": 16,
+      "ties": 0,
+      "win_rate": 46.7,
+      "avg_gold": 79915.2,
+      "avg_margin": 6216.3,
+      "kaggle_elo": "Unsubmitted (New Sept 22 Meta)"
+    },
+    {
+      "rank": 5,
+      "agent": "Reyhan Dynamic",
+      "wins": 10,
+      "losses": 20,
+      "ties": 0,
+      "win_rate": 33.3,
+      "avg_gold": 78509.5,
+      "avg_margin": 1010.6,
+      "kaggle_elo": "1735.7 (Peaked 1933.7)"
+    },
+    {
+      "rank": 6,
+      "agent": "Thomas 93.8%",
+      "wins": 0,
+      "losses": 30,
+      "ties": 0,
+      "win_rate": 0.0,
+      "avg_gold": 72237.9,
+      "avg_margin": -18902.5,
+      "kaggle_elo": "1744.0 (Retired)"
+    }
+  ],
+  "head_to_head": {
+    "Jaxa 2802 Variant B": {
+      "Jaxa 2802 Variant A": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      },
+      "Reyhan Dynamic": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      },
+      "V57 Invariant": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      },
+      "Herd-Safe Race": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "Thomas 93.8%": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      }
+    },
+    "Jaxa 2802 Variant A": {
+      "Jaxa 2802 Variant B": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Reyhan Dynamic": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      },
+      "V57 Invariant": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      },
+      "Herd-Safe Race": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "Thomas 93.8%": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      }
+    },
+    "Reyhan Dynamic": {
+      "Jaxa 2802 Variant B": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Jaxa 2802 Variant A": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "V57 Invariant": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Herd-Safe Race": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "Thomas 93.8%": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      }
+    },
+    "V57 Invariant": {
+      "Jaxa 2802 Variant B": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Jaxa 2802 Variant A": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Reyhan Dynamic": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      },
+      "Herd-Safe Race": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "Thomas 93.8%": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      }
+    },
+    "Herd-Safe Race": {
+      "Jaxa 2802 Variant B": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      },
+      "Jaxa 2802 Variant A": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      },
+      "Reyhan Dynamic": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      },
+      "V57 Invariant": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      },
+      "Thomas 93.8%": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      }
+    },
+    "Thomas 93.8%": {
+      "Jaxa 2802 Variant B": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Jaxa 2802 Variant A": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Reyhan Dynamic": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "V57 Invariant": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Herd-Safe Race": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      }
+    }
+  }
+}

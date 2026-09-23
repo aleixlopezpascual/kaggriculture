@@ -1,0 +1,241 @@
+{
+  "timestamp": "2026-09-23 12:37:25",
+  "matches_count": 90,
+  "seeds": [
+    42,
+    100,
+    2026
+  ],
+  "standings": [
+    {
+      "rank": 1,
+      "agent": "Shepherd Sovereign",
+      "wins": 22,
+      "losses": 8,
+      "ties": 0,
+      "win_rate": 73.3,
+      "avg_gold": 82074.1,
+      "avg_margin": -236.9,
+      "benchmark_elo": "2900+ Frontier (Sept 23 Release)"
+    },
+    {
+      "rank": 2,
+      "agent": "Jaxa 2802 Variant B",
+      "wins": 16,
+      "losses": 14,
+      "ties": 0,
+      "win_rate": 53.3,
+      "avg_gold": 78009.7,
+      "avg_margin": 1929.8,
+      "benchmark_elo": "1816.5 Live Elo (Peaked 2008.2)"
+    },
+    {
+      "rank": 3,
+      "agent": "V57 Invariant",
+      "wins": 16,
+      "losses": 14,
+      "ties": 0,
+      "win_rate": 53.3,
+      "avg_gold": 79886.9,
+      "avg_margin": -267.7,
+      "benchmark_elo": "280-0 Order-Book Invariant"
+    },
+    {
+      "rank": 4,
+      "agent": "Herd-Safe Race",
+      "wins": 16,
+      "losses": 14,
+      "ties": 0,
+      "win_rate": 53.3,
+      "avg_gold": 81835.4,
+      "avg_margin": -597.9,
+      "benchmark_elo": "Top Benchmark (COURIER + HERD2)"
+    },
+    {
+      "rank": 5,
+      "agent": "Thomas 2945 Farm",
+      "wins": 10,
+      "losses": 20,
+      "ties": 0,
+      "win_rate": 33.3,
+      "avg_gold": 81996.9,
+      "avg_margin": -197.3,
+      "benchmark_elo": "2944.7 Official Live Elo (v9/4)"
+    },
+    {
+      "rank": 6,
+      "agent": "The 2950 Peak Farm",
+      "wins": 10,
+      "losses": 20,
+      "ties": 0,
+      "win_rate": 33.3,
+      "avg_gold": 79443.5,
+      "avg_margin": -629.9,
+      "benchmark_elo": "2950+ Verified SOTA (v13+Pipe16)"
+    }
+  ],
+  "head_to_head": {
+    "The 2950 Peak Farm": {
+      "Shepherd Sovereign": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "Thomas 2945 Farm": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      },
+      "Herd-Safe Race": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "V57 Invariant": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Jaxa 2802 Variant B": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      }
+    },
+    "Shepherd Sovereign": {
+      "The 2950 Peak Farm": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      },
+      "Thomas 2945 Farm": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      },
+      "Herd-Safe Race": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      },
+      "V57 Invariant": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      },
+      "Jaxa 2802 Variant B": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      }
+    },
+    "Thomas 2945 Farm": {
+      "The 2950 Peak Farm": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Shepherd Sovereign": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "Herd-Safe Race": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "V57 Invariant": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Jaxa 2802 Variant B": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      }
+    },
+    "Herd-Safe Race": {
+      "The 2950 Peak Farm": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      },
+      "Shepherd Sovereign": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Thomas 2945 Farm": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      },
+      "V57 Invariant": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      },
+      "Jaxa 2802 Variant B": {
+        "W": 4,
+        "L": 2,
+        "T": 0
+      }
+    },
+    "V57 Invariant": {
+      "The 2950 Peak Farm": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      },
+      "Shepherd Sovereign": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "Thomas 2945 Farm": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      },
+      "Herd-Safe Race": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "Jaxa 2802 Variant B": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      }
+    },
+    "Jaxa 2802 Variant B": {
+      "The 2950 Peak Farm": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      },
+      "Shepherd Sovereign": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "Thomas 2945 Farm": {
+        "W": 0,
+        "L": 6,
+        "T": 0
+      },
+      "Herd-Safe Race": {
+        "W": 2,
+        "L": 4,
+        "T": 0
+      },
+      "V57 Invariant": {
+        "W": 6,
+        "L": 0,
+        "T": 0
+      }
+    }
+  }
+}

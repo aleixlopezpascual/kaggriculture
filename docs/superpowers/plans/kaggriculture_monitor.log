@@ -1,0 +1,206 @@
+[2026-09-21 11:11:39] Starting submission monitor for Target ID: 56424193 with Elo Threshold: 2050
+[2026-09-21 11:11:40] Target ID: 56424193 | Status: SubmissionStatus.PENDING | Current Elo: 
+[2026-09-21 11:26:41] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 367.6
+[2026-09-21 11:41:42] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 190.0
+[2026-09-21 11:56:43] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 153.1
+[2026-09-21 12:11:44] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 165.4
+[2026-09-21 12:26:45] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 165.4
+[2026-09-21 12:41:46] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 165.4
+[2026-09-21 12:56:47] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 165.4
+[2026-09-21 13:11:49] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 165.4
+[2026-09-21 13:26:50] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 165.4
+[2026-09-21 13:41:51] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 165.4
+[2026-09-21 13:56:52] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 165.4
+[2026-09-21 14:11:53] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 165.4
+[2026-09-21 14:26:54] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 165.4
+[2026-09-21 14:41:56] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 165.4
+[2026-09-21 14:56:57] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 165.4
+[2026-09-21 15:11:58] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 126.6
+[2026-09-21 15:26:59] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 126.6
+[2026-09-21 15:42:01] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 126.6
+[2026-09-21 15:57:02] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 126.6
+[2026-09-21 16:12:03] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 126.6
+[2026-09-21 16:27:04] Target ID: 56424193 | Status: SubmissionStatus.COMPLETE | Current Elo: 126.6
+[2026-09-21 16:42:16] Starting submission monitor for Target ID: 56433746 with Elo Threshold: 2050
+[2026-09-21 16:42:16] Target ID: 56433746 | Status: SubmissionStatus.PENDING | Current Elo: 
+[2026-09-21 16:50:56] Starting submission monitor for Target ID: 56433746 with Elo Threshold: 2150
+[2026-09-21 16:50:57] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 673.6
+[2026-09-21 16:52:08] Starting submission monitor for Target ID: 56433746 with Elo Threshold: 2150
+[2026-09-21 16:52:09] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 809.6
+[2026-09-21 17:07:10] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1039.9
+[2026-09-21 17:22:12] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1167.5
+[2026-09-21 17:37:13] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1405.6
+[2026-09-21 17:52:14] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1407.4
+[2026-09-21 18:07:15] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1466.4
+[2026-09-21 18:22:17] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1518.6
+[2026-09-21 18:37:18] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1534.6
+[2026-09-21 18:52:19] Error fetching submissions: Command '['kaggle', 'competitions', 'submissions', 'kaggriculture', '--format', 'json']' returned non-zero exit status 1.
+[2026-09-21 18:52:19] No submissions retrieved or query failed. Retrying in 15 minutes...
+[2026-09-21 19:07:20] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1585.4
+[2026-09-21 19:22:21] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1618.5
+[2026-09-21 19:37:23] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1621.6
+[2026-09-21 19:52:24] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1615.7
+[2026-09-21 20:07:25] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1630.8
+[2026-09-21 20:22:26] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1644.6
+[2026-09-21 20:37:27] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1649.8
+[2026-09-21 20:52:28] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1661.0
+[2026-09-21 21:07:29] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1661.7
+[2026-09-21 21:22:30] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1661.7
+[2026-09-21 21:37:31] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1668.2
+[2026-09-21 21:52:32] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1672.4
+[2026-09-21 22:07:33] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1672.4
+[2026-09-21 22:22:34] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1672.4
+[2026-09-21 22:37:35] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1668.9
+[2026-09-21 22:52:36] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1668.9
+[2026-09-21 23:07:37] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1668.9
+[2026-09-21 23:22:37] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1672.1
+[2026-09-21 23:37:39] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.3
+[2026-09-21 23:52:39] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1672.7
+[2026-09-22 00:07:40] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1672.7
+[2026-09-22 00:22:41] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1672.7
+[2026-09-22 00:37:42] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1668.5
+[2026-09-22 00:52:44] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1668.5
+[2026-09-22 01:07:45] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1668.5
+[2026-09-22 01:22:46] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1672.0
+[2026-09-22 01:37:47] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1672.0
+[2026-09-22 01:52:48] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1679.4
+[2026-09-22 02:07:49] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1679.4
+[2026-09-22 02:22:50] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1679.4
+[2026-09-22 02:37:51] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1679.4
+[2026-09-22 02:52:52] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1679.4
+[2026-09-22 03:07:53] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1688.3
+[2026-09-22 03:22:54] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1688.3
+[2026-09-22 03:37:55] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1685.2
+[2026-09-22 03:52:56] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1685.2
+[2026-09-22 04:07:57] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1685.2
+[2026-09-22 04:22:58] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1685.2
+[2026-09-22 04:37:59] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.7
+[2026-09-22 04:53:00] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.7
+[2026-09-22 05:08:01] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.7
+[2026-09-22 05:23:02] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.7
+[2026-09-22 05:38:03] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.7
+[2026-09-22 05:53:04] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1681.1
+[2026-09-22 06:08:05] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1685.9
+[2026-09-22 06:23:06] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1685.9
+[2026-09-22 06:38:07] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1685.9
+[2026-09-22 06:53:08] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1679.2
+[2026-09-22 07:08:09] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1679.2
+[2026-09-22 07:23:09] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.0
+[2026-09-22 07:38:10] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.0
+[2026-09-22 07:53:11] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.0
+[2026-09-22 08:08:13] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.0
+[2026-09-22 08:23:13] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1673.3
+[2026-09-22 08:38:14] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1673.3
+[2026-09-22 08:53:15] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1673.3
+[2026-09-22 09:08:16] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1673.3
+[2026-09-22 09:23:17] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1677.5
+[2026-09-22 09:38:18] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1682.0
+[2026-09-22 09:53:19] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1682.0
+[2026-09-22 10:08:20] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1682.0
+[2026-09-22 10:23:21] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1682.0
+[2026-09-22 10:38:21] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1677.4
+[2026-09-22 10:53:23] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1677.4
+[2026-09-22 11:08:24] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1677.6
+[2026-09-22 11:23:25] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1677.6
+[2026-09-22 11:38:26] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1681.1
+[2026-09-22 11:53:27] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1674.7
+[2026-09-22 12:08:28] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1674.7
+[2026-09-22 12:23:29] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1678.8
+[2026-09-22 12:38:30] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1678.8
+[2026-09-22 12:53:31] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1675.8
+[2026-09-22 13:08:32] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1681.3
+[2026-09-22 13:23:33] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.5
+[2026-09-22 13:38:34] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.5
+[2026-09-22 13:53:35] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.5
+[2026-09-22 14:08:36] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1676.5
+[2026-09-22 14:23:37] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1671.8
+[2026-09-22 14:38:38] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1671.8
+[2026-09-22 14:53:39] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1671.8
+[2026-09-22 15:08:40] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1671.8
+[2026-09-22 15:23:41] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1671.8
+[2026-09-22 15:38:43] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1668.3
+[2026-09-22 15:53:44] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1668.3
+[2026-09-22 16:08:45] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1668.3
+[2026-09-22 16:23:46] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1672.5
+[2026-09-22 16:38:47] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1672.5
+[2026-09-22 16:53:48] Target ID: 56433746 | Status: SubmissionStatus.COMPLETE | Current Elo: 1672.5
+[2026-09-22 17:03:16] Starting Live A/B Head-to-Head Monitor:
+  - Variant A (Sweep H1/L1/U8): Ref 56467783
+  - Variant B (Peak H24/L2/U10): Ref 56467787
+[2026-09-22 17:03:17] [A/B Monitor] Variant A (56467783): SubmissionStatus.PENDING (Elo: ) | Variant B (56467787): SubmissionStatus.PENDING (Elo: ) | Diff (B - A): N/A
+[2026-09-22 17:18:18] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 873.3) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 759.7) | Diff (B - A): -113.6
+[2026-09-22 17:33:19] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1173.0) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1166.7) | Diff (B - A): -6.3
+[2026-09-22 17:48:20] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1482.7) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1604.1) | Diff (B - A): +121.4
+[2026-09-22 18:03:21] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1739.8) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1713.3) | Diff (B - A): -26.5
+[2026-09-22 18:18:23] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1749.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1889.3) | Diff (B - A): +139.7
+[2026-09-22 18:33:24] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1670.1) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1864.1) | Diff (B - A): +194.0
+[2026-09-22 18:48:25] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1723.1) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1861.8) | Diff (B - A): +138.7
+[2026-09-22 19:03:26] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1715.2) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1862.2) | Diff (B - A): +147.0
+[2026-09-22 19:18:28] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1659.9) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1886.3) | Diff (B - A): +226.4
+[2026-09-22 19:33:29] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1684.3) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1887.0) | Diff (B - A): +202.7
+[2026-09-22 19:48:30] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1709.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1865.0) | Diff (B - A): +155.4
+[2026-09-22 20:03:31] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1700.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1829.1) | Diff (B - A): +128.5
+[2026-09-22 20:18:33] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1690.0) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1813.3) | Diff (B - A): +123.3
+[2026-09-22 20:33:34] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1674.5) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1817.0) | Diff (B - A): +142.5
+[2026-09-22 20:48:35] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1686.0) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1809.6) | Diff (B - A): +123.6
+[2026-09-22 21:03:36] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1691.9) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1827.3) | Diff (B - A): +135.4
+[2026-09-22 21:18:37] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1691.1) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1843.5) | Diff (B - A): +152.4
+[2026-09-22 21:33:39] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1691.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1848.1) | Diff (B - A): +156.5
+[2026-09-22 21:48:40] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1684.3) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1840.9) | Diff (B - A): +156.6
+[2026-09-22 22:03:41] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1680.5) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1850.0) | Diff (B - A): +169.5
+[2026-09-22 22:18:42] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1680.5) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1844.7) | Diff (B - A): +164.2
+[2026-09-22 22:33:43] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1680.5) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1849.1) | Diff (B - A): +168.6
+[2026-09-22 22:48:44] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1685.1) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1848.9) | Diff (B - A): +163.8
+[2026-09-22 23:03:46] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1685.1) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1848.9) | Diff (B - A): +163.8
+[2026-09-22 23:18:47] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1685.1) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1848.1) | Diff (B - A): +163.0
+[2026-09-22 23:33:48] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1685.1) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1839.9) | Diff (B - A): +154.8
+[2026-09-22 23:48:49] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1680.5) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1844.0) | Diff (B - A): +163.5
+[2026-09-23 00:03:50] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1678.4) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1849.2) | Diff (B - A): +170.8
+[2026-09-23 00:18:51] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1673.9) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1846.0) | Diff (B - A): +172.1
+[2026-09-23 00:33:52] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1673.9) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1846.0) | Diff (B - A): +172.1
+[2026-09-23 00:48:53] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1673.9) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1841.6) | Diff (B - A): +167.7
+[2026-09-23 01:03:54] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1673.9) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1838.6) | Diff (B - A): +164.7
+[2026-09-23 01:18:55] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1669.3) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1834.1) | Diff (B - A): +164.8
+[2026-09-23 01:33:55] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1669.3) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1829.3) | Diff (B - A): +160.0
+[2026-09-23 01:48:57] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1672.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1826.1) | Diff (B - A): +153.5
+[2026-09-23 02:03:58] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1672.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1822.8) | Diff (B - A): +150.2
+[2026-09-23 02:18:59] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1672.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1827.3) | Diff (B - A): +154.7
+[2026-09-23 02:33:59] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1672.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1822.4) | Diff (B - A): +149.8
+[2026-09-23 02:49:00] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1668.5) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1818.2) | Diff (B - A): +149.7
+[2026-09-23 03:04:01] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1673.0) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1819.4) | Diff (B - A): +146.4
+[2026-09-23 03:19:02] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1673.0) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1813.3) | Diff (B - A): +140.3
+[2026-09-23 03:34:03] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1663.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1817.0) | Diff (B - A): +153.4
+[2026-09-23 03:49:04] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1663.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1813.0) | Diff (B - A): +149.4
+[2026-09-23 04:04:05] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1663.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1813.0) | Diff (B - A): +149.4
+[2026-09-23 04:19:06] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1663.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1817.2) | Diff (B - A): +153.6
+[2026-09-23 04:34:07] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1663.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1818.5) | Diff (B - A): +154.9
+[2026-09-23 04:49:08] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1659.5) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1818.5) | Diff (B - A): +159.0
+[2026-09-23 05:04:09] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1659.5) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1822.1) | Diff (B - A): +162.6
+[2026-09-23 05:19:10] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1659.5) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1818.0) | Diff (B - A): +158.5
+[2026-09-23 05:34:10] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1663.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1818.0) | Diff (B - A): +154.4
+[2026-09-23 05:49:11] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1663.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1808.3) | Diff (B - A): +144.7
+[2026-09-23 06:04:12] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1663.6) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1811.9) | Diff (B - A): +148.3
+[2026-09-23 06:19:13] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1667.4) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1811.9) | Diff (B - A): +144.5
+[2026-09-23 06:34:14] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1667.4) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1812.3) | Diff (B - A): +144.9
+[2026-09-23 06:49:15] [A/B Monitor] Variant A (56467783): SubmissionStatus.COMPLETE (Elo: 1667.4) | Variant B (56467787): SubmissionStatus.COMPLETE (Elo: 1818.7) | Diff (B - A): +151.3
+[2026-09-23 12:47:10] Starting Active Duel Monitor:
+  - Jaxa Variant B: Ref 56467787
+  - Shepherd Sovereign: Ref 56490949
+[2026-09-23 12:47:11] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1824.5) | Shepherd Sovereign (56490949): SubmissionStatus.PENDING (Elo: ) | Diff (Shepherd - Jaxa): N/A
+[2026-09-23 13:02:12] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1824.5) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 828.8) | Diff (Shepherd - Jaxa): -995.7
+[2026-09-23 13:17:12] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1817.2) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 1183.5) | Diff (Shepherd - Jaxa): -633.7
+[2026-09-23 13:32:13] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1817.2) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 1453.4) | Diff (Shepherd - Jaxa): -363.8
+[2026-09-23 13:47:14] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1820.6) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 1582.8) | Diff (Shepherd - Jaxa): -237.8
+[2026-09-23 14:02:14] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1816.0) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 1687.2) | Diff (Shepherd - Jaxa): -128.8
+[2026-09-23 14:17:15] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1812.3) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 1800.8) | Diff (Shepherd - Jaxa): -11.5
+[2026-09-23 14:32:16] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1812.3) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 1892.0) | Diff (Shepherd - Jaxa): +79.7
+[2026-09-23 14:47:17] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1808.4) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 1915.3) | Diff (Shepherd - Jaxa): +106.9
+[2026-09-23 15:02:17] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1799.0) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 1980.2) | Diff (Shepherd - Jaxa): +181.2
+[2026-09-23 15:17:18] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1799.0) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 2022.3) | Diff (Shepherd - Jaxa): +223.3
+[2026-09-23 15:32:19] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1798.8) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 2053.0) | Diff (Shepherd - Jaxa): +254.2
+[2026-09-23 15:47:19] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1798.8) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 2090.0) | Diff (Shepherd - Jaxa): +291.2
+[2026-09-23 16:02:20] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1802.5) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 2108.6) | Diff (Shepherd - Jaxa): +306.1
+[2026-09-23 16:17:21] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1797.9) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 2116.8) | Diff (Shepherd - Jaxa): +318.9
+[2026-09-23 16:32:22] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1797.9) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 2132.6) | Diff (Shepherd - Jaxa): +334.7
+[2026-09-23 16:47:23] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1802.4) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 2160.1) | Diff (Shepherd - Jaxa): +357.7
+[2026-09-23 17:02:24] [Live Matchmaking] Jaxa B (56467787): SubmissionStatus.COMPLETE (Elo: 1802.4) | Shepherd Sovereign (56490949): SubmissionStatus.COMPLETE (Elo: 2148.7) | Diff (Shepherd - Jaxa): +346.3

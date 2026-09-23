@@ -63,6 +63,7 @@ When building or updating agent logic, strictly align with these official physic
 - **Stateless Target Thrashing:** Multi-worker task allocation calculated from scratch on every step causes workers to swap targets and walk in circles indefinitely; resolve by mapping workers to persisted coordinate targets (`self.worker_targets`) until completion.
 - **Infinite Seed-Exhaustion Loops:** Assigning planting targets on empty tiles when the farm has 0 seeds results in ignored, no-op `PLANT` actions, which keeps the targets valid and locks workers in an infinite loop; resolve by checking seed inventory before assigning/persisting `PLANT` tasks.
 - **Price-Impact Seller:** Sorting multiple sell orders in descending order of their price impact (Quantity * (Current Quote - Post-Sale Quote)) maximizes trade revenue under market saturation.
+- **The "Slightly Better Local Model" Fallacy (Offline Overfitting):** Micro-optimizing parameters on small local offline sweeps (e.g., shrinking `HORIZON` to 1 turn or reducing Turn-0 wash `OPEN_UNITS` to 8 to gain +$1k gold against static baselines) severely overfits. In live multiplayer matchmaking, robust macro-market dictation (24-turn pre-selling horizons to front-run town demand decay, 2-turn cash advances) generalizes far better, dominating local-sweep variants by over +140 Elo.
 
 ---
 

@@ -11,8 +11,8 @@ _PARENT_NS = {"__name__": "kagg_parent_v43"}
 exec(compile(_PARENT_SRC.decode("utf-8"), "parent_v43.py", "exec"), _PARENT_NS)
 _PARENT = _PARENT_NS["agent"]
 del _PARENT_SRC
-HORIZON = 24
-OPEN_UNITS = 10
+HORIZON = 1
+OPEN_UNITS = 8
 _V43_OPENING = [["BUY_PRODUCT", "WHEAT", 5], ["BUY_PRODUCT", "WHEAT", 10], ["SELL", "WHEAT", 60]]
 
 
@@ -194,7 +194,7 @@ def frontload(obs, market, params=None, telemetry=None):
 # interpreter, so the parent's own SELL at t+1 simply sells whatever was deposited since.
 PREMIUM = ("STRAWBERRY", "WOOL", "EGG", "MILK", "MELON", "CARROT", "TOMATO")
 PROTECT_FIRST = True
-LOOKAHEAD = 2   # how many future tape turns to pre-sell (1 = next turn)
+LOOKAHEAD = 1   # how many future tape turns to pre-sell (1 = next turn)
 MIN_UNITS = 1   # advance only when at least this many units can be sold early (tiny advances add risk, not edge)
 
 

@@ -50,3 +50,18 @@ Market orders are executed in a sequential clearance queue. Agents prioritizing 
 - `data/`: Raw manifests, datasets, and telemetry logs.
 - `submission/`: Merging and flattening tool chain to build the submission script.
 - `tests/`: Automated unit tests covering transitions and agents.
+
+---
+
+## 🏆 Current Active Submissions & SOTA Standings (September 23, 2026)
+
+Following a comprehensive 90-match round-robin tournament across the top public models, our two active competition slots on the live Kaggle ladder are:
+1. **`Shepherd Sovereign`** (Ref ID: `56490949`): #1 in 90-match SOTA tournament (73.3% win rate across all 2950+ models).
+2. **`Jaxa 2802 Variant B`** (Ref ID: `56467787`): Actively climbing at **`1824.5` Elo** with the highest positive margin (+1,930 gold).
+
+For comprehensive architectural breakdowns, game-engine physics, and empirical A/B test findings, see:
+* **Master Retrospective:** [`docs/kaggriculture_master_retrospective_2026_09_23.md`](docs/kaggriculture_master_retrospective_2026_09_23.md)
+* **SOTA Tournament Report:** [`docs/competitor_tournament_results_2026_09_23.md`](docs/competitor_tournament_results_2026_09_23.md)
+* **Empirical A/B Test Findings:** [`docs/research_update_2026_09_23.md`](docs/research_update_2026_09_23.md)
+* **Experiment Version Ledger:** [`docs/experiments.md`](docs/experiments.md)
+

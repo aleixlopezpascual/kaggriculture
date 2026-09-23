@@ -95,3 +95,38 @@ Competitors use visual replay viewers like **`Krobus`** (`rooklift/krobus`) to v
 When setting up our workspace, we should integrate or support compatibility with:
 1. **`Krobus` Compatibility:** Ensure our simulator or agent logs match history files in the exact JSON format consumed by the Krobus replay viewer.
 2. **Hugging Face `KiroSamurai/kaggriculture-il`:** Design our state featurizers to easily consume these JSON replays for eventual policy network training.
+
+---
+
+## ⚡ 4. Final-Week Meta Discoveries (September 21–23, 2026)
+
+Deep analysis of the top-trending notebooks published during the final 48 hours before the code freeze (`shiiin9`, `ahmedberatozer` V56/V57, `statma`, `arsgorynich`) reveals five critical game mechanics and exploits that define the current 3000+ Elo ceiling:
+
+### A. Layer D: "Your Market List Is an Order Book" (Slot-by-Slot Lockstep Execution)
+*   **The Underlying Physics:** In the official Kaggle engine, both players' market lists (`farm_actions`) are settled **slot-by-slot in lockstep**:
+    *   Slot 0 (Player 0) and Slot 0 (Player 1) execute simultaneously at the current quote, one unit at a time.
+    *   Then Slot 1 of each player executes, and so on.
+*   **The Exploit:** Units sold in earlier slots capture peak prices before later sales depress the market quote. Placing high-value premium sales (`STRAWBERRY`, `WOOL`, `MILK`) in **Slots 0 and 1** guarantees our orders fill at top dollar before the opponent dumps their harvest.
+*   **The V57 Funding-Order Invariant:** When sorting orders, purchases (`HIRE`, `BUY_SEED`, `BUY_LAND`) must **never be placed in a slot earlier than the sales funding them** in the same turn. V56 had a causal bug where purchases failed due to insufficient funds; V57 guarantees that cash-generating sales execute in earlier slots than downstream purchases.
+
+### B. The COURIER Layer: Same-Day Evening Shed Delivery
+*   **The Problem:** In standard route tapes, ~40% of strawberry and milk harvests remain in worker cargo bags at Hour 20. The official engine automatically dumps worker cargo into the shed at midnight (Hour 23), meaning standard agents cannot sell the goods until the following morning.
+*   **The Exploit:** Town price multipliers do not refresh between Hour 20 and the next morning's dawn. From Hour 20–22, `COURIER` diverts workers carrying premium cargo to immediately deliver to the central shed `(4,4)` and sells them on the evening market, capturing the morning's peak price **24 hours earlier than competitors**.
+
+### C. Dynamic Species Selection (HERD2 & COWSWAP)
+*   **The Concept:** Baseline routers buy fixed Day-10 geese for eggs ($50 base price).
+*   **The Innovation:** The agent inspects the two town shops revealed on Day 1:
+    *   If a **Yarn Store** is present, swap the Goose purchase to a **Sheep** (4 wool every 3 days at $200 base price).
+    *   If an **Ice Cream or Pizza Store** is present, swap the Goose purchase to a **Cow** (3 milk every 2 days at $160 base price).
+*   **Impact:** Delivers a **+30% to +50% surge in livestock profit** without modifying worker physical pathfinding schedules.
+
+### D. Mirror Gating & Clone Exploitation (`EXP288` / `_RACE_HORIZON_CLONE`)
+*   **The Mechanism:** On Turn 1, check `abs(rival_cash - own_cash) < 0.5`. If true, the opponent is an exact byte-clone executing the identical public opening.
+*   **The Counter-Strategy:** Against an identified clone, activate a specialized `CLONE_MODE`:
+    *   Adjust the reservation horizon (e.g. from 24 to 9 or 44) to intentionally de-synchronize from the clone.
+    *   Permute the order-book sell slots so our orders consistently execute one slot ahead of the clone's identical orders, winning 100% of tiebreaker sales.
+
+### E. RACEPX & RACEGATE: Price Floor Guards
+*   **The Principle:** Pre-selling reservations (pulling future sales 24 turns forward) should **only occur when the current market price is strictly above the base price ($I_0$)**.
+*   **The Defense:** If the market is already glutted (price below base price), pulling sales forward locks in a terrible price; the town drain between turns cannot recover the deficit. Gating reservations on $P > I_0$ preserves peak pricing.
+
