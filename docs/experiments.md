@@ -1,5 +1,12 @@
 # Kaggriculture: Experiments & Submission Ledger
 
+> **Data Provenance Snapshot (Retrieved 2026-09-23 15:44 UTC)**
+> Kaggle CLI Command: `kaggle competitions submissions kaggriculture --format json --page-size 100`
+> * **Active #1:** Shepherd Sovereign (Ref `56490949`), Score: 2154.3
+> * **Active #2:** Jaxa 2802 Variant B (Ref `56467787`), Score: 1786.3 (Historical Peak: 1889.3)
+> * **Retired:** Variant A (Ref `56467783`), Score: 1675.1
+> * **Gap:** 368.0 (Shepherd ahead)
+
 This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design parameters, and post-mortem findings for every version of our agents.
 
 ---
@@ -33,8 +40,8 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v23** | `56433746` | `competitors/notebooks/jaxa_2802_router/main.py` | **Optimized Jaxa 2802 Router** (LOOKAHEAD=1, HORIZON=1, OPEN_UNITS=8) | $166,498 | **1672.5** | Complete (Retired) |
 | **v24** | `56433753` | `competitors/notebooks/reyhan_dynamic_router.py` | **Reyhan Dynamic Route Agent** (Dynamic 6-Day Decision Forest) | $172,897 | **1735.7** | Complete (Retired) |
 | **v25** | `56467783` | `competitors/notebooks/jaxa_2802_router/main.py` | **A/B Test Variant A: Jaxa 2802 (H1, L1, U8)** | $166,498 | **1675.1** | Complete (Retired) |
-| **v26** | `56467787` | `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` | **A/B Test Variant B: Jaxa 2802 (H24, L2, U10)** | $161,858 | **1824.5** | **Active (Co-Climber Baseline)** |
-| **v27** | `56490949` | `competitors/notebooks/shepherd_sovereign_main.py` | **Shepherd Sovereign: Herd-Safe Sovereign Engine** | $82,074 | **PENDING** | **Active (Peak SOTA Leader)** |
+| **v26** | `56467787` | `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` | **A/B Test Variant B: Jaxa 2802 (H24, L2, U10)** | $161,858 | **1786.3** | **Active (Co-Climber Baseline)** |
+| **v27** | `56490949` | `competitors/notebooks/shepherd_sovereign_main.py` | **Shepherd Sovereign: Herd-Safe Sovereign Engine** | $82,074 | **2154.3** | **Active (Peak SOTA Leader)** |
 
 ---
 
@@ -272,7 +279,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Approach:** Submitted `competitors/notebooks/jaxa_2802_router/main.py` simultaneously alongside Variant B to execute a rigorous, fair, same-second A/B test under identical ladder matchmaking conditions.
 *   **Parameters:** `HORIZON = 1`, `LOOKAHEAD = 1`, `OPEN_UNITS = 8`.
 *   **Local Benchmark:** **$166,498** average gold (+1,051 over baseline locally).
-*   **Live Performance:** **`1673.3`** Elo (Defeated in A/B test by -143.2 Elo).
+*   **Live Performance:** **`1675.1`** Elo (Complete - Retired).
 *   **Post-Mortem Findings (The Local Overfitting Trap):**
     1.  **Overfitting to Frozen Offline Baselines:** Squeezing out an apparent +$1,051 local gold advantage was an illusion caused by evaluating against non-reactive, frozen replay bots across a narrow 3-seed slice.
     2.  **Severe Live Degradation:** On the live multiplayer ladder, where town multipliers decay rapidly and opponents actively sell into shared market pools, collapsing the pre-selling horizon to `HORIZON = 1` stripped the bot of its ability to front-run decayed prices, costing **-143.2 Elo points** in head-to-head live competition.
@@ -284,7 +291,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Approach:** Extracted and submitted `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` from verified original archive `submission_k0006_open10_h24_frontload_advance2_v43.tar.gz`.
 *   **Parameters:** `HORIZON = 24`, `LOOKAHEAD = 2`, `OPEN_UNITS = 10`.
 *   **Local Benchmark:** **$161,858** average gold (World-record 100% tournament sweep baseline).
-*   **Live Performance:** **`1824.5`** Elo (Peak: **`1889.3`** Elo) — **Conclusive Winner (+143.2 Elo margin over Variant A)**.
+*   **Live Performance:** **`1786.3`** Elo (Peak: **`1889.3`** Elo) — **Active Co-Climber**.
 *   **Post-Mortem Findings:**
     1.  **Macro-Market Superiority:** A 24-turn pre-selling horizon and 2-turn pure-cash advance reliably lock in premium shed pricing before market demand collapses.
     2.  **Generalization Over Micro-Optimization:** Proves conclusively that robust, macro-level market dictation and defensive buffers generalize far better to live matchmaking than brittle micro-optimizations found via small local sweeps.
@@ -298,7 +305,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
     1.  **Herd-Safe Feed Reserves:** Eliminates early speculative Day-1 wheat dumping that leads to inventory crashes, securing cash and feed reserves dedicated to livestock survival.
     2.  **Shed-Arrival Sale Windows:** Synchronizes strawberry and milk sales with physical shed deliveries, guaranteeing unglutted sales before town price decay.
 *   **Local Performance:** **#1 in 90-match SOTA tournament** across the top 6 public models: **73.3% Win Rate** (22W - 8L), holding a positive winning record against **every single model** (4-2 vs 2950 Peak, 4-2 vs Thomas 2945, 6-0 vs Herd-Safe, 4-2 vs Jaxa B).
-*   **Live Performance:** **PENDING** (Active Ladder Leader alongside Jaxa 2802 Variant B).
+*   **Live Performance:** **`2154.3`** Elo (Active Ladder Leader alongside Jaxa 2802 Variant B).
 
 
 

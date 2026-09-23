@@ -53,11 +53,13 @@ Market orders are executed in a sequential clearance queue. Agents prioritizing 
 
 ---
 
-## 🏆 Current Active Submissions & SOTA Standings (September 23, 2026)
+## 🏆 Current Active Submissions & SOTA Standings (Retrieved 2026-09-23 15:44 UTC)
 
 Following a comprehensive 90-match round-robin tournament across the top public models, our two active competition slots on the live Kaggle ladder are:
-1. **`Shepherd Sovereign`** (Ref ID: `56490949`): #1 in 90-match SOTA tournament (73.3% win rate across all 2950+ models).
-2. **`Jaxa 2802 Variant B`** (Ref ID: `56467787`): Actively climbing at **`1824.5` Elo** with the highest positive margin (+1,930 gold).
+1. **`Shepherd Sovereign`** (Ref ID: `56490949`): File `shepherd_sovereign_main.py`. Submitted 2026-09-23T10:46:41.287000. Status: COMPLETE. Score: **2154.3** (Private: blank). Historical context: #1 in the 90-match SOTA tournament with 73.3% win rate.
+2. **`Jaxa 2802 Variant B`** (Ref ID: `56467787`): File `main_variant_b_h24.py`. Submitted 2026-09-22T15:02:43.093000. Status: COMPLETE. Score: **1786.3** (Private: blank). Historical context: Recorded the highest positive local tournament margin (+1,930 gold).
+
+(Shepherd Sovereign is ahead with an active gap of 368.0).
 
 For comprehensive architectural breakdowns, game-engine physics, and empirical A/B test findings, see:
 * **Master Retrospective:** [`docs/kaggriculture_master_retrospective_2026_09_23.md`](docs/kaggriculture_master_retrospective_2026_09_23.md)
