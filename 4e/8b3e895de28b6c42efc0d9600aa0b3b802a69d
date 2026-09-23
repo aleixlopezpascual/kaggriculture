@@ -1,0 +1,36 @@
+README.md
+  s_1b6d118ba9bfe0::t_26cce456aca87e 56,61-62
+  s_da7dca7cc2c1b8::t_adda390e2d501b 59-60
+GEMINI.md
+  s_1b6d118ba9bfe0::t_1db48f288b26f5 45
+docs/experiments.md
+  s_1b6d118ba9bfe0::t_1ac46bf2817ae6 294
+  s_1b6d118ba9bfe0::t_7f371d0e86fed3 3-9
+  s_1b6d118ba9bfe0::t_9e5d0bdd4b997b 43-44
+  s_1b6d118ba9bfe0::t_bcd9fdddb1e445 282
+  s_1b6d118ba9bfe0::t_304348f36d01ad 308
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "4e8b3e895de28b6c42efc0d9600aa0b3b802a69d",
+  "prompts": {},
+  "sessions": {
+    "s_1b6d118ba9bfe0": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "e6468614-3970-46b3-91dd-c3479153e027",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_da7dca7cc2c1b8": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "98aab81c-befa-42d1-8c7c-e6bc71df257f",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    }
+  }
+}
