@@ -1,11 +1,11 @@
 # Kaggriculture: Experiments & Submission Ledger
 
-> **Data Provenance Snapshot (Retrieved 2026-09-23 15:44 UTC)**
+> **Data Provenance Snapshot (Retrieved 2026-09-24 11:41:42 CEST (UTC+02:00))**
 > Kaggle CLI Command: `kaggle competitions submissions kaggriculture --format json --page-size 100`
-> * **Active #1:** Shepherd Sovereign (Ref `56490949`), Score: 2154.3
-> * **Active #2:** Jaxa 2802 Variant B (Ref `56467787`), Score: 1786.3 (Historical Peak: 1889.3)
+> * **Active #1:** Shepherd Sovereign (Ref `56490949`), Score: 2186.8
+> * **Active #2:** Jaxa 2802 Variant B (Ref `56467787`), Score: 1705.2 (Historical Peak: 1889.3)
 > * **Retired:** Variant A (Ref `56467783`), Score: 1675.1
-> * **Gap:** 368.0 (Shepherd ahead)
+> * **Gap:** 481.6 (Shepherd ahead)
 
 This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design parameters, and post-mortem findings for every version of our agents.
 
@@ -40,8 +40,8 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v23** | `56433746` | `competitors/notebooks/jaxa_2802_router/main.py` | **Optimized Jaxa 2802 Router** (LOOKAHEAD=1, HORIZON=1, OPEN_UNITS=8) | $166,498 | **1672.5** | Complete (Retired) |
 | **v24** | `56433753` | `competitors/notebooks/reyhan_dynamic_router.py` | **Reyhan Dynamic Route Agent** (Dynamic 6-Day Decision Forest) | $172,897 | **1735.7** | Complete (Retired) |
 | **v25** | `56467783` | `competitors/notebooks/jaxa_2802_router/main.py` | **A/B Test Variant A: Jaxa 2802 (H1, L1, U8)** | $166,498 | **1675.1** | Complete (Retired) |
-| **v26** | `56467787` | `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` | **A/B Test Variant B: Jaxa 2802 (H24, L2, U10)** | $161,858 | **1786.3** | **Active (Co-Climber Baseline)** |
-| **v27** | `56490949` | `competitors/notebooks/shepherd_sovereign_main.py` | **Shepherd Sovereign: Herd-Safe Sovereign Engine** | $82,074 | **2154.3** | **Active (Peak SOTA Leader)** |
+| **v26** | `56467787` | `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` | **A/B Test Variant B: Jaxa 2802 (H24, L2, U10)** | $161,858 | **1705.2** | **Active (Co-Climber Baseline)** |
+| **v27** | `56490949` | `competitors/notebooks/shepherd_sovereign_main.py` | **Shepherd Sovereign: Herd-Safe Sovereign Engine** | $82,074 | **2186.8** | **Active (Peak SOTA Leader)** |
 
 ---
 
@@ -291,7 +291,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Approach:** Extracted and submitted `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` from verified original archive `submission_k0006_open10_h24_frontload_advance2_v43.tar.gz`.
 *   **Parameters:** `HORIZON = 24`, `LOOKAHEAD = 2`, `OPEN_UNITS = 10`.
 *   **Local Benchmark:** **$161,858** average gold (World-record 100% tournament sweep baseline).
-*   **Live Performance:** **`1786.3`** Elo (Peak: **`1889.3`** Elo) — **Active Co-Climber**.
+*   **Live Performance:** **`1705.2`** Elo (Peak: **`1889.3`** Elo) — **Active Co-Climber** (Retrieved 2026-09-24 11:41:42 CEST (UTC+02:00)).
 *   **Post-Mortem Findings:**
     1.  **Macro-Market Superiority:** A 24-turn pre-selling horizon and 2-turn pure-cash advance reliably lock in premium shed pricing before market demand collapses.
     2.  **Generalization Over Micro-Optimization:** Proves conclusively that robust, macro-level market dictation and defensive buffers generalize far better to live matchmaking than brittle micro-optimizations found via small local sweeps.
@@ -305,7 +305,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
     1.  **Herd-Safe Feed Reserves:** Eliminates early speculative Day-1 wheat dumping that leads to inventory crashes, securing cash and feed reserves dedicated to livestock survival.
     2.  **Shed-Arrival Sale Windows:** Synchronizes strawberry and milk sales with physical shed deliveries, guaranteeing unglutted sales before town price decay.
 *   **Local Performance:** **#1 in 90-match SOTA tournament** across the top 6 public models: **73.3% Win Rate** (22W - 8L), holding a positive winning record against **every single model** (4-2 vs 2950 Peak, 4-2 vs Thomas 2945, 6-0 vs Herd-Safe, 4-2 vs Jaxa B).
-*   **Live Performance:** **`2154.3`** Elo (Active Ladder Leader alongside Jaxa 2802 Variant B).
+*   **Live Performance:** **`2186.8`** Elo (Active Ladder Leader alongside Jaxa 2802 Variant B, Retrieved 2026-09-24 11:41:42 CEST (UTC+02:00)).
 
 
 
