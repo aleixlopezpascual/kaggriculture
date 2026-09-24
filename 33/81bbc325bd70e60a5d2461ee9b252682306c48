@@ -1,0 +1,23 @@
+README.md
+  s_a158f7a03bb52e::t_c9dd4f35d033cf 56,59-60,62
+docs/experiments.md
+  s_a158f7a03bb52e::t_e4b61d310868f0 3,5-6,8
+  s_a158f7a03bb52e::t_1592c52cb251ef 294,308
+  s_a158f7a03bb52e::t_36670c88ba2caf 43-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "3381bbc325bd70e60a5d2461ee9b252682306c48",
+  "prompts": {},
+  "sessions": {
+    "s_a158f7a03bb52e": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "bd9effd7-020c-43be-ab5b-a2973e6012a1",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    }
+  }
+}
