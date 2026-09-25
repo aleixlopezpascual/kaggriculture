@@ -1,11 +1,16 @@
 # Kaggriculture: Experiments & Submission Ledger
 
-> **Data Provenance Snapshot (Retrieved 2026-09-24 11:41:42 CEST (UTC+02:00))**
+> **Important Caveats on Experiment Data & Source Capture**
+> * **Path Normalization:** Only the canonical RACE aggregate (`docs/experiments/race_horizon_41.json`) and four batches (`race_horizon_41_batch01.json` through `race_horizon_41_batch04.json`) had path values normalized; `candidates.frozen_original.json` remains byte-preserved with historical machine paths and `candidates.json` is the portable rerun manifest. The exact game, result, and source-hash fields remain unchanged except for the path strings.
+> * **Execution Security:** Agent runners execute candidate Python in-process via `exec`, with NO sandbox. You must only run reviewed and trusted source snapshots.
+> * **Source Authorship & Licensing:** The captured Kaggle sources bundled in this repository may contain submitter-authored modifications alongside inherited, third-party, or open-source components described in their own notices. The bundled copies are strictly hash-pinned captures of the linked public outputs; do not assume all code was originally authored by the listed Kaggle notebook author. We retain Apache/NOTICE attribution detail where present, without making broader unsupported licensing claims.
+
+> **Data Provenance Snapshot (Retrieved 2026-09-25 00:13:22 CEST (+0200))**
 > Kaggle CLI Command: `kaggle competitions submissions kaggriculture --format json --page-size 100`
-> * **Active #1:** Shepherd Sovereign (Ref `56490949`), Score: 2186.8
-> * **Active #2:** Jaxa 2802 Variant B (Ref `56467787`), Score: 1705.2 (Historical Peak: 1889.3)
-> * **Retired:** Variant A (Ref `56467783`), Score: 1675.1
-> * **Gap:** 481.6 (Shepherd ahead)
+> * **Latest-Two Tracked #1 (Newest):** Prvsiyan Moon Counts Melons (Ref `56531885`), Status: COMPLETE, Public Score: 1422.9, Private: blank
+> * **Latest-Two Tracked #2 (Second-Newest):** Shepherd Sovereign (Ref `56490949`), Status: COMPLETE, Public Score: 2117.5, Private: blank (already uploaded; no re-upload)
+> * **Third / Older (Not in Tracked Pair):** Jaxa 2802 Variant B (Ref `56467787`), Status: COMPLETE, Public Score: 1680.8, Private: blank
+> *(Note: The top two entries represent Kaggle's active two-submission tracking rule for live evaluation, not leaderboard rank.)*
 
 This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design parameters, and post-mortem findings for every version of our agents.
 
@@ -40,8 +45,9 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v23** | `56433746` | `competitors/notebooks/jaxa_2802_router/main.py` | **Optimized Jaxa 2802 Router** (LOOKAHEAD=1, HORIZON=1, OPEN_UNITS=8) | $166,498 | **1672.5** | Complete (Retired) |
 | **v24** | `56433753` | `competitors/notebooks/reyhan_dynamic_router.py` | **Reyhan Dynamic Route Agent** (Dynamic 6-Day Decision Forest) | $172,897 | **1735.7** | Complete (Retired) |
 | **v25** | `56467783` | `competitors/notebooks/jaxa_2802_router/main.py` | **A/B Test Variant A: Jaxa 2802 (H1, L1, U8)** | $166,498 | **1675.1** | Complete (Retired) |
-| **v26** | `56467787` | `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` | **A/B Test Variant B: Jaxa 2802 (H24, L2, U10)** | $161,858 | **1705.2** | **Active (Co-Climber Baseline)** |
-| **v27** | `56490949` | `competitors/notebooks/shepherd_sovereign_main.py` | **Shepherd Sovereign: Herd-Safe Sovereign Engine** | $82,074 | **2186.8** | **Active (Peak SOTA Leader)** |
+| **v26** | `56467787` | `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` | **A/B Test Variant B: Jaxa 2802 (H24, L2, U10)** | $161,858 | **1680.8** | Complete (Retired - Third / Older) |
+| **v27** | `56490949` | `competitors/notebooks/shepherd_sovereign_main.py` | **Shepherd Sovereign: Herd-Safe Sovereign Engine** | $82,074 | **2117.5** | **Active (Latest-Two Tracked Pair)** |
+| **v28** | `56531885` | `prvsiyan_kaggriculture_submission.tar.gz` | **Prvsiyan Moon Counts Melons** (Local confirmation candidate; Apache-2.0) | $99,568 | **1422.9** | **Active (Latest-Two Tracked)** |
 
 ---
 
@@ -291,7 +297,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Approach:** Extracted and submitted `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` from verified original archive `submission_k0006_open10_h24_frontload_advance2_v43.tar.gz`.
 *   **Parameters:** `HORIZON = 24`, `LOOKAHEAD = 2`, `OPEN_UNITS = 10`.
 *   **Local Benchmark:** **$161,858** average gold (World-record 100% tournament sweep baseline).
-*   **Live Performance:** **`1705.2`** Elo (Peak: **`1889.3`** Elo) — **Active Co-Climber** (Retrieved 2026-09-24 11:41:42 CEST (UTC+02:00)).
+*   **Live Performance:** **`1680.8`** Elo (Peak: **`1889.3`** Elo) — **Retired from Active Pair (Third / Older Submission)** (Snapshot at 2026-09-25 00:13:22 CEST (+0200)).
 *   **Post-Mortem Findings:**
     1.  **Macro-Market Superiority:** A 24-turn pre-selling horizon and 2-turn pure-cash advance reliably lock in premium shed pricing before market demand collapses.
     2.  **Generalization Over Micro-Optimization:** Proves conclusively that robust, macro-level market dictation and defensive buffers generalize far better to live matchmaking than brittle micro-optimizations found via small local sweeps.
@@ -305,9 +311,56 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
     1.  **Herd-Safe Feed Reserves:** Eliminates early speculative Day-1 wheat dumping that leads to inventory crashes, securing cash and feed reserves dedicated to livestock survival.
     2.  **Shed-Arrival Sale Windows:** Synchronizes strawberry and milk sales with physical shed deliveries, guaranteeing unglutted sales before town price decay.
 *   **Local Performance:** **#1 in 90-match SOTA tournament** across the top 6 public models: **73.3% Win Rate** (22W - 8L), holding a positive winning record against **every single model** (4-2 vs 2950 Peak, 4-2 vs Thomas 2945, 6-0 vs Herd-Safe, 4-2 vs Jaxa B).
-*   **Live Performance:** **`2186.8`** Elo (Active Ladder Leader alongside Jaxa 2802 Variant B, Retrieved 2026-09-24 11:41:42 CEST (UTC+02:00)).
+*   **Live Performance:** **`2117.5`** Elo — **Active (Latest-Two Tracked Pair)** (Snapshot at 2026-09-25 00:13:22 CEST (+0200); already uploaded, no re-upload).
 
+---
 
+### Version 28: Prvsiyan Moon Counts Melons — Local Confirmation Candidate
+*   **Ref ID:** `56531885`
+*   **Approach:** Submitted archive `prvsiyan_kaggriculture_submission.tar.gz` (containing `main.py`, `LICENSE.txt`, and `NOTICE.txt` under Apache-2.0 license) at explicit user request following local confirmation testing.
+*   **Local Performance:** **$99,568.0** average terminal cash across 144 confirmation tournament matches (.8750 pooled match-points rate; provisional confirmation-panel leader).
+*   **Live Performance:** **`1422.9`** Elo — **Active (Latest-Two Tracked)** (Snapshot at 2026-09-25 00:13:22 CEST (+0200); 11 completed public episodes).
 
+---
 
+### Controlled A/B Experiment: RACE Premium-Sale Reservation Horizon (40 vs 41 Turns)
+*   **Hypothesis:** V55-inspired: default horizon 40 -> 41 turns (`V9_RACE_DEFAULT = 40` -> `41`) evaluated against the Shepherd Sovereign core to determine if extending the premium-sale reservation window improves trade timing or terminal margin.
+*   **Setup:**
+    *   **Engine & Runtime:** Kaggriculture simulation engine 1.32.7.
+    *   **Arms:** Current Shepherd Sovereign baseline vs. 41-turn in-memory candidate.
+    *   **Provenance & Hashes:**
+        *   Baseline SHA256: `5f2b51a2beaf5e08cb73e82f0e03e02e56de601563b28344e49b7058e371b247`
+        *   Candidate SHA256: `5273f0884fefcc9087b57b9c07e981b110c2dd2385b6c2c8fcb25e714945f361`
+    *   **Evaluation Matrix:** 12 paired seeds (`[16395794, 879848124, 709458408, 981021242, 586735484, 677596929, 753194523, 155914011, 599914084, 610590515, 843962203, 781627676]`), five opponents (`The 2950 Peak Farm`, `Reyhan Dynamic Route Agent`, `Herd-Safe Race`, `V57 Invariant`, `Jaxa 2802 Variant B`), evaluated across both seats (0 and 1).
+    *   **Match Scale:** 240 games total (120 baseline, 120 candidate), forming 120 paired matchup comparisons.
+    *   **Data Provenance:** Aggregated at UTC `2026-09-24T14:34:56.348071+00:00`. Full result/provenance JSON is [`docs/experiments/race_horizon_41.json`](experiments/race_horizon_41.json), compiled from the four raw batch files `race_horizon_41_batch01.json` through `race_horizon_41_batch04.json` (including all raw games, exact seeds, hashes, bootstrap intervals, and verification).
+*   **Results:**
+    *   **Execution Integrity:** Every game completed with status `DONE`; zero agent/runtime error strings; zero RACE error counters; no telemetry error indicators. Invalid-action counts were not separately captured by this runner.
+    *   **Outcome Summary:** Both arms had 106 wins, 14 losses, 0 ties. All 120 paired matchups were exactly identical in points, margin, and cash.
+    *   **Paired Deltas:** Mean paired points delta `0.0` (cluster-bootstrap 95% interval `[0.0, 0.0]`), margin delta `0.0` (95% interval `[0.0, 0.0]`), cash delta `0.0` (95% interval `[0.0, 0.0]`).
+    *   **Terminal Cash:** Mean terminal cash for each arm: `104561.7833`.
+    *   **Per-Opponent Performance (24 games each):**
+
+        Each row averages the 24 baseline games (12 seeds × both seats). Candidate values matched exactly because all paired outcomes and cash were identical. W-L-T columns indicate Shepherd's record, not the opponent's.
+
+        | Opponent | Shepherd W-L-T | Opponent W-L-T | Shepherd Mean Cash | Opponent Mean Cash | Mean Margin |
+        | :--- | :--- | :--- | :--- | :--- | :--- |
+        | The 2950 Peak Farm | 22-2-0 | 2-22-0 | 104,164.00 | 103,239.00 | +925.00 |
+        | Reyhan Dynamic Route Agent | 22-2-0 | 2-22-0 | 105,663.42 | 100,565.42 | +5,098.00 |
+        | Herd-Safe Race | 24-0-0 | 0-24-0 | 103,746.58 | 103,368.83 | +377.75 |
+        | V57 Invariant | 16-8-0 | 8-16-0 | 103,895.00 | 103,598.83 | +296.17 |
+        | Jaxa 2802 Variant B | 22-2-0 | 2-22-0 | 105,339.92 | 100,531.08 | +4,808.83 |
+    *   **Wall Time:** Mean wall time per game was 5.2918 s baseline, 5.2921 s candidate (no meaningful difference).
+*   **Decision:**
+    *   **No Promotion:** Retain the 40-turn baseline.
+    *   **Scope:** Scope the conclusion to this seed/opponent panel and measured outcome fields; action-level differences were not logged.
+
+---
+
+### Controlled Offline Experiment: Local Agent Selection Tournament (Screening & Confirmation)
+*   **Detailed Report:** See [`docs/experiments/agent_selection/report.md`](experiments/agent_selection/report.md) for full methodology, matchup matrices, cluster bootstrap intervals, and runtime analysis.
+*   **Design & Engine:** Two-phase offline evaluation under official simulation engine `kaggle-environments 1.32.7`. Phase 1 screened 10 candidate agents in a full round-robin across 4 fixed seeds (360 games total; 72 games/agent; all 720 player statuses `DONE`, 0 errors). Phase 2 confirmed the top two finalists across an 8-seed confirmation panel against each other and the roster (272 games total; 144 games/finalist; 544 player statuses `DONE`, 0 errors).
+*   **Phases & Results:** In Phase 1 screening, Shepherd Sovereign ranked #1 (.8333 match-points rate, 60-12-0) and Prvsiyan Moon Counts Melons ranked #2 (.8056, 58-14-0). In Phase 2 confirmation, Prvsiyan led the pooled match-points rate (.8750, 126-18-0) and won 16-0-0 vs Shepherd in direct H2H (+1,723.5 margin); however, Prvsiyan went 2-14-0 vs Jaxa 2802 Variant B (-9,998.2 margin) where Shepherd went 16-0-0 (+6,088.8 margin), and the whole-seed cluster bootstrap paired difference across all opponents crosses zero (95% CI `[-0.0278, +0.2708]`). Both recorded occasional callback latency spikes over 100 ms.
+*   **Outcome & Submission Status:** Prvsiyan is designated the provisional confirmation-panel leader for internal research; Shepherd Sovereign is retained as the local baseline. No Kaggle submission was executed during the local tournament itself.
+*   **Live Follow-up (Early; Insufficient Data):** Subsequent to the offline tournament, at the user's explicit request, a live confirmation candidate package for Prvsiyan Moon Counts Melons was submitted to Kaggle on 2026-09-24 (Ref `56531885`, file `prvsiyan_kaggriculture_submission.tar.gz`). Status as of fresh read-back (2026-09-25 00:13:22 CEST (+0200)) is `SubmissionStatus.COMPLETE` with an early public score snapshot of `1422.9` (private blank), with 11 completed public episodes (`113021238`, `113022391`, `113023605`, `113024764`, `113025938`, `113027091`, `113028242`, `113029390`, `113030547`, `113030646`, `113031699`) and 1 completed validation episode (`113019966`). Eleven public episodes remain too few for a defensible A/B conclusion; dynamic score histories are not directly comparable, and this early score snapshot must not be compared directly with Shepherd Sovereign's accumulated `2117.5` (Ref `56490949`, `COMPLETE`, not re-uploaded) as if this were a matched A/B result. Furthermore, the episodes endpoint does not establish that any listed public episode was played against Shepherd, nor who won. Under Kaggle's active tracking policy (latest two submissions), Prvsiyan and Shepherd are the latest-two tracked submissions, with Jaxa 2802 Variant B (Ref `56467787`, `1680.8`) third/older. See [`docs/experiments/agent_selection/report.md`](experiments/agent_selection/report.md) for full provenance, episode details, and caveats.
 

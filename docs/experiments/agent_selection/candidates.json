@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "purpose": "Freeze the phase-one local head-to-head candidate set; public page ratings are discovery evidence only, not tournament results.",
+  "submission_snapshot_retrieved_local": "2026-09-24 18:41:35 CEST (+0200)",
+  "page_scores_observed_on": "2026-09-24 (live Kaggle notebook-page fetch; displayed best scores may be historical)",
+  "engine": {
+    "name": "kaggle-environments",
+    "version": "1.32.7",
+    "competition": "kaggriculture",
+    "episode_steps": 720,
+    "primary_metric": "match win points (win=1, tie=0.5, loss=0); official rating uses outcome, not coin margin"
+  },
+  "candidates": [
+    {
+      "id": "shepherd_sovereign",
+      "name": "Shepherd Sovereign",
+      "group": "user_current_submission",
+      "lineage": "user's Shepherd policy",
+      "source_path": "../../../competitors/notebooks/shepherd_sovereign_main.py",
+      "source_sha256": "5f2b51a2beaf5e08cb73e82f0e03e02e56de601563b28344e49b7058e371b247",
+      "submission_ref": 56490949,
+      "submission_public_score": 2153.4,
+      "submission_status": "COMPLETE",
+      "license": "repository-local user baseline"
+    },
+    {
+      "id": "jaxa_2802_variant_b",
+      "name": "Jaxa 2802 Variant B",
+      "group": "user_current_submission",
+      "lineage": "user's Jaxa 2802 policy",
+      "source_path": "../../../competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py",
+      "source_sha256": "944aa64c5ae1296a9a17eb7961ed8d5a96d0b80183d41e954389983d73420a56",
+      "submission_ref": 56467787,
+      "submission_public_score": 1695.2,
+      "submission_status": "COMPLETE",
+      "license": "repository-local user baseline"
+    },
+    {
+      "id": "peak_2950",
+      "name": "The 2950 Peak Farm",
+      "group": "repository_local_prior_tournament",
+      "lineage": "Peak Farm",
+      "source_path": "../../../competitors/notebooks/peak_2950_main.py",
+      "source_sha256": "613245d98c5066f9c393de866b0e19998c0f7ba636be08b2990a3e5e79d18ca7",
+      "license": "repository-local benchmark"
+    },
+    {
+      "id": "herd_safe_race",
+      "name": "Herd-Safe Race",
+      "group": "repository_local_prior_tournament",
+      "lineage": "Herd-Safe",
+      "source_path": "../../../competitors/notebooks/herd_safe_main.py",
+      "source_sha256": "29454a13477f827c34615300f90a7bdb074ea3c9bcb948f3372bf95fa1fb207d",
+      "license": "repository-local benchmark"
+    },
+    {
+      "id": "v57_invariant",
+      "name": "V57 Invariant",
+      "group": "repository_local_prior_tournament",
+      "lineage": "V57 Invariant",
+      "source_path": "../../../competitors/notebooks/v57_main.py",
+      "source_sha256": "2ee689fdc58f38b7bf6b80b8d3f48129d19b47201dbee51fdcbd977498a5106f",
+      "license": "repository-local benchmark"
+    },
+    {
+      "id": "thomas_2945_farm",
+      "name": "Thomas 2945 Farm",
+      "group": "repository_local_prior_tournament",
+      "lineage": "Thomas 2945 Farm",
+      "source_path": "../../../competitors/notebooks/thomas_2945_main.py",
+      "source_sha256": "4f3ca95dd12d9a94b03339999d8803c155f450a8d3956636f050643301fcc5dd",
+      "license": "repository-local benchmark"
+    },
+    {
+      "id": "ahmed_v39",
+      "name": "Kaggriculture V39 — Ready Before the Rush",
+      "group": "public_kaggle_agent",
+      "lineage": "Ahmed Berat Özer V38/V39/V55 family",
+      "source_path": "sources/ahmed_v39/main.py",
+      "source_sha256": "708c7485fa964853b193f175dcd83020602c005e159ce82e38dc350b22e970c8",
+      "source_url": "https://www.kaggle.com/code/ahmedberatozer/kaggriculture-v39-ready-before-the-rush",
+      "source_version_note": "Notebook code cell's EXPECTED_MAIN_SHA256 verified; page reports Best Score 2626.8 V1, not a local tournament result.",
+      "page_scores": {"public_score": null, "best_score": "2626.8 V1"},
+      "license": "Apache-2.0"
+    },
+    {
+      "id": "ahmed_v55",
+      "name": "Kaggriculture V55 — One-Turn Market Race Edge",
+      "group": "public_kaggle_agent",
+      "lineage": "Ahmed Berat Özer V38/V39/V55 family",
+      "source_path": "sources/ahmed_v55/main.py",
+      "source_sha256": "f09034624844da494669c4ab0e0d9a797da1a19db95eb138b875d309bd1aa01b",
+      "source_url": "https://www.kaggle.com/code/ahmedberatozer/kaggriculture-v55-one-turn-market-race-edge",
+      "page_scores": {"public_score": 2595.8, "best_score": null},
+      "license": "Apache-2.0"
+    },
+    {
+      "id": "cha22_multi_route",
+      "name": "Cha22 R5 Multi-Route Agent",
+      "group": "public_kaggle_agent",
+      "lineage": "same main.py bytes published by Flexonafft Multi-Route and Guruprasaathas Master Engine V3",
+      "source_path": "sources/cha22_multi_route/main.py",
+      "source_sha256": "127ed3e62988c0474d386db6527ae8ca9de9bb1fe7004128557ddef67126c652",
+      "source_urls": [
+        "https://www.kaggle.com/code/flexonafft/kaggriculture-multi-route-farming-agent",
+        "https://www.kaggle.com/code/guruprasaathas111/kaggriculture-master-engine-v3"
+      ],
+      "page_scores": {
+        "flexonafft": {"public_score": 2599.9, "best_score": "2767.3 V59"},
+        "guruprasaathas111": {"public_score": 2647.5, "best_score": "2712.8 V3"}
+      },
+      "deduplication": "Only one tournament entry: both downloaded main.py output files have the same SHA256.",
+      "license": "Apache-2.0"
+    },
+    {
+      "id": "prvsiyan_moon_counts_melons",
+      "name": "Kaggriculture Frontier — The Moon Counts Melons",
+      "group": "public_kaggle_agent",
+      "lineage": "Prvsiyan controller; notebook attributes inherited source and preserved notices",
+      "source_path": "sources/prvsiyan_moon_counts_melons/main.py",
+      "source_sha256": "178ae0f727641cf4b618ebb98ade7aa1a1bed7517281aab9849de82a59d8ed3a",
+      "source_url": "https://www.kaggle.com/code/prvsiyan/kaggriculture-frontier-the-moon-counts-melons",
+      "source_version_note": "Page reports Best Score 2736.1 V11; notebook says the current controller has no official score established by local evidence, so the V11 rating is not attributed to these downloaded bytes.",
+      "page_scores": {"public_score": null, "best_score": "2736.1 V11 (historical)"},
+      "license": "Apache-2.0; LICENSE.txt and NOTICE.txt downloaded with output"
+    }
+  ],
+  "prior_screening_evidence": {
+    "source": "docs/sota_tournament_results_2026_09_23.json",
+    "timestamp": "2026-09-23 12:37:25",
+    "matches": 90,
+    "seeds": [42, 100, 2026],
+    "note": "Historical 3-seed round robin: Shepherd 22-8-0; not independent confirmation and not evidence against downloaded public agents."
+  },
+  "excluded_from_phase_one": [
+    {
+      "name": "The 2965 Master Hybrid Engine",
+      "source_url": "https://www.kaggle.com/code/haideptry/the-2965-master-hybrid-engine",
+      "reason": "Page/license provenance could not be verified through Kaggle page retrieval; source not included in the scored roster. Do not infer score from title."
+    },
+    {
+      "name": "V38 and V53 Ahmed notebooks",
+      "reason": "Same Ahmed lineage; phase one uses the distinct V39 and V55 source versions instead of adding older/nearby variants."
+    },
+    {
+      "name": "Guruprasaathas Master Engine V3",
+      "reason": "Its downloaded main.py is byte-identical to the Multi-Route candidate, so it is recorded as a second page source and not a duplicate tournament participant."
+    },
+    {
+      "name": "Leo Provorov Kaggricult Man reverse-engineering notebook",
+      "reason": "Research/analysis notebook, not an independently verified packaged candidate policy."
+    }
+  ],
+  "design": {
+    "screening": "Round robin over all 10 unique source hashes; every unordered pair; both seats; same fixed seeds for every pair.",
+    "screening_rng_seed": 20260925,
+    "screening_seed_count": 4,
+    "screening_seeds": [353711617, 139535007, 824705151, 547805795],
+    "screening_expected_games": 360,
+    "confirmation": "After screening, final two compete against each other and all eight non-finalists on a fresh matched seed panel, both seats; report holdout-only estimates.",
+    "confirmation_rng_seed": 20260926,
+    "confirmation_seed_count": 8,
+    "confirmation_seeds": [78284910, 49798149, 16980293, 629521872, 245925070, 913117904, 542891421, 905658093],
+    "confirmation_expected_games": 272,
+    "primary": "Average match points / win probability with ties worth half; coin margin and terminal cash are secondary.",
+    "safety": "Record terminal status, exceptions, invalid-action telemetry when exposed, total runtime, callback count, p95/max callback latency; no Kaggle submissions."
+  }
+}
