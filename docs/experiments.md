@@ -5,10 +5,10 @@
 > * **Execution Security:** Agent runners execute candidate Python in-process via `exec`, with NO sandbox. You must only run reviewed and trusted source snapshots.
 > * **Source Authorship & Licensing:** The captured Kaggle sources bundled in this repository may contain submitter-authored modifications alongside inherited, third-party, or open-source components described in their own notices. The bundled copies are strictly hash-pinned captures of the linked public outputs; do not assume all code was originally authored by the listed Kaggle notebook author. We retain Apache/NOTICE attribution detail where present, without making broader unsupported licensing claims.
 
-> **Data Provenance Snapshot (Retrieved 2026-09-25 00:13:22 CEST (+0200))**
+> **Data Provenance Snapshot (Retrieved 2026-09-25 12:08 CEST (+0200))**
 > Kaggle CLI Command: `kaggle competitions submissions kaggriculture --format json --page-size 100`
-> * **Latest-Two Tracked #1 (Newest):** Prvsiyan Moon Counts Melons (Ref `56531885`), Status: COMPLETE, Public Score: 1422.9, Private: blank
-> * **Latest-Two Tracked #2 (Second-Newest):** Shepherd Sovereign (Ref `56490949`), Status: COMPLETE, Public Score: 2117.5, Private: blank (already uploaded; no re-upload)
+> * **Latest-Two Tracked #1 (Newest):** Prvsiyan Moon Counts Melons (Ref `56531885`), Status: COMPLETE, Public Score: 2071.7, Private: blank (110 completed public episodes, 1 completed validation episode)
+> * **Latest-Two Tracked #2 (Second-Newest):** Shepherd Sovereign (Ref `56490949`), Status: COMPLETE, Public Score: 2021.4, Private: blank (272 completed public episodes, 1 completed validation episode; already uploaded; no re-upload)
 > * **Third / Older (Not in Tracked Pair):** Jaxa 2802 Variant B (Ref `56467787`), Status: COMPLETE, Public Score: 1680.8, Private: blank
 > *(Note: The top two entries represent Kaggle's active two-submission tracking rule for live evaluation, not leaderboard rank.)*
 
@@ -46,8 +46,8 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v24** | `56433753` | `competitors/notebooks/reyhan_dynamic_router.py` | **Reyhan Dynamic Route Agent** (Dynamic 6-Day Decision Forest) | $172,897 | **1735.7** | Complete (Retired) |
 | **v25** | `56467783` | `competitors/notebooks/jaxa_2802_router/main.py` | **A/B Test Variant A: Jaxa 2802 (H1, L1, U8)** | $166,498 | **1675.1** | Complete (Retired) |
 | **v26** | `56467787` | `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` | **A/B Test Variant B: Jaxa 2802 (H24, L2, U10)** | $161,858 | **1680.8** | Complete (Retired - Third / Older) |
-| **v27** | `56490949` | `competitors/notebooks/shepherd_sovereign_main.py` | **Shepherd Sovereign: Herd-Safe Sovereign Engine** | $82,074 | **2117.5** | **Active (Latest-Two Tracked Pair)** |
-| **v28** | `56531885` | `prvsiyan_kaggriculture_submission.tar.gz` | **Prvsiyan Moon Counts Melons** (Local confirmation candidate; Apache-2.0) | $99,568 | **1422.9** | **Active (Latest-Two Tracked)** |
+| **v27** | `56490949` | `competitors/notebooks/shepherd_sovereign_main.py` | **Shepherd Sovereign: Herd-Safe Sovereign Engine** | $82,074 | **2021.4** | **Active (Latest-Two Tracked Pair)** |
+| **v28** | `56531885` | `prvsiyan_kaggriculture_submission.tar.gz` | **Prvsiyan Moon Counts Melons** (Local confirmation candidate; Apache-2.0) | $99,568 | **2071.7** | **Active (Latest-Two Tracked)** |
 
 ---
 
@@ -297,7 +297,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Approach:** Extracted and submitted `competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py` from verified original archive `submission_k0006_open10_h24_frontload_advance2_v43.tar.gz`.
 *   **Parameters:** `HORIZON = 24`, `LOOKAHEAD = 2`, `OPEN_UNITS = 10`.
 *   **Local Benchmark:** **$161,858** average gold (World-record 100% tournament sweep baseline).
-*   **Live Performance:** **`1680.8`** Elo (Peak: **`1889.3`** Elo) — **Retired from Active Pair (Third / Older Submission)** (Snapshot at 2026-09-25 00:13:22 CEST (+0200)).
+*   **Live Performance:** **`1680.8`** Elo (Peak: **`1889.3`** Elo) — **Retired from Active Pair (Third / Older Submission)** (Snapshot at 2026-09-25 12:08 CEST (+0200)).
 *   **Post-Mortem Findings:**
     1.  **Macro-Market Superiority:** A 24-turn pre-selling horizon and 2-turn pure-cash advance reliably lock in premium shed pricing before market demand collapses.
     2.  **Generalization Over Micro-Optimization:** Proves conclusively that robust, macro-level market dictation and defensive buffers generalize far better to live matchmaking than brittle micro-optimizations found via small local sweeps.
@@ -311,7 +311,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
     1.  **Herd-Safe Feed Reserves:** Eliminates early speculative Day-1 wheat dumping that leads to inventory crashes, securing cash and feed reserves dedicated to livestock survival.
     2.  **Shed-Arrival Sale Windows:** Synchronizes strawberry and milk sales with physical shed deliveries, guaranteeing unglutted sales before town price decay.
 *   **Local Performance:** **#1 in 90-match SOTA tournament** across the top 6 public models: **73.3% Win Rate** (22W - 8L), holding a positive winning record against **every single model** (4-2 vs 2950 Peak, 4-2 vs Thomas 2945, 6-0 vs Herd-Safe, 4-2 vs Jaxa B).
-*   **Live Performance:** **`2117.5`** Elo — **Active (Latest-Two Tracked Pair)** (Snapshot at 2026-09-25 00:13:22 CEST (+0200); already uploaded, no re-upload).
+*   **Live Performance:** **`2021.4`** Elo — **Active (Latest-Two Tracked Pair)** (Snapshot at 2026-09-25 12:08 CEST (+0200); 272 completed public episodes, 1 completed validation episode; already uploaded, no re-upload).
 
 ---
 
@@ -319,7 +319,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Ref ID:** `56531885`
 *   **Approach:** Submitted archive `prvsiyan_kaggriculture_submission.tar.gz` (containing `main.py`, `LICENSE.txt`, and `NOTICE.txt` under Apache-2.0 license) at explicit user request following local confirmation testing.
 *   **Local Performance:** **$99,568.0** average terminal cash across 144 confirmation tournament matches (.8750 pooled match-points rate; provisional confirmation-panel leader).
-*   **Live Performance:** **`1422.9`** Elo — **Active (Latest-Two Tracked)** (Snapshot at 2026-09-25 00:13:22 CEST (+0200); 11 completed public episodes).
+*   **Live Performance:** **`2071.7`** Elo — **Active (Latest-Two Tracked)** (Snapshot at 2026-09-25 12:08 CEST (+0200); 110 completed public episodes, 1 completed validation episode).
 
 ---
 
@@ -362,5 +362,5 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Design & Engine:** Two-phase offline evaluation under official simulation engine `kaggle-environments 1.32.7`. Phase 1 screened 10 candidate agents in a full round-robin across 4 fixed seeds (360 games total; 72 games/agent; all 720 player statuses `DONE`, 0 errors). Phase 2 confirmed the top two finalists across an 8-seed confirmation panel against each other and the roster (272 games total; 144 games/finalist; 544 player statuses `DONE`, 0 errors).
 *   **Phases & Results:** In Phase 1 screening, Shepherd Sovereign ranked #1 (.8333 match-points rate, 60-12-0) and Prvsiyan Moon Counts Melons ranked #2 (.8056, 58-14-0). In Phase 2 confirmation, Prvsiyan led the pooled match-points rate (.8750, 126-18-0) and won 16-0-0 vs Shepherd in direct H2H (+1,723.5 margin); however, Prvsiyan went 2-14-0 vs Jaxa 2802 Variant B (-9,998.2 margin) where Shepherd went 16-0-0 (+6,088.8 margin), and the whole-seed cluster bootstrap paired difference across all opponents crosses zero (95% CI `[-0.0278, +0.2708]`). Both recorded occasional callback latency spikes over 100 ms.
 *   **Outcome & Submission Status:** Prvsiyan is designated the provisional confirmation-panel leader for internal research; Shepherd Sovereign is retained as the local baseline. No Kaggle submission was executed during the local tournament itself.
-*   **Live Follow-up (Early; Insufficient Data):** Subsequent to the offline tournament, at the user's explicit request, a live confirmation candidate package for Prvsiyan Moon Counts Melons was submitted to Kaggle on 2026-09-24 (Ref `56531885`, file `prvsiyan_kaggriculture_submission.tar.gz`). Status as of fresh read-back (2026-09-25 00:13:22 CEST (+0200)) is `SubmissionStatus.COMPLETE` with an early public score snapshot of `1422.9` (private blank), with 11 completed public episodes (`113021238`, `113022391`, `113023605`, `113024764`, `113025938`, `113027091`, `113028242`, `113029390`, `113030547`, `113030646`, `113031699`) and 1 completed validation episode (`113019966`). Eleven public episodes remain too few for a defensible A/B conclusion; dynamic score histories are not directly comparable, and this early score snapshot must not be compared directly with Shepherd Sovereign's accumulated `2117.5` (Ref `56490949`, `COMPLETE`, not re-uploaded) as if this were a matched A/B result. Furthermore, the episodes endpoint does not establish that any listed public episode was played against Shepherd, nor who won. Under Kaggle's active tracking policy (latest two submissions), Prvsiyan and Shepherd are the latest-two tracked submissions, with Jaxa 2802 Variant B (Ref `56467787`, `1680.8`) third/older. See [`docs/experiments/agent_selection/report.md`](experiments/agent_selection/report.md) for full provenance, episode details, and caveats.
+*   **Live Follow-up (Latest Live Snapshot):** Subsequent to the offline tournament, at the user's explicit request, a live confirmation candidate package for Prvsiyan Moon Counts Melons was submitted to Kaggle on 2026-09-24 (Ref `56531885`, file `prvsiyan_kaggriculture_submission.tar.gz`). Status as of fresh read-back (2026-09-25 12:08 CEST (+0200)) is `SubmissionStatus.COMPLETE` with a public score snapshot of `2071.7` (private blank), with 110 completed public episodes and 1 completed validation episode (`113019966`). Shepherd Sovereign's accumulated public score is `2021.4` (Ref `56490949`, `COMPLETE`, 272 completed public episodes and 1 completed validation episode, not re-uploaded). While Prvsiyan's displayed public score is 50.3 points higher than Shepherd's, this difference reflects dynamic cumulative ratings against varying matchmaking opponents over different episode counts (110 vs 272), not a matched head-to-head A/B result. The episodes endpoint does not establish opponent identities or match outcomes. No submission was made during this documentation refresh. Under Kaggle's active tracking policy (latest two submissions), Prvsiyan and Shepherd are the latest-two tracked submissions, with Jaxa 2802 Variant B (Ref `56467787`, `1680.8`) retired to third/older. See [`docs/experiments/agent_selection/report.md`](experiments/agent_selection/report.md) for full provenance, episode details, and caveats.
 

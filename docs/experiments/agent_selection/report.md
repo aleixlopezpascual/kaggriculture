@@ -12,7 +12,7 @@ This report documents the local, offline evaluation of ten competitive agent arc
 * **The Jaxa 2802 Matchup Contrast:** Prvsiyan is **not** an unconditional global winner across opponents. Against **Jaxa 2802 Variant B**, Prvsiyan won 2/16 sampled games (**2-14-0**, -9,998.2 mean margin). In contrast, **Shepherd Sovereign** won 16/16 sampled games vs Jaxa 2802 (**16-0-0**, +6,088.8 mean margin) and achieved a higher overall mean margin across the confirmation roster (+1,456.3 vs +955.6). This is an observed matchup outcome on this panel, not a proven causal mechanism.
 * **Cluster Uncertainty Across Opponents:** In an independent paired cluster analysis across the eight confirmation seed clusters, the mean paired match-points difference ($\Delta = \text{Prvsiyan} - \text{Shepherd}$) was **+9.03 percentage points** (+.09028), but the 95% whole-seed cluster bootstrap interval is **`[-.02778, +.27083]`**. Because this interval crosses zero, broad all-opponent superiority is not statistically decisive at an 8-seed sample size.
 * **Latency Telemetry Warning:** Neither candidate strictly satisfies the workspace `<100 ms` per-call latency guideline across all turns. In 103,536 callbacks per candidate, Shepherd recorded 2 calls exceeding 100 ms (max 107.20 ms), and Prvsiyan recorded 11 calls exceeding 100 ms (max 132.78 ms).
-* **Operational Decision:** Treat **Prvsiyan Moon Counts Melons** as the provisional confirmation-panel leader for counter-strategy research; **retain Shepherd Sovereign as the user's local baseline**; investigate Prvsiyan's observed Jaxa matchup deficit and latency tail before any consideration of deployment. No submission occurred during the local tournament itself; a separate live follow-up package was subsequently submitted at the user's explicit request and has completed evaluation with early, insufficient data (11 public episodes, score 1422.9; see Section 9).
+* **Operational Decision:** Treat **Prvsiyan Moon Counts Melons** as the provisional confirmation-panel leader for counter-strategy research; **retain Shepherd Sovereign as the user's local baseline**; investigate Prvsiyan's observed Jaxa matchup deficit and latency tail before any consideration of deployment. No submission occurred during the local tournament itself; a separate live follow-up package was subsequently submitted at the user's explicit request and has completed evaluation (latest snapshot: 110 public episodes, score 2071.7; see Section 9).
 
 ---
 
@@ -230,7 +230,7 @@ Under the rules established in `GEMINI.md`, every call to `agent.act()` must ret
 2. **Retain Shepherd Baseline:** Retain Shepherd Sovereign as the user's local baseline. Make no live replacement or submission to Kaggle based solely on this experiment without understanding the observed Jaxa matchup deficit.
 3. **Investigate the Jaxa Matchup:** Analyze match replays from Prvsiyan vs Jaxa 2802 to inspect why Jaxa generated a +10k coin margin surplus against Prvsiyan on this panel, and compare against Shepherd's play in that matchup.
 4. **Profile Latency:** Profile both agents' worst-case step execution to eliminate callback spikes over 100 ms.
-5. **No Automatic Live Replacement:** Strictly enforce the rule that no automatic live replacement or ladder conclusions are authorized based solely on these offline results. (A separate live-test package for Prvsiyan was subsequently submitted at the user's explicit request as a live follow-up—now COMPLETE with an early single-episode score snapshot; no matched Shepherd-vs-Prvsiyan A/B result established—while Shepherd was not re-uploaded; see Section 9.)
+5. **No Automatic Live Replacement:** Strictly enforce the rule that no automatic live replacement or ladder conclusions are authorized based solely on these offline results. (A separate live-test package for Prvsiyan was subsequently submitted at the user's explicit request as a live follow-up—now COMPLETE with score 2071.7 across 110 public episodes; no matched Shepherd-vs-Prvsiyan A/B result established—while Shepherd was not re-uploaded; see Section 9.)
 
 ---
 
@@ -266,53 +266,48 @@ The historical selection experiment is now portable. Only the canonical RACE agg
 
 ---
 
-## 9. Live Follow-Up (Early; Insufficient Data)
+## 9. Live Follow-Up & Ladder Telemetry
 
 *Note: This section records an operational follow-up performed after the completion of the offline tournament. It contributes no evidence to the offline tournament findings or rankings above.*
 
-* **Event Date:** 2026-09-24
+* **Event Date:** 2026-09-24 (initial upload)
 * **Context & Timing:**
   * During the offline screening and confirmation tournament itself, **no Kaggle upload was executed**.
   * After the offline experiment concluded, at the user's explicit request, a live confirmation candidate package for Prvsiyan Moon Counts Melons was submitted to the Kaggle competition platform to initiate live ladder benchmarking.
   * **Shepherd Sovereign was already submitted and was NOT re-uploaded.**
-* **Submission Details & Fresh Verification:**
+  * No submission was made during this documentation refresh.
+* **Submission Details & Source Verification:**
   * **Submission Ref:** `56531885`
   * **Archive Filename:** `prvsiyan_kaggriculture_submission.tar.gz`
   * **Submission Description:** `Prvsiyan Moon Counts Melons: local confirmation candidate; Apache-2.0 license and NOTICE included`
   * **API Submission Timestamp:** `2026-09-24T21:25:39.747000`
-  * **Verification Read-Back:** Fresh Kaggle CLI read at `2026-09-25 00:13:22 CEST (+0200)`.
-  * **Current Status:** `SubmissionStatus.COMPLETE`
-  * **Scores:** Public score `1422.9`, private score blank.
-* **Package Contents & Verification:**
-  * Uploaded archive SHA256: `81fb5c1b14b63ffb795c8b10135cac93caab94b50c4f98b26c250af4155101bb`
+  * **Uploaded Archive SHA256:** `81fb5c1b14b63ffb795c8b10135cac93caab94b50c4f98b26c250af4155101bb`
   * The uploaded archive contains exactly three files: `main.py`, `LICENSE.txt`, and `NOTICE.txt` (including Apache-2.0 license and attribution).
   * Extracted `main.py` SHA256: `178ae0f727641cf4b618ebb98ade7aa1a1bed7517281aab9849de82a59d8ed3a`, matching the frozen candidate manifest (`candidates.json`) identically.
-* **Episodes Telemetry & Matchup Verification:**
-  * Querying `kaggle competitions episodes 56531885 --format json` currently lists 1 completed validation episode and 11 completed public episodes:
-    1. Validation Episode: `113019966`, status `EpisodeState.COMPLETED`.
-    2. Public Episode: `113021238`, status `EpisodeState.COMPLETED`.
-    3. Public Episode: `113022391`, status `EpisodeState.COMPLETED`.
-    4. Public Episode: `113023605`, status `EpisodeState.COMPLETED`.
-    5. Public Episode: `113024764`, status `EpisodeState.COMPLETED`.
-    6. Public Episode: `113025938`, status `EpisodeState.COMPLETED`.
-    7. Public Episode: `113027091`, status `EpisodeState.COMPLETED`.
-    8. Public Episode: `113028242`, status `EpisodeState.COMPLETED`.
-    9. Public Episode: `113029390`, status `EpisodeState.COMPLETED`.
-    10. Public Episode: `113030547`, status `EpisodeState.COMPLETED`.
-    11. Public Episode: `113030646`, status `EpisodeState.COMPLETED`.
-    12. Public Episode: `113031699`, status `EpisodeState.COMPLETED`.
-  * **Crucial Matchup Caveat:** The `episodes` response alone does not establish that any listed public episode was played against Shepherd Sovereign, and no claim should be made that it was. Furthermore, who won these episodes is not claimed here as it is not independently known.
-* **Active Ladder Hierarchy:**
-  * The current newest records on the live competition ladder as of the fresh read-back are:
-    1. **Prvsiyan Moon Counts Melons** (Ref `56531885`): `COMPLETE`, public score `1422.9`, private blank (newest submission).
-    2. **Shepherd Sovereign** (Ref `56490949`): `COMPLETE`, public score `2117.5`, private blank (second-newest; existing active baseline; not re-uploaded).
-    3. **Jaxa 2802 Variant B** (Ref `56467787`): `COMPLETE`, public score `1680.8`, private blank (third/older submission, not in latest-two tracked pair).
-  * Kaggle's official competition overview states that only the latest two submissions are tracked and used for final leaderboard evaluation [1]. Under this rule, the current two newest submissions are Prvsiyan and Shepherd, while Jaxa 2802 Variant B is third/older. Note that these represent the latest-two tracked submissions, not leaderboard rank.
-* **Early Insufficient Data Warning & A/B Status:**
-  * **Sample Size Warning:** Only 11 public episodes have completed. Eleven completed public episodes remain too few for a defensible A/B conclusion; dynamic score histories are not directly comparable.
-  * **No Direct Score Comparison:** The new public score of `1422.9` is an early score snapshot and must **not** be compared directly with Shepherd's accumulated score of `2117.5` as if this were a matched A/B result; dynamic score histories are not directly comparable.
-  * **No Matched A/B Result Established:** The episodes endpoint does not establish that any listed public episode was against Shepherd, nor who won. No matched Shepherd-vs-Prvsiyan A/B result has been established on the live ladder.
-  * This submission and its early live score snapshot contribute zero empirical evidence to the offline screening or confirmation tournament findings.
+
+### 9.1 Authoritative CLI Snapshot (2026-09-25 12:08 CEST (+0200))
+Command: `kaggle competitions submissions kaggriculture --format json --page-size 100`
+
+* **Latest-Two Tracked Submissions (Active Evaluation Pool):**
+  1. **Prvsiyan Moon Counts Melons** (Ref `56531885`): File `prvsiyan_kaggriculture_submission.tar.gz`. Status: `SubmissionStatus.COMPLETE`. Public Score: **2071.7** (Private: blank).
+     * Latest episode query (`kaggle competitions episodes 56531885 --format json`): **110 completed public episodes** and **1 completed validation episode** (`113019966`). All completed.
+  2. **Shepherd Sovereign** (Ref `56490949`): File `shepherd_sovereign_main.py`. Status: `SubmissionStatus.COMPLETE`. Public Score: **2021.4** (Private: blank).
+     * Latest episode query (`kaggle competitions episodes 56490949 --format json`): **272 completed public episodes** and **1 completed validation episode**. All completed.
+     * Note: Existing active baseline, submitted 2026-09-23T10:46:41.287000; not re-uploaded.
+
+* **Third / Older (Outside Tracked Pair):**
+  3. **Jaxa 2802 Variant B** (Ref `56467787`): Status: `SubmissionStatus.COMPLETE`. Public Score: **1680.8** (Private: blank). Retired to third/older; frozen rating outside the active evaluation pair.
+
+### 9.2 Historical Early Snapshot (2026-09-25 00:13:22 CEST (+0200))
+*(Retained for historical progression record)*
+* **Prvsiyan Moon Counts Melons** (Ref `56531885`): Status `COMPLETE`, public score `1422.9`, private blank, 11 completed public episodes (`113021238` through `113031699`) and 1 validation episode (`113019966`).
+* **Shepherd Sovereign** (Ref `56490949`): Status `COMPLETE`, public score `2117.5`, private blank.
+* **Jaxa 2802 Variant B** (Ref `56467787`): Status `COMPLETE`, public score `1680.8`, private blank.
+
+### 9.3 Crucial Matchup & Rating Caveats
+* **Not a Matched Head-to-Head A/B Result:** Prvsiyan's displayed public score of `2071.7` is 50.3 points higher than Shepherd's `2021.4`. However, they are dynamic cumulative ratings across different public match histories (110 vs 272 episodes), not a matched head-to-head. They do not represent a head-to-head A/B comparison.
+* **Opponent Identities and Outcomes Unknown:** Querying the Kaggle `episodes` endpoint lists episode IDs and completion statuses only. The endpoint does **not** disclose opponent identities, matchups, or individual match winners. No claim is made that any public episode was played between Prvsiyan and Shepherd.
+* **Zero Offline Tournament Evidentiary Weight:** These live ladder ratings and episode tallies contribute zero empirical evidence to the offline tournament findings, cluster bootstrap intervals, or candidate rankings documented above.
 
 ## Sources
 
