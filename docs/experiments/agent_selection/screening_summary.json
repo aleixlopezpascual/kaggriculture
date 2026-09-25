@@ -1,0 +1,1194 @@
+{
+  "agent_summaries": {
+    "ahmed_v39": {
+      "callback_errors": 0,
+      "invalid_matches": 0,
+      "losses": 70,
+      "match_points_rate": 0.027777777777777776,
+      "match_points_rate_ci_95": [
+        0.0,
+        0.08333333333333333
+      ],
+      "matches": 72,
+      "mean_coins": 77546.36111111111,
+      "mean_coins_ci_95": [
+        55245.833333333336,
+        99575.91666666667
+      ],
+      "mean_margin": -5436.111111111111,
+      "mean_margin_ci_95": [
+        -6551.555555555556,
+        -4507.222222222223
+      ],
+      "mean_opp_coins": 82982.47222222222,
+      "mean_opp_coins_ci_95": [
+        61610.666666666664,
+        104643.30555555556
+      ],
+      "pairwise": {
+        "ahmed_v55": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "cha22_multi_route": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "herd_safe_race": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "jaxa_2802_variant_b": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "peak_2950": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "prvsiyan_moon_counts_melons": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "shepherd_sovereign": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "thomas_2945_farm": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "v57_invariant": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        }
+      },
+      "technical_errors": 0,
+      "ties": 0,
+      "valid_matches": 72,
+      "win_rate": 0.027777777777777776,
+      "win_rate_ci_95": [
+        0.0,
+        0.08333333333333333
+      ],
+      "wins": 2
+    },
+    "ahmed_v55": {
+      "callback_errors": 0,
+      "invalid_matches": 0,
+      "losses": 40,
+      "match_points_rate": 0.4444444444444444,
+      "match_points_rate_ci_95": [
+        0.3333333333333333,
+        0.5833333333333334
+      ],
+      "matches": 72,
+      "mean_coins": 82066.69444444444,
+      "mean_coins_ci_95": [
+        62831.444444444445,
+        99700.91666666667
+      ],
+      "mean_margin": -44.083333333333336,
+      "mean_margin_ci_95": [
+        -587.1111111111111,
+        319.0833333333333
+      ],
+      "mean_opp_coins": 82110.77777777778,
+      "mean_opp_coins_ci_95": [
+        62659.77777777778,
+        99610.83333333333
+      ],
+      "pairwise": {
+        "ahmed_v39": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "cha22_multi_route": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "herd_safe_race": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "jaxa_2802_variant_b": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "peak_2950": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "prvsiyan_moon_counts_melons": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "shepherd_sovereign": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "thomas_2945_farm": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "v57_invariant": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        }
+      },
+      "technical_errors": 0,
+      "ties": 0,
+      "valid_matches": 72,
+      "win_rate": 0.4444444444444444,
+      "win_rate_ci_95": [
+        0.3333333333333333,
+        0.5833333333333334
+      ],
+      "wins": 32
+    },
+    "cha22_multi_route": {
+      "callback_errors": 0,
+      "invalid_matches": 0,
+      "losses": 40,
+      "match_points_rate": 0.4444444444444444,
+      "match_points_rate_ci_95": [
+        0.25,
+        0.75
+      ],
+      "matches": 72,
+      "mean_coins": 80397.11111111111,
+      "mean_coins_ci_95": [
+        61079.944444444445,
+        99238.27777777778
+      ],
+      "mean_margin": 689.4166666666666,
+      "mean_margin_ci_95": [
+        128.91666666666666,
+        1542.8333333333333
+      ],
+      "mean_opp_coins": 79707.69444444444,
+      "mean_opp_coins_ci_95": [
+        59619.555555555555,
+        99047.16666666667
+      ],
+      "pairwise": {
+        "ahmed_v39": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "ahmed_v55": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "herd_safe_race": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "jaxa_2802_variant_b": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "peak_2950": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "prvsiyan_moon_counts_melons": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "shepherd_sovereign": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "thomas_2945_farm": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "v57_invariant": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        }
+      },
+      "technical_errors": 0,
+      "ties": 0,
+      "valid_matches": 72,
+      "win_rate": 0.4444444444444444,
+      "win_rate_ci_95": [
+        0.25,
+        0.75
+      ],
+      "wins": 32
+    },
+    "herd_safe_race": {
+      "callback_errors": 0,
+      "invalid_matches": 0,
+      "losses": 26,
+      "match_points_rate": 0.6388888888888888,
+      "match_points_rate_ci_95": [
+        0.5,
+        0.75
+      ],
+      "matches": 72,
+      "mean_coins": 80672.13888888889,
+      "mean_coins_ci_95": [
+        61184.694444444445,
+        99778.11111111111
+      ],
+      "mean_margin": 1428.6944444444443,
+      "mean_margin_ci_95": [
+        985.8888888888889,
+        1871.5
+      ],
+      "mean_opp_coins": 79243.44444444444,
+      "mean_opp_coins_ci_95": [
+        59628.833333333336,
+        98219.55555555556
+      ],
+      "pairwise": {
+        "ahmed_v39": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "ahmed_v55": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "cha22_multi_route": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "jaxa_2802_variant_b": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "peak_2950": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "prvsiyan_moon_counts_melons": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "shepherd_sovereign": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "thomas_2945_farm": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "v57_invariant": {
+          "invalid": 0,
+          "losses": 4,
+          "matches": 8,
+          "points": 4.0,
+          "points_rate": 0.5,
+          "ties": 0,
+          "wins": 4
+        }
+      },
+      "technical_errors": 0,
+      "ties": 0,
+      "valid_matches": 72,
+      "win_rate": 0.6388888888888888,
+      "win_rate_ci_95": [
+        0.5,
+        0.75
+      ],
+      "wins": 46
+    },
+    "jaxa_2802_variant_b": {
+      "callback_errors": 0,
+      "invalid_matches": 0,
+      "losses": 34,
+      "match_points_rate": 0.5277777777777778,
+      "match_points_rate_ci_95": [
+        0.4722222222222222,
+        0.5555555555555556
+      ],
+      "matches": 72,
+      "mean_coins": 90808.04166666667,
+      "mean_coins_ci_95": [
+        74066.94444444444,
+        103509.76388888889
+      ],
+      "mean_margin": 2341.3055555555557,
+      "mean_margin_ci_95": [
+        -839.5555555555555,
+        5522.166666666667
+      ],
+      "mean_opp_coins": 88466.73611111111,
+      "mean_opp_coins_ci_95": [
+        72472.11111111111,
+        103602.84722222222
+      ],
+      "pairwise": {
+        "ahmed_v39": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "ahmed_v55": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "cha22_multi_route": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "herd_safe_race": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "peak_2950": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "prvsiyan_moon_counts_melons": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "shepherd_sovereign": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "thomas_2945_farm": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "v57_invariant": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        }
+      },
+      "technical_errors": 0,
+      "ties": 0,
+      "valid_matches": 72,
+      "win_rate": 0.5277777777777778,
+      "win_rate_ci_95": [
+        0.4722222222222222,
+        0.5555555555555556
+      ],
+      "wins": 38
+    },
+    "peak_2950": {
+      "callback_errors": 0,
+      "invalid_matches": 0,
+      "losses": 44,
+      "match_points_rate": 0.3888888888888889,
+      "match_points_rate_ci_95": [
+        0.2777777777777778,
+        0.5
+      ],
+      "matches": 72,
+      "mean_coins": 80848.25,
+      "mean_coins_ci_95": [
+        62746.77777777778,
+        98546.08333333333
+      ],
+      "mean_margin": -183.47222222222223,
+      "mean_margin_ci_95": [
+        -700.8055555555555,
+        291.8333333333333
+      ],
+      "mean_opp_coins": 81031.72222222222,
+      "mean_opp_coins_ci_95": [
+        62698.583333333336,
+        98485.91666666667
+      ],
+      "pairwise": {
+        "ahmed_v39": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "ahmed_v55": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "cha22_multi_route": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "herd_safe_race": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "jaxa_2802_variant_b": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "prvsiyan_moon_counts_melons": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "shepherd_sovereign": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "thomas_2945_farm": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "v57_invariant": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        }
+      },
+      "technical_errors": 0,
+      "ties": 0,
+      "valid_matches": 72,
+      "win_rate": 0.3888888888888889,
+      "win_rate_ci_95": [
+        0.2777777777777778,
+        0.5
+      ],
+      "wins": 28
+    },
+    "prvsiyan_moon_counts_melons": {
+      "callback_errors": 0,
+      "invalid_matches": 0,
+      "losses": 14,
+      "match_points_rate": 0.8055555555555556,
+      "match_points_rate_ci_95": [
+        0.7222222222222222,
+        0.8888888888888888
+      ],
+      "matches": 72,
+      "mean_coins": 82954.95833333333,
+      "mean_coins_ci_95": [
+        65203.11111111111,
+        99808.5
+      ],
+      "mean_margin": -55.02777777777778,
+      "mean_margin_ci_95": [
+        -1169.0833333333333,
+        865.4444444444445
+      ],
+      "mean_opp_coins": 83009.98611111111,
+      "mean_opp_coins_ci_95": [
+        65340.805555555555,
+        100057.11111111111
+      ],
+      "pairwise": {
+        "ahmed_v39": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "ahmed_v55": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "cha22_multi_route": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "herd_safe_race": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "jaxa_2802_variant_b": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "peak_2950": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "shepherd_sovereign": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "thomas_2945_farm": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "v57_invariant": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        }
+      },
+      "technical_errors": 0,
+      "ties": 0,
+      "valid_matches": 72,
+      "win_rate": 0.8055555555555556,
+      "win_rate_ci_95": [
+        0.7222222222222222,
+        0.8888888888888888
+      ],
+      "wins": 58
+    },
+    "shepherd_sovereign": {
+      "callback_errors": 0,
+      "invalid_matches": 0,
+      "losses": 12,
+      "match_points_rate": 0.8333333333333334,
+      "match_points_rate_ci_95": [
+        0.6388888888888888,
+        0.9722222222222222
+      ],
+      "matches": 72,
+      "mean_coins": 80858.80555555556,
+      "mean_coins_ci_95": [
+        61397.444444444445,
+        99905.77777777778
+      ],
+      "mean_margin": 1695.8333333333333,
+      "mean_margin_ci_95": [
+        1257.3333333333333,
+        2134.3333333333335
+      ],
+      "mean_opp_coins": 79162.97222222222,
+      "mean_opp_coins_ci_95": [
+        59558.555555555555,
+        98141.66666666667
+      ],
+      "pairwise": {
+        "ahmed_v39": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "ahmed_v55": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "cha22_multi_route": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "herd_safe_race": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "jaxa_2802_variant_b": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "peak_2950": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "prvsiyan_moon_counts_melons": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "thomas_2945_farm": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "v57_invariant": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        }
+      },
+      "technical_errors": 0,
+      "ties": 0,
+      "valid_matches": 72,
+      "win_rate": 0.8333333333333334,
+      "win_rate_ci_95": [
+        0.6388888888888888,
+        0.9722222222222222
+      ],
+      "wins": 60
+    },
+    "thomas_2945_farm": {
+      "callback_errors": 0,
+      "invalid_matches": 0,
+      "losses": 52,
+      "match_points_rate": 0.2777777777777778,
+      "match_points_rate_ci_95": [
+        0.2222222222222222,
+        0.3888888888888889
+      ],
+      "matches": 72,
+      "mean_coins": 79895.19444444444,
+      "mean_coins_ci_95": [
+        60378.944444444445,
+        98833.88888888889
+      ],
+      "mean_margin": 39.69444444444444,
+      "mean_margin_ci_95": [
+        -382.77777777777777,
+        306.8888888888889
+      ],
+      "mean_opp_coins": 79855.5,
+      "mean_opp_coins_ci_95": [
+        60097.13888888889,
+        99061.38888888889
+      ],
+      "pairwise": {
+        "ahmed_v39": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "ahmed_v55": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "cha22_multi_route": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "herd_safe_race": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "jaxa_2802_variant_b": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "peak_2950": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "prvsiyan_moon_counts_melons": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "shepherd_sovereign": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "v57_invariant": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        }
+      },
+      "technical_errors": 0,
+      "ties": 0,
+      "valid_matches": 72,
+      "win_rate": 0.2777777777777778,
+      "win_rate_ci_95": [
+        0.2222222222222222,
+        0.3888888888888889
+      ],
+      "wins": 20
+    },
+    "v57_invariant": {
+      "callback_errors": 0,
+      "invalid_matches": 0,
+      "losses": 28,
+      "match_points_rate": 0.6111111111111112,
+      "match_points_rate_ci_95": [
+        0.5,
+        0.7222222222222222
+      ],
+      "matches": 72,
+      "mean_coins": 82935.80555555556,
+      "mean_coins_ci_95": [
+        65199.666666666664,
+        99950.38888888889
+      ],
+      "mean_margin": -476.25,
+      "mean_margin_ci_95": [
+        -1598.4444444444443,
+        442.8333333333333
+      ],
+      "mean_opp_coins": 83412.05555555556,
+      "mean_opp_coins_ci_95": [
+        65648.77777777778,
+        100656.88888888889
+      ],
+      "pairwise": {
+        "ahmed_v39": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "ahmed_v55": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "cha22_multi_route": {
+          "invalid": 0,
+          "losses": 2,
+          "matches": 8,
+          "points": 6.0,
+          "points_rate": 0.75,
+          "ties": 0,
+          "wins": 6
+        },
+        "herd_safe_race": {
+          "invalid": 0,
+          "losses": 4,
+          "matches": 8,
+          "points": 4.0,
+          "points_rate": 0.5,
+          "ties": 0,
+          "wins": 4
+        },
+        "jaxa_2802_variant_b": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "peak_2950": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        },
+        "prvsiyan_moon_counts_melons": {
+          "invalid": 0,
+          "losses": 8,
+          "matches": 8,
+          "points": 0.0,
+          "points_rate": 0.0,
+          "ties": 0,
+          "wins": 0
+        },
+        "shepherd_sovereign": {
+          "invalid": 0,
+          "losses": 6,
+          "matches": 8,
+          "points": 2.0,
+          "points_rate": 0.25,
+          "ties": 0,
+          "wins": 2
+        },
+        "thomas_2945_farm": {
+          "invalid": 0,
+          "losses": 0,
+          "matches": 8,
+          "points": 8.0,
+          "points_rate": 1.0,
+          "ties": 0,
+          "wins": 8
+        }
+      },
+      "technical_errors": 0,
+      "ties": 0,
+      "valid_matches": 72,
+      "win_rate": 0.6111111111111112,
+      "win_rate_ci_95": [
+        0.5,
+        0.7222222222222222
+      ],
+      "wins": 44
+    }
+  },
+  "engine_version": "1.32.7",
+  "manifest_hash": "dfa516424369d4fa30e35cd06da95bff1ffe09a73919a549dc1ca78c6b078a46",
+  "phase": "screening",
+  "seeds_aggregated": [
+    139535007,
+    353711617,
+    547805795,
+    824705151
+  ],
+  "total_matches": 360
+}
