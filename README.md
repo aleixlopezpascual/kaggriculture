@@ -53,13 +53,16 @@ Market orders are executed in a sequential clearance queue. Agents prioritizing 
 
 ---
 
-## 🏆 Current Active Submissions & SOTA Standings (Retrieved 2026-09-24 11:41:42 CEST (UTC+02:00))
+## 🏆 Current Active Submissions & SOTA Standings (Retrieved 2026-09-25 12:08 CEST (+0200))
 
-Following a comprehensive 90-match round-robin tournament across the top public models, our two active competition slots on the live Kaggle ladder are:
-1. **`Shepherd Sovereign`** (Ref ID: `56490949`): File `shepherd_sovereign_main.py`. Submitted 2026-09-23T10:46:41.287000. Status: COMPLETE. Score: **2186.8** (Private: blank). Historical context: #1 in the 90-match SOTA tournament with 73.3% win rate.
-2. **`Jaxa 2802 Variant B`** (Ref ID: `56467787`): File `main_variant_b_h24.py`. Submitted 2026-09-22T15:02:43.093000. Status: COMPLETE. Score: **1705.2** (Private: blank). Historical context: Recorded the highest positive local tournament margin (+1,930 gold).
+Under Kaggle's active tracking policy (where only the latest two submissions remain active in live simulation and evaluation), our latest-two tracked competition slots on the live ladder are:
+1. **`Prvsiyan Moon Counts Melons`** (Ref ID: `56531885`): File `prvsiyan_kaggriculture_submission.tar.gz`. Submitted 2026-09-24T21:25:39.747000. Status: COMPLETE. Public Score: **2071.7** (Private: blank). Latest episode query: 110 completed public episodes and 1 completed validation episode.
+2. **`Shepherd Sovereign`** (Ref ID: `56490949`): File `shepherd_sovereign_main.py`. Submitted 2026-09-23T10:46:41.287000. Status: COMPLETE. Public Score: **2021.4** (Private: blank). Latest episode query: 272 completed public episodes and 1 completed validation episode. Historical context: achieved a 73.3% win rate in the earlier 90-match local SOTA tournament.
 
-(Shepherd Sovereign is ahead with an active gap of 481.6).
+Third / Older (Outside latest-two tracked pair):
+* **`Jaxa 2802 Variant B`** (Ref ID: `56467787`): Status: COMPLETE. Public Score: **1680.8** (Private: blank). Retired to third/older and freezes its Elo rating.
+
+*(Note: Prvsiyan's displayed public score is 50.3 points higher than Shepherd's (2071.7 vs 2021.4), but they are dynamic cumulative ratings across different public match histories (110 vs 272 episodes), not a matched head-to-head. The episodes endpoint does not establish opponent identities or outcomes. No submission was made during this documentation refresh.)*
 
 For comprehensive architectural breakdowns, game-engine physics, and empirical A/B test findings, see:
 * **Master Retrospective:** [`docs/kaggriculture_master_retrospective_2026_09_23.md`](docs/kaggriculture_master_retrospective_2026_09_23.md)
