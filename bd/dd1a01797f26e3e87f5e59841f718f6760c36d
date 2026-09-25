@@ -1,0 +1,527 @@
+docs/experiments/race_horizon_41_batch04.json
+  s_c06ab3196fb8c0::t_03133dee9c1a60 27-242219
+docs/experiments/race_horizon_41_batch01.json
+  s_c06ab3196fb8c0::t_62f6e6358778b5 27-242219
+scripts/__init__.py
+  s_00c099fc40dce7::t_a7acd96b91bd83 1
+tests/test_race_horizon_ab.py
+  s_832d8e5bd650fd::t_c73f99968a28e4 12-17
+  s_032087b9ccfa92::t_0234d011c47861 46
+  s_de4b9021e00be5::t_54269f76c4f908 6,11,22-23,28-29,33,42,54,63,125-126,163-164,197-198,202-203
+  s_34e6f292e4a989::t_81e5b89a0fa58b 10,21,27,40,45,135-136
+  s_00c099fc40dce7::t_ff677a442c1ca0 124,200
+  s_1a0d445feae343::t_0dfb5c0801dffc 67-85
+  s_f37d0c852b79da::t_420b5db00a805c 3-4,88-123,127-133,153-161,169-195,204,216,229-232,237-263,265-290
+  s_852bf97a181d1e::t_fdf5504578a72e 134,137-138
+  s_032087b9ccfa92::t_e439969f62dcef 140-149
+  s_f929f7e81026ba::t_f1a091b8eed25b 1
+  s_f929f7e81026ba::t_909f55edd118ea 210-215,217-219,221-228,233-236,264,291
+  s_0599e6e5689abf::t_b9f56fa61a6270 220
+  s_eb61b1adebd669::t_2334036d3bb550 2,5,7-9,18-20,24-26,30-32,34-39,41,43-44,47-53,55-62,64-66,86-87,139,150-152,162,165-168,196,199,201,205-209
+docs/experiments.md
+  s_d8735c8b0b1836::t_6636741dbed198 48-50
+  s_d8735c8b0b1836::t_2b31243b433a9b 8,10-13
+  s_898b65f55e7a4a::t_8a5edf446daed1 342-343,345
+  s_942f5d371e57d0::t_15cfa0e1e8a6b3 356
+  s_2cee6d9eb1c0af::t_48b40e20960601 338
+  s_d6c744386deb09::t_53fe71d6d66d7d 362-363
+  s_c7d8033ae96eac::t_b2de1ce890a960 324-337,339-341,353-355
+  s_3ee0427e691f5f::t_06e5e19ad1c105 364
+  s_d8735c8b0b1836::t_eed8442be8949d 300,314-316,318-322
+  s_7a376347f8c823::t_3134ae45d4bc3e 4
+  s_c06ab3196fb8c0::t_9d5be0eef33dca 3,5-7
+  s_32bb0e64580162::t_aeb359e7016b57 358,360-361
+  s_d8735c8b0b1836::t_f8afe7de42ef90 365
+  s_176f8d9b500fdf::t_6a85698b843559 344,346-352
+tests/test_agent_selection_tournament.py
+  s_ba3be3f90616e0::t_67b8b9979716b7 504-505,507,565,567,569,573-576,578-583,585-587,622-623,625,627-628,630-632,634,692-694,696-698,700-703,768-769,771-772,774-778,780-782
+  s_a32440bfc4a722::t_6caa557c182281 365-434
+  s_2324b557a91c4a::t_55044a6889a1e4 362
+  s_12ba87bd589c5a::t_e45a2d265ce645 150-159
+  s_d7c82336c742da::t_02033b2a078511 443-445,447,512-514,516,639-641,643
+  s_d7c82336c742da::t_cbe81c92242461 713-715,717
+  s_1975aca0122790::t_300be13cba65ec 31,452,475,521,544,601,648,671,722,745,843,851-918
+  s_12ba87bd589c5a::t_0726ee467201e1 90-95
+  s_5329492458c085::t_6822ba5b59aebc 2-3,5-6,9,14,16-20,22,25,33-34,41,46,50,54-57,63,65,70,75,79,89,101,107-108,111-116,126-129,131-136,149,162,164,168,172,176,178,188,190-192,196,199-200,202,205,207,209,220-221,228,234-235,237-240,243-245,253,257,259,261-264,267-270,277,281,283,285-288,293-294,437,446,451,453-471,473-474,476-495,497,499,501-503,506,508-511,515,517-520,522-543,545-564,566,568,570-571,577,584,588-591,597-600,602-621,624,629,633,635-638,642,644-647,649-670,672-691,695,699,704,707-712,716,718-721,723-724,727-733,736-744,746-747,750-756,759-767,770,773,779
+  s_bf60dd8667a90a::t_5d65519f4b83f4 1,77-78,83-88,96-100,124-125,130,137-147,183-187,189,193-195,197-198,203-204,206,208,210-219,435-436,438-442,448-450,472,496,498,500,572
+  s_e0e21baa5100c3::t_958c127a57e901 28,30
+  s_c06ab3196fb8c0::t_22bd2cf4d8050e 295-359,361,363-364
+  s_d7c82336c742da::t_53524d5cea82d4 592-596,626
+  s_ba3be3f90616e0::t_289b52ea452bd9 160-161,163,165-167,169-171,173-175,177,179-182
+  s_bf60dd8667a90a::t_4a886413d7102b 4
+  s_ba3be3f90616e0::t_1fd6c6e686c4e8 222-227,229-233,236,241-242,246-252,254-256,258,260,265-266,271-276,278-280,282,284,289-292
+  s_e0e21baa5100c3::t_6af45ac5af41d6 705-706,725-726,734-735,748-749,757-758
+  s_ba3be3f90616e0::t_663aca1c0fba32 102-106,109-110,117-123
+  s_12ba87bd589c5a::t_bc370fef09ba79 783-794,797-806,808-815,840-842,844-850
+  s_bf60dd8667a90a::t_80a00dc4340c45 7-8,10-13,15,21,23-24,26,32,35-40,42-45,47-49,51-53,58-62,64,66-69,71-74,76,80-82,148,201
+  s_b2e08ebb3c4d88::t_af599959f94de7 795-796,807,816-839
+docs/experiments/race_horizon_41.json
+  s_c06ab3196fb8c0::t_ae6ff444f9eb87 56-971801
+GEMINI.md
+  s_d8735c8b0b1836::t_d60d4f1fa037b3 45
+docs/experiments/agent_selection/report.md
+  s_d8735c8b0b1836::t_9e9b12476f35c1 15
+  s_cef5bf79723dff::t_3bd4cca9b6b8a2 192
+  s_c18c45254edd3d::t_2aabc7ec727fba 264
+  s_6301c4b16fc87f::t_4d6268dc505873 296-299
+  s_cef5bf79723dff::t_6db8ad86ed8262 120,133
+  s_cef5bf79723dff::t_d1fee46cecad41 31,39,43
+  s_32bb0e64580162::t_043a5dd4e3c6f2 1-10,13-14,16-25,27-30,32-34,36-38,41-42,46-47,49-85,89-119,121-132,134-170,173-179,181-184,187-188,193-212,214-223,225,227-228,232,234-242,244-253,255-262
+  s_d6c744386deb09::t_1e394fcd5eee05 11-12
+  s_d6c744386deb09::t_0d1c171a4f8cc6 171-172,180,185-186,189-191
+  s_d6c744386deb09::t_cca36404f7ee06 86-88
+  s_3ee0427e691f5f::t_c12208f66dd1e7 263,267-268,270-277,279-281,286-289,305
+  s_cc190e0265a899::t_36c78aca7a109c 316-319
+  s_554ebc58700a3d::t_db2cf121611783 233
+  s_554ebc58700a3d::t_d65ee2feeeb887 269,278,282,284,290,292-293,306,311,315
+  s_554ebc58700a3d::t_ac51b12ba134bc 26
+  s_2324b557a91c4a::t_6600c49a608187 35
+  s_cef5bf79723dff::t_1ff09085dbec01 243
+  s_f952724ded0e86::t_c7832bfbc0abc6 294-295,304,314
+  s_2324b557a91c4a::t_909117007c6366 265
+  s_d8735c8b0b1836::t_faa85410568a60 266,283,285,291,300-303,307-310,312-313
+  s_d6c744386deb09::t_ef27d6edc7a407 224,226,229-231
+  s_cef5bf79723dff::t_61cff13b151069 213
+scripts/run_agent_selection_tournament.py
+  s_95955f05f91d7b::t_fdf022aa20a5ce 410-411,425-426
+  s_d7c82336c742da::t_c06f62db85655c 770-780,818-823,828,853-854
+  s_e0e21baa5100c3::t_873e27a8f46b8d 395-398,400-403
+  s_bf60dd8667a90a::t_08be016b2f8185 9,14,20,920
+  s_d7c82336c742da::t_973a0e617d443f 328-330,349-352,363-372,374-378,380-381,388-389,394,399,404,406,408,491-493
+  s_d7c82336c742da::t_f7574b08cc5cd0 505-507,509-512,525-527
+  s_e0e21baa5100c3::t_582cf100bf2b75 436-439,458-460,462-464,469-472,482-484,486-488
+  s_95955f05f91d7b::t_5fc832019c8338 598
+  s_d7c82336c742da::t_6f1f08138789de 257-259,264,269,273,288
+  s_a32440bfc4a722::t_2e1c0856498888 495-497
+  s_8db98449ebc2e8::t_eb07caf2a3048c 761,784,786-787,789-790,833
+  s_c18c45254edd3d::t_67a83ccc6f48da 785,788,791,795
+  s_95955f05f91d7b::t_a8d3429eade663 41-42
+  s_e0e21baa5100c3::t_951909737b1a21 535
+  s_e0e21baa5100c3::t_924443ae279465 824-827
+  s_e0e21baa5100c3::t_d4c0f5aca1a0f8 528-531
+  s_95955f05f91d7b::t_730bd6011a1389 620-621
+  s_95955f05f91d7b::t_4018e28beab41c 168,176,192
+  s_d7c82336c742da::t_23854a311ee1aa 16-17
+  s_5329492458c085::t_8b27cfb8f5774d 8,23,62-63,68,71-73,78,81-86,88,94-95,100-105,109-110,113,117,127-130,139-143,146,151,162,170-175,177,182-186,188-189,191,200-203,208,210-216,219-222,224,227,230,233,236,239,242,250,252,255-256,260-263,265-266,270-272,275-284,287,300,312-313,317,319,324,331-332,336,353-362,373,379,382-387,390-393,405,407,409,490,494,513-524,532,540,543-546,548-551,558-559,562,565-566,569-570,574-577,588,594-597,599-619,622-647,649-653,655-656,658-661,663,665,667,669,671,673,675,684-752,758,760,766-768,781,792-794,796-800,804-809,811-816,829,835,838,840-844,846,857-858,860,863,871-875,877-886,888-899,901-904,906,914-916,919
+  s_bf60dd8667a90a::t_27415f1d35e6eb 1,3-7,10-12,19,21-22,24-28,32-40,43-46,49-52,54-61,64-67,69-70,74-77,79,87,89,92-93,96-99,106-108,111-112,114-116,118-126,131-133,135-138,144-145,147,150,152-161,163-165,167,169,178-181,190,193-195,197-199,209,217-218,223,225-226,228-229,231-232,234-235,237-238,240-241,243-249,251,253-254,267-268,274,285-286,289-299,301-311,314-316,320-323,325-327,333,335,533-534,536-539,541,552-557,560-561,563-564,567-568,571-573,578-587,589-593,654,664,666,668,670,672,674,676-681,683,754-757,759,763-765,769,782-783,801-803,810,830-832,834,836-837,839,845,847-852,855-856,859,861-862,864,866-870,876,887,900,905,907-913,917-918,921
+  s_e0e21baa5100c3::t_8a377303e0a5a7 29-31
+  s_95955f05f91d7b::t_2fcff2d485d0df 412-424,428-430
+  s_1975aca0122790::t_6d1f1490620dca 2,13,15,53,80,90-91,134,148-149,166,196,204-207,318,334,427,432-435,440-457,461,465-468,474-481,485,542,547,648,753,762,865,922
+  s_e0e21baa5100c3::t_3a31e6c95d5621 47-48
+  s_c06ab3196fb8c0::t_3754d13076559a 498-500,503-504
+  s_95955f05f91d7b::t_14829ee1d7c7b1 657,662
+  s_bf60dd8667a90a::t_5b238e38701032 682
+  s_e0e21baa5100c3::t_b95fb02e197927 337-348
+  s_7a376347f8c823::t_8a1b567b6f110c 501-502
+docs/experiments/agent_selection/sources/README.md
+  s_c06ab3196fb8c0::t_9a12d23a7d2479 3-6
+  s_c18c45254edd3d::t_585859261304b7 1-2,7-10,12-35
+  s_98db8526259697::t_87e6b91f2d0fa6 11
+docs/experiments/agent_selection/candidates.json
+  s_c18c45254edd3d::t_3383d484ec405e 79
+  s_c18c45254edd3d::t_8fad66b077244b 70
+  s_c18c45254edd3d::t_d07aad91db44cd 31
+  s_c18c45254edd3d::t_314a271161ccfa 19
+  s_c18c45254edd3d::t_9e9c01d6a6f68e 102
+  s_c18c45254edd3d::t_c5b07604c8ef7d 43
+  s_c18c45254edd3d::t_ba1c3ba571e0f8 52
+  s_c18c45254edd3d::t_5e5ce8ea993a5e 120
+  s_c18c45254edd3d::t_1051761953307c 91
+  s_c18c45254edd3d::t_f49402a1f425c0 61
+scripts/run_race_horizon_ab.py
+  s_602a0f81ecd9bb::t_975499a69a45b3 2,5,20-22,40-42,44-49,51,55,63-67,71,85,88,104-105,114-115,117-118,120-122,134-137,143,148,150,170-173,218-220,241,258,262-263,366-367,369,401,411,438,440-441,443-444,473-474,476-477,483,486-491,496,499-504,506-508,518,523-524,539-551,555,565,568,581,583,586
+  s_c47d2542d8205a::t_ca0d0d8e88e424 561-562
+  s_c47d2542d8205a::t_56564afe90a671 321-323,331-332,334-336
+  s_00c099fc40dce7::t_8d5808c8713903 1,11,13-14,16-17,19,24-26,28-31,37-38,83-84,86-87,89-92,94-99,106-111,113,139-141,144-146,149,151-161,163-169,174,216-217,221-222,238,240,265-269,271-272,281,286-288,292-296,298-299,301-304,324,328-329,333,338-340,353,359-361,364,379,382,387,402,484,493-495,497-498,510-511,553-554,557-558,560,563-564,567,569,571,584-585,587-588,590-592
+  s_00c099fc40dce7::t_cea3471feef2e8 223-224,228-229
+  s_f37d0c852b79da::t_b41e8a336170a2 3-4,6-9,12,15,18,23,27,32,35-36,39,43,50,52-54,57-62,68,82,93,100-103,112,116,119,123-133,142,147,162,177,181,183-188,193,195-200,235,237,239,242-252,257,259-261,264,270,273-275,278-280,282-285,289-291,297,300,305,320,325-327,330,337,341-344,346-347,349-352,354-358,368,371-378,380-381,383-386,388-394,397-400,408-410,412-418,430-437,439,442,452,459-463,466-469,472,475,478-482,485,492,509,512-513,516-517,519,522,525-538,552,556,559,570,572-580,582,589
+  s_c47d2542d8205a::t_95d7a8e5ccd852 446-451,464-465,470-471
+  s_00c099fc40dce7::t_ecf8bdce9bb442 175-176,178-180,182,189-192,194,201-205,236
+  s_00c099fc40dce7::t_4b8d6bf6c15a2b 505
+  s_5a9839643cf7b8::t_e5a7992fa0d3e9 231-233
+  s_832d8e5bd650fd::t_aa1229d4cdd955 225-227,230,234
+  s_832d8e5bd650fd::t_f0fb953fd80ff2 403,407
+  s_832d8e5bd650fd::t_ed34cd86309df6 395-396
+  s_c47d2542d8205a::t_74b33dd333c939 69-70,72-74,80-81
+  s_c20bb06c3154e1::t_c9a40f045088b0 306-319
+  s_0599e6e5689abf::t_b8ca31d0d9f454 10,33-34,56,138,206-215,253-256,276-277,345,348,362-363,365,370,404-406,419-429,445,453-458,514-515,520-521,566
+  s_c20bb06c3154e1::t_a0d6816d5fa188 75-79
+tests/test_agent_selection_path_resolution.py
+  s_8db98449ebc2e8::t_aefee60d0b631d 77
+  s_c18c45254edd3d::t_e949ad24227189 2-3,5,7,9
+  s_c18c45254edd3d::t_6ba423a173bad9 10,14-15,19,21,29-32,34-43,45-49,52-55,57-59,63-64,72,74
+  s_8db98449ebc2e8::t_469ecd68a60e02 16-18
+  s_8db98449ebc2e8::t_271bc314219840 1,4,6,8,11-13,20,22-28,33,44,50-51,56,60-62,65-71,73,75-76,78-87
+docs/experiments/race_horizon_41_batch02.json
+  s_c06ab3196fb8c0::t_8580f3eb0b3342 27-242219
+docs/experiments/race_horizon_41_batch03.json
+  s_c06ab3196fb8c0::t_4919ccc3a8b62b 27-242219
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "bddd1a01797f26e3e87f5e59841f718f6760c36d",
+  "prompts": {},
+  "sessions": {
+    "s_00c099fc40dce7": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "e353d33f-3e34-48e8-ba16-503ad9b49753",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_032087b9ccfa92": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "c461eeaa-d592-41c5-98aa-645c6b10a5c6",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_0599e6e5689abf": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "eafca350-fe56-4ddc-877a-e54d4d61bf1a",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_12ba87bd589c5a": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "610bb3b9-fda7-4f7c-a5f4-0ad74cd760cb",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_176f8d9b500fdf": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "733dfc27-f790-48d8-986d-d8e48fafd2d7",
+        "model": "gemini-3.1-flash-lite"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_1975aca0122790": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "fa8a087b-0168-4ed5-9b9b-fbc7d0e0301a",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_1a0d445feae343": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "91f75952-72d6-44da-8eb7-367bd0928c74",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_2324b557a91c4a": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "8674ee90-e8ff-4273-97f9-d1036768e507",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_2cee6d9eb1c0af": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "18cbb7b4-3711-4453-9440-69791b80660d",
+        "model": "gemini-3.1-flash-lite"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_32bb0e64580162": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "7afe3710-ffd0-4979-918a-53589c6f0275",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_34e6f292e4a989": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "d5402f73-b017-46af-89ef-8f5a06e7c57f",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_3ee0427e691f5f": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "13961380-b039-46de-b352-2ba3c3679ba4",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_5329492458c085": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "c8ac56b8-8f53-4c7f-8db9-578b10aa9699",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_554ebc58700a3d": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "f404f90a-baa2-4e23-84fa-22b30bfb006f",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_5a9839643cf7b8": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "7c560bbf-7155-4b1d-887b-4b7ba19e1d73",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_602a0f81ecd9bb": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "9bb1fb35-ea1f-4c78-81e6-9129ea5b8ff5",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_6301c4b16fc87f": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "916cf105-aa73-42cf-aa5b-09cf56d3178f",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_7a376347f8c823": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "be7c4a2e-8df6-462a-949d-6b39b433e3dd",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_832d8e5bd650fd": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "5526d698-1fd5-4af4-b2a6-ecb221535623",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_852bf97a181d1e": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "5e06d92c-d05b-4e7d-a002-91d0df6ff4a8",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_898b65f55e7a4a": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "efedfe01-2621-4137-a8c3-f0fd69cd3ccd",
+        "model": "gemini-3.1-flash-lite"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_8db98449ebc2e8": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "a68858b2-3374-4e36-9fdd-9de39d5c1c4e",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_942f5d371e57d0": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "e0311471-5157-4d9d-8a23-42fe3c896d4a",
+        "model": "gemini-3.1-flash-lite"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_95955f05f91d7b": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "1d76b2fd-dcde-4cfa-80e2-89896ab36630",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_98db8526259697": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "56e2d44f-6baa-410d-8a8c-c03ff529ad5c",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_a32440bfc4a722": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "74232d3a-17a4-48a1-9bb2-739569d9f3cc",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_b2e08ebb3c4d88": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "181839e5-d40d-46fc-bd7e-38f2f3443983",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_ba3be3f90616e0": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "f657d040-4bab-48f1-9799-f6abe0543f41",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_bf60dd8667a90a": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "792c0e03-6985-4f60-b00e-c4821fa166e4",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_c06ab3196fb8c0": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "fb84b59d-08ea-471d-bb37-a28cc180fc16",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_c18c45254edd3d": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "06435330-f121-49f2-963c-4af10626de8f",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_c20bb06c3154e1": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "ce0d082f-c89f-47f6-8707-54317c01c65f",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_c47d2542d8205a": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "023c7004-5613-4439-ab36-5ab7464e055c",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_c7d8033ae96eac": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "a99da08f-63fd-42e9-ae6c-8511e695b10c",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_cc190e0265a899": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "5cc096c0-b555-43f2-a68d-431cef6b0e09",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_cef5bf79723dff": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "da36f26d-1a21-498c-b0d2-f953dc98050f",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_d6c744386deb09": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "b7c7642d-4daa-4aa1-8c18-17bdeb1a8037",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_d7c82336c742da": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "6f70b5e8-b702-4576-a4fd-d6e5c5a665ee",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_d8735c8b0b1836": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "dec18025-8d04-4877-be03-8b2605b094d5",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_de4b9021e00be5": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "b9478ef2-5004-40c8-aa5d-efb30ed64df3",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_e0e21baa5100c3": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "cfe82de2-1eef-401e-a29d-89760bca247b",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_eb61b1adebd669": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "696e066e-1da0-4cc3-ac65-790fbef69435",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_f37d0c852b79da": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "e3ae7a47-33c2-44ab-8633-040b0b133ccc",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_f929f7e81026ba": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "3490e55e-3969-4920-b9c1-80ea4ea73f85",
+        "model": "gemini-3.1-pro-preview"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_f952724ded0e86": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "c3396591-92f9-4372-8a71-23cf098f9394",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    }
+  }
+}
