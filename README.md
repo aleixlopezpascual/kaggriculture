@@ -71,6 +71,7 @@ For comprehensive architectural breakdowns, game-engine physics, and empirical A
 * **P1 Refresh Selection Report:** [`docs/experiments/agent_selection/p1_refresh_2026-09-25/report.md`](docs/experiments/agent_selection/p1_refresh_2026-09-25/report.md)
 * **P2 Market Slot Ordering Report:** [`docs/experiments/agent_selection/p2_market_slot_ordering/report.md`](docs/experiments/agent_selection/p2_market_slot_ordering/report.md)
 * **Public Research & Medal Backlog:** [`docs/plans/kaggriculture-public-research-backlog-2026-09-25.md`](docs/plans/kaggriculture-public-research-backlog-2026-09-25.md)
+* **Continuation Win-Path Handoff (2026-09-27):** [`docs/plans/kaggriculture-win-path-handoff-2026-09-27.md`](docs/plans/kaggriculture-win-path-handoff-2026-09-27.md)
 * **Master Retrospective:** [`docs/kaggriculture_master_retrospective_2026_09_23.md`](docs/kaggriculture_master_retrospective_2026_09_23.md)
 * **SOTA Tournament Report:** [`docs/competitor_tournament_results_2026_09_23.md`](docs/competitor_tournament_results_2026_09_23.md)
 * **Empirical A/B Test Findings:** [`docs/research_update_2026_09_23.md`](docs/research_update_2026_09_23.md)
