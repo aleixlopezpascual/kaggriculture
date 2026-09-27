@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "purpose": "Byte-pinned local tournament manifest for Phase 2 V2 Market Slot Ordering experiment (2026-09-28); public page ratings are discovery evidence only, not tournament results.",
+  "engine": {
+    "name": "kaggle-environments",
+    "version": "1.32.7",
+    "competition": "kaggriculture",
+    "episode_steps": 720,
+    "primary_metric": "match win points (win=1/tie=.5/loss=0)"
+  },
+  "prior_experiment": {
+    "report_path": "../p2_market_slot_ordering/report.md",
+    "historical_manifest_path": "../p2_market_slot_ordering/candidates.json",
+    "provenance_note": "Reuses the eight audited benchmark candidates and evaluates the reviewed P2 V2 Prvsiyan global SELL-slot challenger."
+  },
+  "candidates": [
+    {
+      "id": "shepherd_sovereign",
+      "name": "Shepherd Sovereign",
+      "group": "user_current_submission",
+      "lineage": "user's Shepherd policy; user's active baseline",
+      "source_path": "../../../../competitors/notebooks/shepherd_sovereign_main.py",
+      "source_sha256": "5f2b51a2beaf5e08cb73e82f0e03e02e56de601563b28344e49b7058e371b247",
+      "submission_ref": 56490949,
+      "submission_status": "COMPLETE",
+      "submission_public_score": 1750.5,
+      "submission_private_score": null,
+      "snapshot_source": "CLI query 2026-09-27 22:10:26 CEST",
+      "license": "repository-local user baseline",
+      "notes": "User's active baseline; current public score 1750.5 from CLI query 2026-09-27 22:10:26 CEST; private blank."
+    },
+    {
+      "id": "prvsiyan_moon_counts_melons",
+      "name": "Kaggriculture Frontier — The Moon Counts Melons",
+      "group": "user_current_submission",
+      "lineage": "Prvsiyan controller; current active challenger",
+      "source_path": "../sources/prvsiyan_moon_counts_melons/main.py",
+      "source_sha256": "178ae0f727641cf4b618ebb98ade7aa1a1bed7517281aab9849de82a59d8ed3a",
+      "submission_ref": 56531885,
+      "submission_status": "COMPLETE",
+      "submission_public_score": 1820.3,
+      "submission_private_score": null,
+      "source_url": "https://www.kaggle.com/code/prvsiyan/kaggriculture-frontier-the-moon-counts-melons",
+      "snapshot_source": "CLI query 2026-09-27 22:10:26 CEST",
+      "license": "Apache-2.0",
+      "license_notes": "Apache-2.0 with LICENSE and NOTICE already in repo",
+      "notes": "Current active challenger; Kaggle ref 56531885, status COMPLETE, current public score 1820.3 at snapshot 2026-09-27 22:10:26 CEST, private blank."
+    },
+    {
+      "id": "jaxa_2802_variant_b",
+      "name": "Jaxa 2802 Variant B",
+      "group": "user_prior_submission",
+      "lineage": "user's Jaxa 2802 policy; matchup-stress policy",
+      "source_path": "../../../../competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py",
+      "source_sha256": "944aa64c5ae1296a9a17eb7961ed8d5a96d0b80183d41e954389983d73420a56",
+      "submission_ref": 56467787,
+      "submission_status": "COMPLETE",
+      "submission_public_score": 1680.8,
+      "submission_private_score": null,
+      "snapshot_source": "CLI query 2026-09-25 15:42:02 CEST",
+      "license": "repository-local user baseline",
+      "notes": "Third/older submission; status COMPLETE, public score 1680.8 at snapshot 2026-09-25 15:42:02 CEST, private blank. Included as matchup-stress policy, not active."
+    },
+    {
+      "id": "peak_2950",
+      "name": "The 2950 Peak Farm",
+      "group": "repository_local_prior_tournament",
+      "lineage": "Peak Farm",
+      "source_path": "../../../../competitors/notebooks/peak_2950_main.py",
+      "source_sha256": "613245d98c5066f9c393de866b0e19998c0f7ba636be08b2990a3e5e79d18ca7",
+      "license": "repository-local benchmark",
+      "notes": "Repository-local prior benchmark, lineage Peak Farm."
+    },
+    {
+      "id": "v57_invariant",
+      "name": "V57 Invariant",
+      "group": "repository_local_prior_tournament",
+      "lineage": "V57 Invariant (Ahmed lineage representative)",
+      "source_path": "../../../../competitors/notebooks/v57_main.py",
+      "source_sha256": "2ee689fdc58f38b7bf6b80b8d3f48129d19b47201dbee51fdcbd977498a5106f",
+      "source_url": "https://www.kaggle.com/code/ahmedberatozer/kaggriculture-v57-funding-order-invariant",
+      "license": "Apache-2.0",
+      "notes": "One Ahmed lineage representative, Apache-2.0. Page displayed score 2532.6 on 2026-09-25 (not local evidence)."
+    },
+    {
+      "id": "thomas_2945_farm",
+      "name": "Thomas 2945 Farm",
+      "group": "repository_local_prior_tournament",
+      "lineage": "Thomas 2945 Farm",
+      "source_path": "../../../../competitors/notebooks/thomas_2945_main.py",
+      "source_sha256": "4f3ca95dd12d9a94b03339999d8803c155f450a8d3956636f050643301fcc5dd",
+      "license": "repository-local benchmark",
+      "notes": "Repository-local prior benchmark, lineage Thomas 2945 Farm."
+    },
+    {
+      "id": "cha22_multi_route",
+      "name": "Cha22 R5 Multi-Route Agent",
+      "group": "public_kaggle_agent",
+      "lineage": "same main.py bytes published by Flexonafft Multi-Route and Guruprasaathas Master Engine V3",
+      "source_path": "../sources/cha22_multi_route/main.py",
+      "source_sha256": "127ed3e62988c0474d386db6527ae8ca9de9bb1fe7004128557ddef67126c652",
+      "license": "Apache-2.0",
+      "notes": "Upstream sources https://www.kaggle.com/code/flexonafft/kaggriculture-multi-route-farming-agent and https://www.kaggle.com/code/guruprasaathas111/kaggriculture-master-engine-v3, Apache-2.0. Single entry because identical bytes."
+    },
+    {
+      "id": "arsgorynich_herd_safe_v3",
+      "name": "Herd-Safe V3 Experimental Risk-Aware Feed",
+      "group": "public_kaggle_agent",
+      "lineage": "composite lineage from NOTICE: direct base shiiin9 order-book; also Ahmed V55/V56, Thomas Metav4, Hayashi ShopRouter, Dmitrii rescue.",
+      "source_path": "../p1_refresh_2026-09-25/sources/arsgorynich-herd-safe-v3/main.py",
+      "source_sha256": "4f8637a3e33348b98f531de246d353f5d2955b2f85480e3fd02bf4a7874f0d01",
+      "license": "Apache-2.0",
+      "notes": "Composite lineage, not an independent replication. Replaces older Herd-Safe Race panel member."
+    },
+    {
+      "id": "prvsiyan_global_sell_slot_challenger_reviewed",
+      "name": "Prvsiyan Global SELL-Slot Challenger Reviewed V2 (P2 V2)",
+      "group": "experiment_challenger",
+      "lineage": "Prvsiyan controller with reviewed bounded multiset permutation search across eligible SELL indices only",
+      "source_path": "../p2_market_slot_ordering/sources/prvsiyan_global_sell_slot_challenger_reviewed/main.py",
+      "source_sha256": "75f0571dd61a8131a46c16c1a4a2b8e7f50fdb8ced55e3197fe18ff56ef1d981",
+      "helper_path": "../../../../scripts/p2_market_slot_optimizer_reviewed.py",
+      "helper_sha256": "6d86d0bce7a3a40e2913b06c727816bbcce09e76531059e5bd344919d30cfb59",
+      "license": "Apache-2.0",
+      "notes": "Reviewed experiment-only P2 V2 challenger: permutes eligible SELL orders across existing eligible SELL indices only, strict integer qty validation, failed scorer budget accounting, verified direct-byte loader isolation."
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "name": "Ahmed V39 and Ahmed V55",
+      "reason": "Older Ahmed V39 and V55 excluded as near-duplicate same Ahmed lineage with V57 retained as one representative."
+    },
+    {
+      "name": "Herd-Safe Race",
+      "reason": "Older Herd-Safe Race replaced by newer Arsgorynich composite (same broad lineage, do not count as independent)."
+    },
+    {
+      "name": "Tetsutani Demand-Preserving",
+      "reason": "Tetsutani Demand-Preserving excluded as exact byte duplicate of Cha22."
+    },
+    {
+      "name": "Nusrati / 2715-6",
+      "reason": "Nusrati/2715-6 excluded because its downloaded notebook/output refers to a native agent.so artifact that is absent from the available output."
+    },
+    {
+      "name": "Shiiin9 and other Pipe/V39/ShopRouter variants",
+      "reason": "Shiiin9 and other Pipe/V39/ShopRouter variants are not separately counted because they are ancestors/derivatives of the selected composite."
+    }
+  ],
+  "design": {
+    "confirmation": "Predeclared confirmation: final two compete against each other and all non-finalists on fresh matched seeds, both seats; report holdout-only estimates.",
+    "confirmation_seed_count": 8,
+    "confirmation_seeds": [
+      838084248,
+      690003990,
+      400914000,
+      839524396,
+      946313351,
+      911995953,
+      996328792,
+      134302223
+    ],
+    "seed_generation_rng_seed": 20260928,
+    "confirmation_finalists": [
+      "prvsiyan_moon_counts_melons",
+      "prvsiyan_global_sell_slot_challenger_reviewed"
+    ],
+    "seed_disjointness_note": "Confirmation seeds are fresh and strictly disjoint from P1 screening, P1 confirmation, P2 screening, and P2 confirmation seeds.",
+    "finalist_selection_rule": "Predeclared baseline-vs-reviewed-challenger confirmation across 8 fresh seeds.",
+    "uncertainty_reporting": "Report uncertainty by whole-seed cluster; do not treat seat swaps as independent seeds.",
+    "primary": "match win points (win=1/tie=.5/loss=0); official rating uses outcome, not coin margin",
+    "safety": "Record status, exceptions, invalid matches, source/manifest hashes, agent telemetry, callback counts, total durations and max/p95 latency; local GEMINI.md states a strict 100ms callback guideline. No Kaggle uploads or submissions."
+  }
+}
