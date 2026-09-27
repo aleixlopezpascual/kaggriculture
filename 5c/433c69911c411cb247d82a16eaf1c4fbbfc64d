@@ -1,0 +1,64 @@
+README.md
+  s_1ec6bfe28b5dd7::t_bcc51f99a4bbf9 74
+docs/plans/kaggriculture-public-research-backlog-2026-09-25.md
+  s_1ec6bfe28b5dd7::t_eaf86d2859059d 9-10
+docs/plans/kaggriculture-win-path-handoff-2026-09-27.md
+  s_9711c64fcb09ef::t_595a4b648aeea2 114,136-137,171
+  s_75694354a10fd6::t_db2c32aa3e5c44 83
+  s_9711c64fcb09ef::t_a557f30dfaba39 13,16
+  s_35d0d44656973f::t_13472c29b24cb7 21,23,82,87,95,109,111-113,115-117,123,130,133,139,142-144,152,155,166,169-170,174,176
+  s_9711c64fcb09ef::t_0a4b8cca712663 46,74-75,84
+  s_1ec6bfe28b5dd7::t_ea04ec9cc7dafc 1-2,7-12,14-15,17,19-20,22,25-45,47-54,56-73,76-81,85-86,88-94,96-108,110,118-122,124-129,131-132,134-135,138,140-141,145-151,153-154,156-165,167-168,172-173,175,177
+  s_75694354a10fd6::t_64587b5fbf205f 18
+  s_d745007bbe98eb::t_b3e43d0e959d68 3-6
+  s_75694354a10fd6::t_e5b05fd5b76cc0 24
+  s_75694354a10fd6::t_c5177066fccb38 55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "5c433c69911c411cb247d82a16eaf1c4fbbfc64d",
+  "prompts": {},
+  "sessions": {
+    "s_1ec6bfe28b5dd7": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "2ea58082-b6bc-415c-a0e5-4c0a1c8246f4",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_35d0d44656973f": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "35d6b664-1a94-485e-bb25-3a0b5c564941",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_75694354a10fd6": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "fee73732-b6fa-4a26-8c49-20a938139422",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_9711c64fcb09ef": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "49cf5a4d-1489-42c4-b2d7-aa923f0547ed",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    },
+    "s_d745007bbe98eb": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "f7f78851-cbd3-4b5a-bdb6-ad8a45d655da",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": "Aleix López <aleixlopezpascual@gmail.com>"
+    }
+  }
+}
