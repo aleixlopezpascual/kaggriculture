@@ -14,7 +14,7 @@ This workspace is optimized for the Kaggle Kaggriculture 720-turn simulation com
 
 ## ⚡ 2. Performance & Search Optimizations
 
-- **The 100ms Latency Limit:** Every call to `agent.act()` must return in **under 100ms** to prevent match timeouts on the live Kaggle matchmaking server.
+- **The 100ms Latency Guideline:** Target every call to `agent.act()` returning in **under 100ms** as an internal workspace engineering guideline to mitigate match timeout risks. This is an internal workspace benchmark, not an official Kaggle API limit. The tournament runner's callback/match elapsed intervals and replay-verifier `runtime_seconds` use a monotonic clock (`time.perf_counter()`) for elapsed timing (legacy evaluation scripts in the workspace have not all been converted).
 - **Rollout Vectorization:** If expanding lookahead nodes or running Monte Carlo simulation rollouts, optimize using **NumPy vectorized operations**. Avoid running large nested loops in pure Python.
 - **Worker Allocation Scaling:** Keep low-level pathfinding fast. Utilize pre-calculated Manhattan matrices or early-termination A* searches to keep pathfinding overhead to a minimum.
 
@@ -42,7 +42,9 @@ This workspace is optimized for the Kaggle Kaggriculture 720-turn simulation com
 
 ## 🏆 5. Kaggle Submission & Matchmaking Constraints
 
-- **The Active Matchmaking Limit (The Two-Agent Rule):** Only the **latest two submissions** are active in the live simulation pool. All older submissions are retired and freeze their Elo ratings. As of the latest CLI snapshot (2026-09-25 12:08 CEST (+0200)), the latest-two tracked submissions are **Prvsiyan Moon Counts Melons** (Ref `56531885`, public score `2071.7`) and **Shepherd Sovereign** (Ref `56490949`, public score `2021.4`), with Jaxa 2802 Variant B (Ref `56467787`, public score `1680.8`) retired to third/older. Note that live ladder scores are dynamic; refer to the experiment ledger (`docs/experiments.md`) for authoritative, timestamped ratings and snapshot histories.
+- **The Active Matchmaking Limit (The Two-Agent Rule):** Only the **latest two submissions** are active in the live simulation pool. All older submissions are retired and freeze their Elo ratings.[1]
+  As of the latest CLI snapshot (2026-09-25 15:55 CEST (+0200)), the latest-two tracked submissions are **Prvsiyan Moon Counts Melons** (Ref `56531885`, public score `2093.9`) and **Shepherd Sovereign** (Ref `56490949`, public score `2034.7`), with Jaxa 2802 Variant B (Ref `56467787`, public score `1680.8`) retired to third/older.[36]
+  Note that live ladder scores are dynamic; refer to the experiment ledger (`docs/experiments.md`) for authoritative, timestamped ratings and snapshot histories.[36]
 - **Evaluating Live Submissions:** Any comparison against the active leaderboard must be performed using exclusively the latest two submitted agents. Do not rely on scores of older submissions to evaluate real-time agent strength, as they are no longer playing new matches.
 - **Leaderboard Ghosting (Hide-The-Meta Strategy):** To prevent competitor teams from scraping our match replays and performing Behavior Cloning / Imitation Learning on our elite trajectories, we must **NEVER** leave our absolute strongest agent active on the leaderboard for long periods. Once we upload a shiny new candidate and confirm it is highly competitive on the ladder, we should immediately submit a slightly weaker or older agent (a decoy) to replace it, taking our elite bot down from active evaluation until the final days of the competition.
 
@@ -84,3 +86,8 @@ This repository integrates and benchmarks the highest-Elo competitor portfolios 
 - **`Jaxa 2802 Elo Router` (`jaxa_2802_router/main.py`):** The absolute world-champion router. Uses 128/128 world multi-world predictive routing forests. Local Solo Avg Gold: **`$161,858`** (100.0% win rate in tournament).
 - **`Reyhan Dynamic Route Agent` (`reyhan_dynamic_router.py`):** The world-class runner-up. Uses shifted dynamic public-state decision forests. Local Solo Avg Gold: **`$172,897`** (77.8% win rate in tournament).
 - **Evaluating Competitors:** Run the systematically streamlined tournament `src/arena/run_tournament.py` to evaluate your agent's win rate and average margin against these top-tier baselines.
+
+## Sources
+
+[1] https://www.kaggle.com/competitions/kaggriculture/overview/evaluation
+[36] https://www.kaggle.com/competitions/kaggriculture/submissions

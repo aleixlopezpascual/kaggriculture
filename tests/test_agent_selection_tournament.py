@@ -157,6 +157,66 @@ def test_compute_agent_stats_callback_error():
     assert stats["errors"] == 1
 
 
+def test_wrap_agent_monotonic_timing_success():
+    dummy_agent = MagicMock(return_value="STEP_ACTION")
+    wrapped, callbacks = script.wrap_agent(dummy_agent)
+
+    def forbid_wall_clock(*args, **kwargs):
+        raise AssertionError(
+            "Wall-clock time.time() was called for interval measurement "
+            "instead of time.perf_counter()"
+        )
+
+    with (
+        patch(
+            "scripts.run_agent_selection_tournament.time.perf_counter",
+            side_effect=[100.0, 100.045],
+        ) as mock_perf,
+        patch(
+            "scripts.run_agent_selection_tournament.time.time",
+            side_effect=forbid_wall_clock,
+        ),
+    ):
+        action = wrapped({"step": 1}, {"seed": 42})
+
+    assert action == "STEP_ACTION"
+    assert len(callbacks) == 1
+    assert pytest.approx(callbacks[0]["elapsed"], rel=1e-6) == 0.045
+    assert callbacks[0]["error"] is None
+    assert mock_perf.call_count == 2
+
+
+def test_wrap_agent_monotonic_timing_exception():
+    def failing_agent(obs, config):
+        raise RuntimeError("Agent simulation failure")
+
+    wrapped, callbacks = script.wrap_agent(failing_agent)
+
+    def forbid_wall_clock(*args, **kwargs):
+        raise AssertionError(
+            "Wall-clock time.time() was called for interval measurement "
+            "instead of time.perf_counter()"
+        )
+
+    with (
+        patch(
+            "scripts.run_agent_selection_tournament.time.perf_counter",
+            side_effect=[200.0, 200.085],
+        ) as mock_perf,
+        patch(
+            "scripts.run_agent_selection_tournament.time.time",
+            side_effect=forbid_wall_clock,
+        ),
+        pytest.raises(RuntimeError, match="Agent simulation failure"),
+    ):
+        wrapped({"step": 2}, {})
+
+    assert len(callbacks) == 1
+    assert pytest.approx(callbacks[0]["elapsed"], rel=1e-6) == 0.085
+    assert "Agent simulation failure" in callbacks[0]["error"]
+    assert mock_perf.call_count == 2
+
+
 def test_validate_seed():
     manifest = {
         "design": {"screening_seeds": [1, 2, 3], "confirmation_seeds": [4, 5, 6]}
@@ -290,6 +350,79 @@ def test_run_match_clean_tie(mock_env, mock_load):
     assert res["agent_1"]["outcome"] == "tie"
     assert res["agent_0"]["points"] == 0.5
     assert res["agent_1"]["points"] == 0.5
+
+
+@patch("scripts.run_agent_selection_tournament.load_agent")
+@patch("scripts.run_agent_selection_tournament.kaggle_environments")
+def test_run_match_monotonic_duration(mock_env, mock_load):
+    mock_fn_0, mock_mod_0 = MagicMock(), MagicMock()
+    mock_fn_1, mock_mod_1 = MagicMock(), MagicMock()
+    mock_load.side_effect = [(mock_fn_0, mock_mod_0), (mock_fn_1, mock_mod_1)]
+
+    mock_instance = MagicMock()
+    mock_env.make.return_value = mock_instance
+    mock_instance.steps = [
+        [{}, {}],
+        [
+            {"reward": 100, "status": "DONE", "info": {}},
+            {"reward": 50, "status": "DONE", "info": {}},
+        ],
+    ]
+
+    agent_0_info = {"id": "a0", "source": "code", "path": "path/a0.py", "hash": "h0"}
+    agent_1_info = {"id": "a1", "source": "code", "path": "path/a1.py", "hash": "h1"}
+
+    def forbid_wall_clock(*args, **kwargs):
+        raise AssertionError(
+            "Wall-clock time.time() was called for interval measurement "
+            "instead of time.perf_counter()"
+        )
+
+    with (
+        patch(
+            "scripts.run_agent_selection_tournament.time.perf_counter",
+            side_effect=[500.0, 503.25],
+        ) as mock_perf,
+        patch(
+            "scripts.run_agent_selection_tournament.time.time",
+            side_effect=forbid_wall_clock,
+        ),
+    ):
+        res = script.run_match(42, agent_0_info, agent_1_info)
+
+    assert res["duration_sec"] == 3.25
+    assert mock_perf.call_count == 2
+
+
+@patch("scripts.run_agent_selection_tournament.load_agent")
+def test_run_match_monotonic_duration_on_runner_exception(mock_load):
+    mock_load.side_effect = RuntimeError("Failed to load agent")
+
+    agent_0_info = {"id": "a0", "source": "code", "path": "path/a0.py", "hash": "h0"}
+    agent_1_info = {"id": "a1", "source": "code", "path": "path/a1.py", "hash": "h1"}
+
+    def forbid_wall_clock(*args, **kwargs):
+        raise AssertionError(
+            "Wall-clock time.time() was called for interval measurement "
+            "instead of time.perf_counter()"
+        )
+
+    with (
+        patch(
+            "scripts.run_agent_selection_tournament.time.perf_counter",
+            side_effect=[1000.0, 1001.50],
+        ) as mock_perf,
+        patch(
+            "scripts.run_agent_selection_tournament.time.time",
+            side_effect=forbid_wall_clock,
+        ),
+    ):
+        res = script.run_match(42, agent_0_info, agent_1_info)
+
+    assert res["valid_match"] is False
+    assert res["scoring_basis"] == "invalid"
+    assert res["duration_sec"] == 1.50
+    assert mock_perf.call_count == 2
 
 
 def test_aggregate_results_missing_planned_seed(tmp_path):

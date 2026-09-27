@@ -149,14 +149,14 @@ def wrap_agent(agent_fn: Any) -> tuple[Any, list[dict]]:
     callbacks: list[dict] = []
 
     def wrapped(observation: Any, configuration: Any) -> Any:
-        start = time.time()
+        start = time.perf_counter()
         try:
             action = agent_fn(observation, configuration)
-            elapsed = time.time() - start
+            elapsed = time.perf_counter() - start
             callbacks.append({"elapsed": elapsed, "error": None})
             return action
         except Exception as e:
-            elapsed = time.time() - start
+            elapsed = time.perf_counter() - start
             callbacks.append({"elapsed": elapsed, "error": str(e)})
             raise
 
@@ -194,7 +194,7 @@ def compute_agent_stats(callbacks: list[dict]) -> dict:
 
 
 def run_match(seed: int, agent_0_info: dict, agent_1_info: dict) -> dict:
-    match_start = time.time()
+    match_start = time.perf_counter()
     mod_name_0 = f"agent_{agent_0_info['id']}_{uuid.uuid4().hex[:8]}"
     mod_name_1 = f"agent_{agent_1_info['id']}_{uuid.uuid4().hex[:8]}"
 
@@ -248,7 +248,7 @@ def run_match(seed: int, agent_0_info: dict, agent_1_info: dict) -> dict:
         sys.modules.pop(mod_name_0, None)
         sys.modules.pop(mod_name_1, None)
 
-    match_duration = time.time() - match_start
+    match_duration = time.perf_counter() - match_start
 
     margin_0 = reward_0 - reward_1
     margin_1 = reward_1 - reward_0

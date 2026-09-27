@@ -53,20 +53,31 @@ Market orders are executed in a sequential clearance queue. Agents prioritizing 
 
 ---
 
-## 🏆 Current Active Submissions & SOTA Standings (Retrieved 2026-09-25 12:08 CEST (+0200))
+## 🏆 Historical Live Submissions & Standings Snapshot (Dated 2026-09-25 15:55 CEST (+0200))
 
-Under Kaggle's active tracking policy (where only the latest two submissions remain active in live simulation and evaluation), our latest-two tracked competition slots on the live ladder are:
-1. **`Prvsiyan Moon Counts Melons`** (Ref ID: `56531885`): File `prvsiyan_kaggriculture_submission.tar.gz`. Submitted 2026-09-24T21:25:39.747000. Status: COMPLETE. Public Score: **2071.7** (Private: blank). Latest episode query: 110 completed public episodes and 1 completed validation episode.
-2. **`Shepherd Sovereign`** (Ref ID: `56490949`): File `shepherd_sovereign_main.py`. Submitted 2026-09-23T10:46:41.287000. Status: COMPLETE. Public Score: **2021.4** (Private: blank). Latest episode query: 272 completed public episodes and 1 completed validation episode. Historical context: achieved a 73.3% win rate in the earlier 90-match local SOTA tournament.
+*(Historical dated snapshot as of 2026-09-25 15:55 CEST (+0200); not a live-current standing. No submission was made during this documentation update.)*
+
+Under Kaggle's active tracking policy (where only the latest two submissions remain active in live simulation and evaluation)[1], our latest-two tracked competition slots on the live ladder are:
+1. **`Prvsiyan Moon Counts Melons`** (Ref ID: `56531885`): File `prvsiyan_kaggriculture_submission.tar.gz`. Submitted 2026-09-24T21:25:39.747000. Status: COMPLETE. Public Score: **2093.9** (Private: blank). Latest episode query: 125 completed public episodes and 1 completed validation episode.[36]
+2. **`Shepherd Sovereign`** (Ref ID: `56490949`): File `shepherd_sovereign_main.py`. Submitted 2026-09-23T10:46:41.287000. Status: COMPLETE. Public Score: **2034.7** (Private: blank). Latest episode query: 284 completed public episodes and 1 completed validation episode.[36] Historical context: achieved a 73.3% win rate in the earlier 90-match local SOTA tournament.
 
 Third / Older (Outside latest-two tracked pair):
-* **`Jaxa 2802 Variant B`** (Ref ID: `56467787`): Status: COMPLETE. Public Score: **1680.8** (Private: blank). Retired to third/older and freezes its Elo rating.
+* **`Jaxa 2802 Variant B`** (Ref ID: `56467787`): Status: COMPLETE. Public Score: **1680.8** (Private: blank). Retired to third/older and freezes its Elo rating.[36]
 
-*(Note: Prvsiyan's displayed public score is 50.3 points higher than Shepherd's (2071.7 vs 2021.4), but they are dynamic cumulative ratings across different public match histories (110 vs 272 episodes), not a matched head-to-head. The episodes endpoint does not establish opponent identities or outcomes. No submission was made during this documentation refresh.)*
+*(Note: Prvsiyan's displayed public score is 59.2 points higher than Shepherd's (2093.9 vs 2034.7), but they are dynamic cumulative ratings across different public match histories (125 vs 284 episodes)[36], not a matched head-to-head. The live public leaderboard places team Aleix López at rank 1351 out of 10004 teams (score gap 153.8 and rank gap 351 to rank 1000).[25] The episodes endpoint does not establish opponent identities or outcomes. No submission was made during this documentation refresh.)*
 
 For comprehensive architectural breakdowns, game-engine physics, and empirical A/B test findings, see:
+* **P0 Public Replay Parity Report:** [`docs/experiments/public_replay_parity_2026-09-25.md`](docs/experiments/public_replay_parity_2026-09-25.md)
+* **P1 Refresh Selection Report:** [`docs/experiments/agent_selection/p1_refresh_2026-09-25/report.md`](docs/experiments/agent_selection/p1_refresh_2026-09-25/report.md)
+* **P2 Market Slot Ordering Report:** [`docs/experiments/agent_selection/p2_market_slot_ordering/report.md`](docs/experiments/agent_selection/p2_market_slot_ordering/report.md)
+* **Public Research & Medal Backlog:** [`docs/plans/kaggriculture-public-research-backlog-2026-09-25.md`](docs/plans/kaggriculture-public-research-backlog-2026-09-25.md)
 * **Master Retrospective:** [`docs/kaggriculture_master_retrospective_2026_09_23.md`](docs/kaggriculture_master_retrospective_2026_09_23.md)
 * **SOTA Tournament Report:** [`docs/competitor_tournament_results_2026_09_23.md`](docs/competitor_tournament_results_2026_09_23.md)
 * **Empirical A/B Test Findings:** [`docs/research_update_2026_09_23.md`](docs/research_update_2026_09_23.md)
 * **Experiment Version Ledger:** [`docs/experiments.md`](docs/experiments.md)
 
+## Sources
+
+[1] https://www.kaggle.com/competitions/kaggriculture/overview/evaluation
+[25] https://www.kaggle.com/competitions/kaggriculture/leaderboard
+[36] https://www.kaggle.com/competitions/kaggriculture/submissions
