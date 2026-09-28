@@ -49,6 +49,47 @@ The community explicitly acknowledges that single-submission ladder probing is n
 
 ---
 
+## 5. Late-Season Meta Shifts & SOTA Audit (September 27–28, 2026)
+
+With under 50 hours remaining before final submission lock (September 30, 2026 23:59 UTC), a comprehensive audit of the latest high-impact notebooks and discussions revealed five critical meta dynamics defining the championship tier:
+
+### A. The 41-Pass Reorder Meta (`Step1009`)
+- **Sources:** `tetsutani/demand-preserving-turn-sale-timing` (119 upvotes), `lynnsakurai/farmer-john-and-the-idle-seller`.
+- **Mechanism:** The public SOTA meta has iterated through 41 recursive wrapper passes of the fixed-point SELL reorder operator:
+  $$\Phi_a(T(a)) > \Phi_a(a) + 0.5$$
+  Step1009 stacks 41 consecutive closure passes (`step759` through `step1009`), attempting to iteratively migrate sell orders in front of non-sell market orders.
+- **Workspace Architecture Advantage:** In our workspace, **Phase 2 V2 Market Slot Optimization** implements the exact global optimum across all order permutations via a single, clean bounded search ($O(K!)$ where $K \le 5$, with monotonic latency $\le 78.75\text{ ms}$ and mean latency $\approx 2.75\text{ ms}$). This achieves provable mathematical optimality in a single evaluation without the architectural fragility or bloat of 41 chained wrappers.
+
+### B. The Carrot Over-Expansion Collapse (The V78 Rollback)
+- **Source:** `haideptry/the-2965-master-hybrid-engine` (Sept 28, 2026).
+- **Empirical Trap:** The author documented a severe ladder rating collapse from 2,800 to 2,400 Elo when deploying an aggressive midgame carrot expansion (`Carrot2` margin of -22 coins). While local offline testing against passive baselines showed artificial margin gains, live multiplayer matchmaking exposed the agent to catastrophic market price collapse when opponents also sold produce.
+- **Key Takeaway:** Un-metered crop expansion and market dumping severely overfit offline sweeps. Production systems must strictly meter market sales and respect dynamic price floors.
+
+### C. "God's Mode: Hacked Stores" & Engine RNG Coupling
+- **Source:** `leoprovorov/god-s-mode-hacked-stores` (Sept 28, 2026).
+- **Discovery:** In `kaggle-environments 1.32.7`, the daily PRNG generator is initialized at day-end via $R_d = \text{Random}((s \cdot 1{,}000{,}003) \oplus d)$ and calls `random()` once for every empty tile on Player 0's farm, then Player 1's farm, before drawing the next town shop. A 1-cell `DIG` alters the next shop in 76.6% of paired runs.
+- **Operational Reality:** Section 17 of Provorov's study proved that active online shop steering without seed knowledge is destructive in practice: attempting to force specific shops while adhering to an inherited production route turned positive margins of +$7,040 into losses of -$10,557. The causal lever exists in the engine, but active seed-steering is counter-productive in competitive play.
+
+### D. "A Song of Ice and Fire" — Fixed Scripts vs. Conditional Reactivity
+- **Source:** `leoprovorov/a-song-of-ice-and-fire-fixed-flexible` (Sept 28, 2026).
+- **Findings:** Deconstructing 461 winning matches from top ladder leader `Majkel1337`:
+  - **"Ice" (Fixed Scripts):** Days 0 to 6 (Steps 0 to 144) show 100% action agreement across all games—the opening animal purchases, hand hirings, and initial crop lines are completely deterministic scripts.
+  - **"Fire" (Conditional Reactivity):** At Step 144, when the second shop opens, the game bifurcates into 64 distinct conditional branches keyed on the ordered pair of the first two unlocked shops.
+- **Workspace Parity:** Our Prvsiyan base natively incorporates the 64-world bifurcation table (`_R108_SHOP_ROUTES`), maintaining fixed optimal openings before branching on Day 6.
+
+### E. The Public Overfitting Trap (Fingerprinted Seeds)
+- **Source:** Decompiled `marketshock_m1_main.py` payload.
+- **Findings:** The latest public "MarketShock" script embeds 5,000-character observation fingerprint dictionaries matching specific historical seeds (e.g., `seed-107021`) to inject hardcoded day-21 farmer routes. On fresh, unseen seeds, the fingerprint fails and falls back to baseline.
+- **Strategic Guard:** This underscores why our workspace strictly enforces held-out, multi-seed validation panels (`Seed x Seat` cross-testing across fresh seeds) to prevent chasing brittle public leaderboard artifacts.
+
+### F. The True Drivers of the 3,000 Elo Frontier
+Comparing World #2 `DECEM` (3,021.7 Elo) directly against our agents demonstrates that the gap between ~2,000 Elo and ~3,000 Elo is governed by three physical principles:
+1. **1-Tile Radial Hub Geometry:** Packing coops and pastures within 1 tile of Shed `(4,4)` eliminates 75% of transit steps.
+2. **The Geese/Egg Sidecar:** Deploying 7 geese in coops on Days 6–8 captures ~$11,000+ in effortless passive revenue.
+3. **Strawberry Lot Metering:** Selling strawberries in disciplined lots of 2–6 units preserves quotes at ~$101/unit rather than crashing to $55.
+
+---
+
 ## 5. Strategic Takeaways for Our Baseline
 
 Our current **Gold-Medal Hybrid Agent (Decoupled MCTS + Heuristic Core)** is perfectly positioned to absorb these insights:
