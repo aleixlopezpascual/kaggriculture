@@ -1,0 +1,22 @@
+monitor_submissions.py
+  s_fd165d99036def::t_a6a488850d837e 2,4-5,10-11,19-20,23,25,27,32
+  s_fd165d99036def::t_fe694713c3d6f5 44-45
+  s_fd165d99036def::t_d3fc9185403093 7-8
+  s_fd165d99036def::t_4d94efa74463ed 75-77
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "03da1e8729d1033e93e19d60475e730097670f03",
+  "prompts": {},
+  "sessions": {
+    "s_fd165d99036def": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "da6ba6c5-da3e-45db-8477-51cc9912315a",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": "Aleix López <aleix.lopez@glovoapp.com>"
+    }
+  }
+}
