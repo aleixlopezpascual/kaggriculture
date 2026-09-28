@@ -418,6 +418,14 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Late-Season Meta Audit (Sept 27–28, 2026):** See [`docs/competitor_notebooks_analysis.md`](competitor_notebooks_analysis.md) for full analysis of the newest public breakthroughs: Tetsutani's Step1009 41-pass reorder meta (`demand-preserving-turn-sale-timing`), Haideptry's carrot price-collapse audit (`the-2965-master-hybrid-engine`), Provorov's shop RNG coupling study (`god-s-mode-hacked-stores`), and the 64-world bifurcation architecture (`a-song-of-ice-and-fire-fixed-flexible`). Confirmed that our single-pass bounded permutation optimizer in P2 V2 is mathematically superior to heuristic reorder stacking, with 0 callbacks > 100ms.
 *   **Tooling & Verification:** Added `scripts/analyze_decem_replay.py`, `scripts/compare_decem_sales.py`, extracted tape `docs/experiments/agent_selection/decem_evaluation/decem_tape_actions.json`, and benchmark player `docs/experiments/agent_selection/decem_evaluation/decem_tape_agent.py`. All 114 unit tests pass cleanly (`pytest`).
 
+### Phase 3: Prvsiyan V3 (Lot Metering) Multi-Seed Confirmation Tournament (2026-09-28)
+*   **Design & Seeds:** 48 process-isolated matches executed across 8 fresh holdout seeds `[838084248, 690003990, 400914000, 839524396, 946313351, 911995953, 996328792, 134302223]` across both Seat 0 and Seat 1 (`scripts/run_v3_confirmation_tournament.py`).
+*   **Tournament Telemetry Summary:**
+    *   **vs DECEM World #2 Action Replay:** **16W - 0L - 0T (100.0% Win Rate)** | V3 Avg: **$133,723** vs DECEM **$48,428** | Net Margin: **+$85,295**.
+    *   **vs Shepherd Sovereign:** **9W - 7L - 0T (56.2% Points Rate)** | V3 Avg: **$101,844** vs Shepherd **$101,543** | Net Margin: **+$301**.
+    *   **vs Prvsiyan V2 (Direct A/B):** **2W - 14L - 0T (12.5% Points Rate)** | V3 Avg: **$101,664** vs V2 Avg: **$102,086** | Net Margin: **-$422**.
+*   **Empirical Game-Theoretic Finding:** While lot metering prevents price crashes against external opponents and crushes DECEM (+85k), in symmetric mirror matches against an un-metered clone (V2), holding back lots allows the un-metered rival to front-run the town consumption cycle and capture immediate revenue, resulting in a minor -0.4% ($422) gold deficit in direct self-play. Both V2 and V3 remain elite, high-throughput candidates ($101k+ average gold). Full tournament telemetry archived in [`docs/experiments/agent_selection/p3_v3_lot_metering/confirmation_summary.json`](agent_selection/p3_v3_lot_metering/confirmation_summary.json).
+
 ## Sources
 
 [36] https://www.kaggle.com/competitions/kaggriculture/submissions

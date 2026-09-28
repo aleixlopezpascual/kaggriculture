@@ -28,14 +28,15 @@ def _find_package_dir() -> Path:
     f = globals().get("__file__")
     if f is not None:
         p = Path(f).resolve().parent
-        if (p / "baseline.py").is_file():
+        if (p / "meter.py").is_file():
             return p
     for candidate in [
+        Path.cwd() / "submission" / "prvsiyan_v3_package",
         Path("/kaggle_simulations/agent"),
         Path.cwd(),
         Path(),
     ] + [Path(p) for p in sys.path if p]:
-        if (candidate / "baseline.py").is_file():
+        if (candidate / "meter.py").is_file():
             return candidate.resolve()
     return Path.cwd()
 
@@ -44,7 +45,7 @@ _PKG_DIR = _find_package_dir()
 EXPECTED_BASELINE_SHA256 = (
     "178ae0f727641cf4b618ebb98ade7aa1a1bed7517281aab9849de82a59d8ed3a"
 )
-EXPECTED_OPTIMIZER_SHA256 = (
+EXPECTED_HELPER_SHA256 = (
     "6d86d0bce7a3a40e2913b06c727816bbcce09e76531059e5bd344919d30cfb59"
 )
 EXPECTED_METER_SHA256 = (
@@ -52,72 +53,204 @@ EXPECTED_METER_SHA256 = (
 )
 
 
-def _load_module(
-    path: Path, expected_hash: str, subname: str
-) -> types.ModuleType:
-    if not path.is_file():
-        raise FileNotFoundError(f"Missing package file: {path}")
-    raw_bytes = path.read_bytes()
-    actual_hash = hashlib.sha256(raw_bytes).hexdigest()
-    if actual_hash != expected_hash:
+def _load_verified_helper() -> types.ModuleType:
+    helper_path = _PKG_DIR / "optimizer.py"
+    if not helper_path.is_file():
+        raise FileNotFoundError(f"Missing helper file: {helper_path}")
+    helper_bytes = helper_path.read_bytes()
+    actual_hash = hashlib.sha256(helper_bytes).hexdigest()
+    if actual_hash != EXPECTED_HELPER_SHA256:
         raise ValueError(
-            f"Component {path.name} SHA256 mismatch: "
-            f"expected {expected_hash}, got {actual_hash}"
+            f"Helper optimizer.py SHA256 mismatch: "
+            f"expected {EXPECTED_HELPER_SHA256}, got {actual_hash}"
         )
 
-    module_name = f"{__name__}._{subname}"
-    mod = types.ModuleType(module_name)
-    mod.__file__ = str(path)
-    sys.modules[module_name] = mod
-    exec(compile(raw_bytes.decode("utf-8"), str(path), "exec"), mod.__dict__)
-    return mod
+    module_name = f"{__name__}._p2_optimizer_frozen"
+    helper_mod = types.ModuleType(module_name)
+    helper_mod.__file__ = str(helper_path)
+    sys.modules[module_name] = helper_mod
 
-
-_OPTIMIZER_MOD = _load_module(
-    _PKG_DIR / "optimizer.py", EXPECTED_OPTIMIZER_SHA256, "p3_opt"
-)
-_METER_MOD = _load_module(
-    _PKG_DIR / "meter.py", EXPECTED_METER_SHA256, "p3_meter"
-)
-
-# Load baseline module safely
-_baseline_path = _PKG_DIR / "baseline.py"
-_baseline_bytes = _baseline_path.read_bytes()
-if hashlib.sha256(_baseline_bytes).hexdigest() != EXPECTED_BASELINE_SHA256:
-    raise ValueError("Baseline SHA256 mismatch")
-
-_BASELINE_MOD = types.ModuleType(f"{__name__}._baseline_frozen")
-_BASELINE_MOD.__file__ = str(_baseline_path)
-sys.modules[f"{__name__}._baseline_frozen"] = _BASELINE_MOD
-exec(
-    compile(_baseline_bytes.decode("utf-8"), str(_baseline_path), "exec"),
-    _BASELINE_MOD.__dict__,
-)
-
-_BASELINE_AGENT = _BASELINE_MOD.agent
-_OPTIMIZER_FN = _OPTIMIZER_MOD.reorder_market_orders
-_METER_FN = _METER_MOD.meter_sell_orders
-
-
-def agent(
-    observation: dict[str, Any], configuration: Any = None
-) -> dict[str, Any]:
     try:
-        raw_action = _BASELINE_AGENT(observation, configuration)
-        market = raw_action.get("market") or []
+        exec(
+            compile(helper_bytes.decode("utf-8"), str(helper_path), "exec"),
+            helper_mod.__dict__,
+        )
+    finally:
+        sys.modules.pop(module_name, None)
+    return helper_mod
 
-        # 1. Run reviewed market slot optimizer
-        optimized_market = _OPTIMIZER_FN(observation, market)
 
-        # 2. Run disciplined commodity lot metering
-        metered_market = _METER_FN(
-            observation, optimized_market, max_strawberry_lot=6
+def _load_verified_meter() -> types.ModuleType:
+    meter_path = _PKG_DIR / "meter.py"
+    if not meter_path.is_file():
+        raise FileNotFoundError(f"Missing meter file: {meter_path}")
+    meter_bytes = meter_path.read_bytes()
+    actual_hash = hashlib.sha256(meter_bytes).hexdigest()
+    if actual_hash != EXPECTED_METER_SHA256:
+        raise ValueError(
+            f"Meter meter.py SHA256 mismatch: "
+            f"expected {EXPECTED_METER_SHA256}, got {actual_hash}"
         )
 
-        return dict(raw_action, market=metered_market)
+    module_name = f"{__name__}._p3_meter_frozen"
+    meter_mod = types.ModuleType(module_name)
+    meter_mod.__file__ = str(meter_path)
+    sys.modules[module_name] = meter_mod
+
+    try:
+        exec(
+            compile(meter_bytes.decode("utf-8"), str(meter_path), "exec"),
+            meter_mod.__dict__,
+        )
+    finally:
+        sys.modules.pop(module_name, None)
+    return meter_mod
+
+
+def _load_verified_baseline() -> types.ModuleType:
+    baseline_path = _PKG_DIR / "baseline.py"
+    if not baseline_path.is_file():
+        raise FileNotFoundError(f"Missing baseline file: {baseline_path}")
+    source_bytes = baseline_path.read_bytes()
+    actual_hash = hashlib.sha256(source_bytes).hexdigest()
+
+    if actual_hash != EXPECTED_BASELINE_SHA256:
+        raise ValueError(
+            f"Frozen Prvsiyan baseline.py SHA256 mismatch: "
+            f"expected {EXPECTED_BASELINE_SHA256}, got {actual_hash}"
+        )
+
+    module_name = f"{__name__}._prvsiyan_baseline_frozen"
+    baseline_mod = types.ModuleType(module_name)
+    baseline_mod.__file__ = str(baseline_path)
+    sys.modules[module_name] = baseline_mod
+
+    try:
+        exec(
+            compile(source_bytes.decode("utf-8"), str(baseline_path), "exec"),
+            baseline_mod.__dict__,
+        )
+    finally:
+        sys.modules.pop(module_name, None)
+    return baseline_mod
+
+
+_HELPER_MOD = _load_verified_helper()
+find_eligible_sell_indices = _HELPER_MOD.find_eligible_sell_indices
+optimize_sell_slots = _HELPER_MOD.optimize_sell_slots
+
+_METER_MOD = _load_verified_meter()
+meter_sell_orders = _METER_MOD.meter_sell_orders
+
+_BASELINE_MOD = _load_verified_baseline()
+_BASE_AGENT = _BASELINE_MOD.agent
+_V44Y_PARAMS = _BASELINE_MOD._v44y_params
+_V44Y_FACTOR_MARGIN = _BASELINE_MOD._v44y_factor_margin
+_FARM_VIEW = _BASELINE_MOD.FarmView
+_PROJECTED_SHED = _BASELINE_MOD.projected_shed
+_IG_STANDARD = _BASELINE_MOD._ig_standard
+_RACE_STATE = getattr(_BASELINE_MOD, "_RACE_STATE", {})
+
+_P2_REPORT: dict[str, Any] = {
+    "p2_calls": 0,
+    "p2_eligible_turns": 0,
+    "p2_evals": 0,
+    "p2_budget_hits": 0,
+    "p2_changed_turns": 0,
+    "p2_changed_slots": 0,
+    "p2_model_gain": 0.0,
+    "p2_errors": 0,
+}
+
+
+def _sync_telemetry() -> None:
+    combined: dict[str, Any] = {}
+    base_tel = getattr(_BASE_AGENT, "telemetry", None)
+    if isinstance(base_tel, dict):
+        combined.update(base_tel)
+
+    for k, v in vars(_BASELINE_MOD).items():
+        if (
+            isinstance(k, str)
+            and (k.endswith("_REPORT") or k.endswith("_STATS"))
+            and isinstance(v, dict)
+        ):
+            combined[k] = v
+
+    combined.update(_P2_REPORT)
+    agent.telemetry = combined  # type: ignore
+
+
+def agent(observation: dict[str, Any], configuration: Any = None) -> dict[str, Any]:
+    step = int(observation.get("step", 0))
+    action = _BASE_AGENT(observation, configuration)
+    _P2_REPORT["p2_calls"] += 1
+
+    try:
+        # Phase 2 V2: Bounded multiset permutation search on eligible SELL orders
+        if (
+            step >= 216
+            and isinstance(action, dict)
+            and "market" in action
+            and isinstance(action["market"], list)
+        ):
+            orders = [
+                list(o) if isinstance(o, (list, tuple)) else o for o in action["market"]
+            ]
+            eligible_indices = find_eligible_sell_indices(orders)
+
+            if len(eligible_indices) >= 2:
+                _P2_REPORT["p2_eligible_turns"] += 1
+                view = _FARM_VIEW(observation)
+                raw_stock = _PROJECTED_SHED(action, view)
+                stock = {k: max(0, int(v)) for k, v in raw_stock.items()}
+                params = _V44Y_PARAMS(observation)
+                inv0 = {
+                    k: int(v) for k, v in observation["market"]["inventory"].items()
+                }
+                opp = [list(o) if isinstance(o, (list, tuple)) else o for o in orders]
+                scoring_fn = _V44Y_FACTOR_MARGIN(opp, inv0, stock, params)
+
+                revised_orders, stats = optimize_sell_slots(
+                    orders,
+                    eligible_indices,
+                    scoring_callback=scoring_fn,
+                    budget=800,
+                    min_gain=0.5,
+                )
+
+                _P2_REPORT["p2_evals"] += stats["evals"]
+                _P2_REPORT["p2_budget_hits"] += stats["budget_hits"]
+                _P2_REPORT["p2_errors"] += stats["errors"]
+
+                if stats["changed_slots"] > 0:
+                    _P2_REPORT["p2_changed_turns"] += 1
+                    _P2_REPORT["p2_changed_slots"] += stats["changed_slots"]
+                    _P2_REPORT["p2_model_gain"] += stats["gain"]
+                    action = dict(action, market=revised_orders)
+
+                    player = int(observation.get("player", 0))
+                    state = _RACE_STATE.get(player)
+                    if (
+                        state is not None
+                        and state.get("prev_action") is not None
+                        and state.get("step") == step
+                    ):
+                        state["prev_action"] = action
     except Exception:
-        # Fallback to pure baseline action if helper raises
-        try:
-            return _BASELINE_AGENT(observation, configuration)
-        except Exception:
-            return {"farmer": ["PASS"], "hands": [], "market": []}
+        _P2_REPORT["p2_errors"] += 1
+
+    # Phase 3: Apply disciplined commodity lot metering to prevent market quote crashes
+    try:
+        raw_mkt = action.get("market") or []
+        metered_mkt = meter_sell_orders(observation, raw_mkt, max_strawberry_lot=6)
+        action = dict(action, market=metered_mkt)
+    except Exception:
+        pass
+
+    _sync_telemetry()
+    return action
+
+
+_sync_telemetry()
+kaggle_submission_agent = agent
