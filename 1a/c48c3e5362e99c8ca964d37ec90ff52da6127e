@@ -1,0 +1,22 @@
+src/agents/p3_metered_challenger.py
+  s_fd165d99036def::t_dca114c0c95a0c 1-17,40-57
+  s_fd165d99036def::t_f72d7e03b4ceef 18-39
+tests/test_p3_metered_challenger.py
+  s_fd165d99036def::t_25958c10cd1bd3 1-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "1ac48c3e5362e99c8ca964d37ec90ff52da6127e",
+  "prompts": {},
+  "sessions": {
+    "s_fd165d99036def": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "da6ba6c5-da3e-45db-8477-51cc9912315a",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": "Aleix López <aleix.lopez@glovoapp.com>"
+    }
+  }
+}
