@@ -50,6 +50,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v27** | `56490949` | `competitors/notebooks/shepherd_sovereign_main.py` | **Shepherd Sovereign: Herd-Safe Sovereign Engine** | $82,074 | **1756.6** | Complete (Retired - Third / Older) |
 | **v28** | `56531885` | `prvsiyan_kaggriculture_submission.tar.gz` | **Prvsiyan Moon Counts Melons** (Local confirmation candidate; Apache-2.0) | $99,568 | **1818.2** | **Active (Latest-Two Tracked Pair)** |
 | **v29** | `56621217` | `prvsiyan_v2_submission.tar.gz` | **Prvsiyan Global SELL-Slot Challenger V2** (Multiset permutation search; verified direct loader) | **$102,849** | **600.0 (Init)** | **Active (Latest-Two Tracked)** |
+| **v30** | N/A | `prvsiyan_v21_submission.tar.gz` | **Prvsiyan V2.1 Restored Opening** (V2 + documented BUY 10 / SELL 5 step-0 wheat opening) | **$85,326** (seed 848617604) | N/A | **Local candidate (not uploaded)** |
 
 ---
 
@@ -426,6 +427,33 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
     *   **vs Prvsiyan V2 (Direct A/B):** **2W - 14L - 0T (12.5% Points Rate)** | V3 Avg: **$101,664** vs V2 Avg: **$102,086** | Net Margin: **-$422**.
 *   **Empirical Game-Theoretic Finding:** While lot metering prevents price crashes against external opponents and crushes DECEM (+85k), in symmetric mirror matches against an un-metered clone (V2), holding back lots allows the un-metered rival to front-run the town consumption cycle and capture immediate revenue, resulting in a minor -0.4% ($422) gold deficit in direct self-play. Both V2 and V3 remain elite, high-throughput candidates ($101k+ average gold). Full tournament telemetry archived in [`docs/experiments/agent_selection/p3_v3_lot_metering/confirmation_summary.json`](agent_selection/p3_v3_lot_metering/confirmation_summary.json).
 *   **Live Deployment to Active Matchmaking Pool (2026-09-28 15:05 UTC):** Built deterministic archive `submission/prvsiyan_v3_submission.tar.gz` (SHA-256 `c696edc5...`) and uploaded to Kaggle as **Ref `56644701`** (`SubmissionStatus.COMPLETE`, initial score `600.0`). Under the Two-Agent Rule, the active evaluation pair is now **Prvsiyan V3** (`56644701`) and **Prvsiyan V2** (`56621217` at `1715.5`), retiring V1 (`56531885` at `1725.3`) to third/older. Background daemon (PID 84201) is actively tracking convergence.
+
+### Phase 4: Prvsiyan V2.1 Restored v9 Opening — Jaxa Counter Neutralization (2026-09-29)
+
+*   **Problem:** The 600-match local agent-selection tournament (12 seeds) surfaced a hard intransitivity: the Jaxa 2802 Variant B router beat every agent in the Prvsiyan lineage (V1/V2/V3) **24-0**, while itself losing 0-24 to Arsgorynich and Shepherd. A full 720-turn economic trace (seed `212349879`) showed near-identical buy/production intents, with Jaxa's lead opening on days 7-11 and compounding to +$24.6k — i.e. not a farming-throughput advantage.
+*   **Causal Isolation:** Single-factor ablations of Jaxa's four wrapper layers (6 seeds x both seats = 12 matches per arm) attributed essentially all of the effect to its step-0 wheat opening. Deltas versus full Jaxa: `native_horizon` +252, `no_advance` +40, `no_frontload` -199, **`native_opening` -18,420**, `parent` -18,598, `opening_only` +509. Disabling HORIZON=24, the 2-turn sale advance, or frontloading each left Jaxa at 12-0; reverting only its opening flipped it to 0-12.
+*   **Root Cause:** `baseline.py` ships `V9_OPENING_STEP0 = (BUY_PRODUCT WHEAT 20, SELL WHEAT 15)`, but the comment block directly above it documents the cash-safety analysis for **BUY 10 / SELL 5** ("leaves >= $1,050 after step 1 against all 6,648 recorded openings"). The shipped constant had drifted from its own documented design. The immediate step-0 cash difference is only ~$31, but it perturbs shared market wheat inventory and cash immediately before the day-1 hire/feed/animal sequence, then amplifies through route and reservation decisions over 720 turns.
+*   **The Fix (V2.1):** `submission/prvsiyan_v21_package/main.py` rebinds the baseline's native `V9_OPENING_STEP0` to the documented `(BUY_PRODUCT WHEAT 10, SELL WHEAT 5)`. `baseline.py` and `optimizer.py` remain **byte-identical** to V2 (`178ae0f7...` / `6d86d0bc...`), so the package's SHA-256 integrity guard stays meaningful, and the change routes through the baseline's own `_v9_opening` overlay (which still validates the route tape before substituting).
+*   **SELL 5 Is Load-Bearing:** A BUY 10 / **SELL 10** variant (matching Jaxa's own opening exactly) was catastrophic, collapsing the agent to an average of $52,714. The 5 retained wheat is the day-1 feed buffer; this invariant is asserted directly in `tests/test_submission_v21_standalone.py`.
+*   **Failed Approach (Negative Result, Retained):** Patching the opening from an outer wrapper by overwriting `action["market"]` at step 0 was catastrophic (-$111k), because it discarded the non-wheat remainder of V2's opening (notably `BUY_SEED WHEAT 1`). The change must go through the native overlay.
+*   **Methodology Gotcha:** `main.py` verifies `baseline.py` against a hard-coded SHA-256 and, on mismatch, the agent silently returns PASS actions (producing a fake $3,000 terminal score). An initial variant sweep was invalidated this way before the expected hashes were corrected.
+*   **Held-Out Confirmation (384 matches):** 16 brand-new seeds, disjoint from every seed used earlier in this study, x 6 opponents (Jaxa Variant B, Arsgorynich Herd-Safe V3, Shepherd Sovereign, Prvsiyan V3, Peak 2950, V57) x both seats, paired cell-for-cell against the V2 baseline. All 768 player statuses `DONE`, **0 errors**.
+
+    | Opponent | V2 baseline (W-L) | V2.1 (W-L) | Paired point delta |
+    | :--- | :---: | :---: | :---: |
+    | Jaxa Variant B | 1-31 | **32-0** | **+0.969** |
+    | Arsgorynich | 20-12 | 20-12 | +0.000 |
+    | Shepherd | 26-6 | 26-6 | +0.000 |
+    | Prvsiyan V3 | 30-2 | 30-2 | +0.000 |
+    | Peak 2950 | 30-2 | 30-2 | +0.000 |
+    | V57 | 28-4 | 28-4 | +0.000 |
+
+    Overall points rate **70.3% -> 86.5%**. Paired point delta **+0.1615/match** (whole-seed cluster bootstrap 95% CI `[+0.1510, +0.1667]`, 5,000 resamples, RNG seed `7`), paired margin delta **+$2,512/match** (95% CI `[+$1,963, +$3,091]`). Both intervals strictly exclude zero, and **no non-Jaxa matchup regressed by a single match**.
+*   **Packaging & Latency:** `scripts/package_prvsiyan_v21.py` builds a reproducible archive (gzip `mtime=0`; two consecutive builds produce identical SHA-256 `9d956fdd6c5e0abda535b6d3edfd9b3d79c957b1cb108c8db568b8da272fd209`), verifies component hashes, asserts the emitted step-0 wheat tape, and runs a full 720-turn validation. Isolated (non-parallel) monotonic profiling over 719 callbacks: mean **1.18 ms**, p95 **2.43 ms**, p99 **5.08 ms**, max **39.32 ms**, **0 callbacks > 100 ms** — strictly clearing the internal workspace guideline.
+*   **Verification:** 9/9 new V2.1 tests pass; full workspace suite 129 passed / 1 skipped, with 2 pre-existing failures in `tests/test_submission_v2_standalone.py` caused by the absent (untracked) `submission/prvsiyan_v2_submission.tar.gz` and unrelated to this change. `black`/`ruff` could **not** be run in this environment: the configured private package index returns HTTP 401 for `pip`/`numpy`, so no virtualenv could be provisioned. This leaves the repository's linting guardrail formally unmet for this change.
+*   **Scope Limits:** All evidence is local and offline. The local opponent pool does not contain the live ladder's top agents (~3,000 Elo), so this result demonstrates the removal of a specific, decisively-reproduced counter-matchup, not a predicted live rating. **No Kaggle upload was performed.**
+*   **Operational Status:** **CONFIRMED_POSITIVE, NOT DEPLOYED.** Held as a local candidate pending explicit user approval for upload.
+
 
 ## Sources
 

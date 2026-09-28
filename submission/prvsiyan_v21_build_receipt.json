@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-09-28 22:26:51 UTC",
+  "archive_path": "/Users/aleix.lopez/copilot-worktrees/kaggriculture/aleixlopezpascual-refactored-fishstick/submission/prvsiyan_v21_submission.tar.gz",
+  "archive_bytes": 642444,
+  "archive_sha256": "9d956fdd6c5e0abda535b6d3edfd9b3d79c957b1cb108c8db568b8da272fd209",
+  "components": {
+    "main.py": "d7a373db275b5051ea1a8b49b4e86a3fab480faa050ec9f64afa853a2374f6d7",
+    "baseline.py": "178ae0f727641cf4b618ebb98ade7aa1a1bed7517281aab9849de82a59d8ed3a",
+    "optimizer.py": "6d86d0bce7a3a40e2913b06c727816bbcce09e76531059e5bd344919d30cfb59",
+    "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE.txt": "a8482cc51dada918c4ae944dcedbdc13b81d9fd6a4f534b410b7db0469519a3d"
+  },
+  "opening": {
+    "buy_wheat": 10,
+    "sell_wheat": 5
+  },
+  "simulation_validation": {
+    "seed": 848617604,
+    "status": "DONE",
+    "reward": 85326.0,
+    "opponent": "Shepherd Sovereign",
+    "opponent_reward": 84064.0,
+    "elapsed_sec": 7.682061583036557,
+    "avg_ms_per_turn": 10.669529976439662
+  }
+}
