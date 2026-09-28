@@ -71,6 +71,7 @@ For comprehensive architectural breakdowns, game-engine physics, and empirical A
 * **P1 Refresh Selection Report:** [`docs/experiments/agent_selection/p1_refresh_2026-09-25/report.md`](docs/experiments/agent_selection/p1_refresh_2026-09-25/report.md)
 * **P2 Market Slot Ordering Report:** [`docs/experiments/agent_selection/p2_market_slot_ordering/report.md`](docs/experiments/agent_selection/p2_market_slot_ordering/report.md)
 * **P2 V2 Market Slot Ordering Report:** [`docs/experiments/agent_selection/p2_v2_market_slot_ordering/report.md`](docs/experiments/agent_selection/p2_v2_market_slot_ordering/report.md)
+* **DECEM (World #2 · 3021.7 Elo) Replay Playbook:** [`docs/decem_world_2_playbook.md`](docs/decem_world_2_playbook.md)
 * **Public Research & Medal Backlog:** [`docs/plans/kaggriculture-public-research-backlog-2026-09-25.md`](docs/plans/kaggriculture-public-research-backlog-2026-09-25.md)
 * **Continuation Win-Path Handoff (2026-09-27):** [`docs/plans/kaggriculture-win-path-handoff-2026-09-27.md`](docs/plans/kaggriculture-win-path-handoff-2026-09-27.md)
 * **Master Retrospective:** [`docs/kaggriculture_master_retrospective_2026_09_23.md`](docs/kaggriculture_master_retrospective_2026_09_23.md)
