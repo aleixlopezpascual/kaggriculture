@@ -1,0 +1,28 @@
+scripts/extract_decem_tape.py
+  s_fd165d99036def::t_00b909fc632364 1-48
+docs/experiments.md
+  s_fd165d99036def::t_fe3ef99799eb92 410-419
+tests/test_decem_agent.py
+  s_fd165d99036def::t_36062167ca0923 1-42
+docs/experiments/agent_selection/decem_evaluation/decem_tape_agent.py
+  s_fd165d99036def::t_14bf6260affbe6 42-49,51
+  s_fd165d99036def::t_c813f178293caf 6,64,76
+  s_fd165d99036def::t_965a0ab843980b 1-5,7-14,34-41,50,52-63,65-75,77
+  s_fd165d99036def::t_93a839f709b4e2 15-24,26-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "4c814244dd8dc30eadb2505f458a29d9ef7b7509",
+  "prompts": {},
+  "sessions": {
+    "s_fd165d99036def": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "da6ba6c5-da3e-45db-8477-51cc9912315a",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": "Aleix López <aleix.lopez@glovoapp.com>"
+    }
+  }
+}
