@@ -108,3 +108,27 @@ def test_submission_v3_package_standalone():
     steps = env.run([str(v3_main.resolve()), "submission/prvsiyan_v2_package/main.py"])
     assert len(steps) == 720
     assert steps[-1][0]["status"] == "DONE"
+
+
+def test_tarball_v3_unpack_and_full_game_simulation():
+    tar_path = Path("submission/prvsiyan_v3_submission.tar.gz")
+    if not tar_path.is_file():
+        pytest.skip("V3 tarball not created yet")
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_path = Path(tmpdir)
+        with tarfile.open(tar_path, "r:gz") as tar:
+            tar.extractall(tmp_path, filter="data")
+
+        extracted_main = tmp_path / "main.py"
+        assert extracted_main.is_file()
+
+        env = kaggle_environments.make("kaggriculture", configuration={"seed": 42})
+        opponent_path = str(
+            Path("competitors/notebooks/shepherd_sovereign_main.py").resolve()
+        )
+
+        steps = env.run([str(extracted_main.resolve()), opponent_path])
+        assert len(steps) == 720
+        assert steps[-1][0]["status"] == "DONE"
+        assert steps[-1][0]["reward"] > 0
