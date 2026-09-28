@@ -1,0 +1,21 @@
+docs/competitor_notebooks_analysis.md
+  s_fd165d99036def::t_f363c88a9d1d78 52-92
+docs/experiments.md
+  s_fd165d99036def::t_0abdc75bdbdada 418
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "65b70bdc6f8ead956fb415a09b9fff4202b4f37f",
+  "prompts": {},
+  "sessions": {
+    "s_fd165d99036def": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "da6ba6c5-da3e-45db-8477-51cc9912315a",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": "Aleix López <aleix.lopez@glovoapp.com>"
+    }
+  }
+}
