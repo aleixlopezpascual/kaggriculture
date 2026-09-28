@@ -5,6 +5,7 @@ import tempfile
 from pathlib import Path
 
 import kaggle_environments
+import pytest
 
 
 def test_package_components_integrity():
@@ -96,3 +97,14 @@ def test_kaggle_exec_container_simulation():
             assert "market" in action
         finally:
             sys.path.pop()
+
+
+def test_submission_v3_package_standalone():
+    v3_main = Path("submission/prvsiyan_v3_package/main.py")
+    if not v3_main.is_file():
+        pytest.skip("V3 package not created yet")
+
+    env = kaggle_environments.make("kaggriculture", configuration={"seed": 42})
+    steps = env.run([str(v3_main.resolve()), "submission/prvsiyan_v2_package/main.py"])
+    assert len(steps) == 720
+    assert steps[-1][0]["status"] == "DONE"
