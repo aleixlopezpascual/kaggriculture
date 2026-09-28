@@ -1,0 +1,22 @@
+tests/test_submission_v2_standalone.py
+  s_fd165d99036def::t_67abe38bc50b24 111-134
+scripts/package_prvsiyan_v3.py
+  s_fd165d99036def::t_f95b148ecc96c5 56-73,109,111-112,122-123
+  s_fd165d99036def::t_edef3abd7d862d 1-55,74-108,110,113-121,124-145
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "b95546c011bf34e6b1deba17260f9395f370b0cb",
+  "prompts": {},
+  "sessions": {
+    "s_fd165d99036def": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "da6ba6c5-da3e-45db-8477-51cc9912315a",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": "Aleix López <aleix.lopez@glovoapp.com>"
+    }
+  }
+}
