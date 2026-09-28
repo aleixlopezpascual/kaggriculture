@@ -1,0 +1,26 @@
+submission/prvsiyan_v3_package/main.py
+  s_fd165d99036def::t_3c9cfe70b3c33e 31,34,39
+  s_fd165d99036def::t_77025b7c842d37 48,56-62,64-65,68-71,73-80,83-93,95-98,101-108,110-115,117-131,133-152,154-239,241-256
+scripts/run_v3_confirmation_tournament.py
+  s_fd165d99036def::t_c3e8f8b08ac195 1-51,57-86,90-107,116-118,127-128,131-138,140-142,145-186,191-198,202,205-212,214-231
+  s_fd165d99036def::t_6c80ed4c6ae100 52-56,87-89,108-115,119-126,129,139,143-144,187-190,199-201,203-204,213
+  s_fd165d99036def::t_7046b31a7783a9 130
+docs/experiments.md
+  s_fd165d99036def::t_ebf68b2490d909 421-428
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "4dbf0fa5739e4749fae2259c2969e786f0ccebb4",
+  "prompts": {},
+  "sessions": {
+    "s_fd165d99036def": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "da6ba6c5-da3e-45db-8477-51cc9912315a",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": "Aleix López <aleix.lopez@glovoapp.com>"
+    }
+  }
+}
