@@ -425,6 +425,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
     *   **vs Shepherd Sovereign:** **9W - 7L - 0T (56.2% Points Rate)** | V3 Avg: **$101,844** vs Shepherd **$101,543** | Net Margin: **+$301**.
     *   **vs Prvsiyan V2 (Direct A/B):** **2W - 14L - 0T (12.5% Points Rate)** | V3 Avg: **$101,664** vs V2 Avg: **$102,086** | Net Margin: **-$422**.
 *   **Empirical Game-Theoretic Finding:** While lot metering prevents price crashes against external opponents and crushes DECEM (+85k), in symmetric mirror matches against an un-metered clone (V2), holding back lots allows the un-metered rival to front-run the town consumption cycle and capture immediate revenue, resulting in a minor -0.4% ($422) gold deficit in direct self-play. Both V2 and V3 remain elite, high-throughput candidates ($101k+ average gold). Full tournament telemetry archived in [`docs/experiments/agent_selection/p3_v3_lot_metering/confirmation_summary.json`](agent_selection/p3_v3_lot_metering/confirmation_summary.json).
+*   **Live Deployment to Active Matchmaking Pool (2026-09-28 15:05 UTC):** Built deterministic archive `submission/prvsiyan_v3_submission.tar.gz` (SHA-256 `c696edc5...`) and uploaded to Kaggle as **Ref `56644701`** (`SubmissionStatus.COMPLETE`, initial score `600.0`). Under the Two-Agent Rule, the active evaluation pair is now **Prvsiyan V3** (`56644701`) and **Prvsiyan V2** (`56621217` at `1715.5`), retiring V1 (`56531885` at `1725.3`) to third/older. Background daemon (PID 84201) is actively tracking convergence.
 
 ## Sources
 

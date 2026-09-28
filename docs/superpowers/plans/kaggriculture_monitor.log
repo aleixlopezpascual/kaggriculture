@@ -226,3 +226,8 @@
 [2026-09-28 16:23:47] [Live Matchmaking] Prvsiyan V2 (56621217): SubmissionStatus.COMPLETE (Elo: 1714.9) | Prvsiyan V1 (56531885): SubmissionStatus.COMPLETE (Elo: 1725.2) | Diff (V1 - V2): +10.3
 [2026-09-28 16:38:49] [Live Matchmaking] Prvsiyan V2 (56621217): SubmissionStatus.COMPLETE (Elo: 1714.9) | Prvsiyan V1 (56531885): SubmissionStatus.COMPLETE (Elo: 1729.8) | Diff (V1 - V2): +14.9
 [2026-09-28 16:53:50] [Live Matchmaking] Prvsiyan V2 (56621217): SubmissionStatus.COMPLETE (Elo: 1715.5) | Prvsiyan V1 (56531885): SubmissionStatus.COMPLETE (Elo: 1725.3) | Diff (V1 - V2): +9.8
+[2026-09-28 17:08:50] [Live Matchmaking] Prvsiyan V2 (56621217): SubmissionStatus.COMPLETE (Elo: 1715.5) | Prvsiyan V1 (56531885): SubmissionStatus.COMPLETE (Elo: 1725.3) | Diff (V1 - V2): +9.8
+[2026-09-28 17:12:41] Starting Active Duel Monitor:
+  - Prvsiyan V3: Ref 56644701
+  - Prvsiyan V2: Ref 56621217
+[2026-09-28 17:12:42] [Live Matchmaking] Prvsiyan V3 (56644701): SubmissionStatus.COMPLETE (Elo: 600.0) | Prvsiyan V2 (56621217): SubmissionStatus.COMPLETE (Elo: 1715.5) | Diff (V3 - V2): -1115.5

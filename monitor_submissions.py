@@ -4,8 +4,8 @@ import sys
 import time
 from pathlib import Path
 
-TARGET_A = 56621217  # Prvsiyan Global SELL-Slot Challenger V2
-TARGET_B = 56531885  # Prvsiyan Moon Counts Melons V1
+TARGET_A = 56644701  # Prvsiyan Lot-Metered Challenger V3
+TARGET_B = 56621217  # Prvsiyan Global SELL-Slot Challenger V2
 
 LOG_WORKSPACE = Path("docs/superpowers/plans/kaggriculture_monitor.log")
 LOG_PRIVATE = Path("/Users/aleix.lopez/.gemini/tmp/kaggriculture/memory/monitor.log")
@@ -41,8 +41,8 @@ def fetch_submissions():
 def monitor_ab_loop(ref_a: int, ref_b: int):
     log_message(
         f"Starting Active Duel Monitor:\n"
-        f"  - Prvsiyan V2: Ref {ref_a}\n"
-        f"  - Prvsiyan V1: Ref {ref_b}"
+        f"  - Prvsiyan V3: Ref {ref_a}\n"
+        f"  - Prvsiyan V2: Ref {ref_b}"
     )
 
     while True:
@@ -65,16 +65,16 @@ def monitor_ab_loop(ref_a: int, ref_b: int):
         diff_str = "N/A"
         if score_a_str and score_b_str:
             try:
-                diff = float(score_b_str) - float(score_a_str)
+                diff = float(score_a_str) - float(score_b_str)
                 diff_str = f"{diff:+.1f}"
             except ValueError:
                 pass
 
         log_message(
             f"[Live Matchmaking] "
-            f"Prvsiyan V2 ({ref_a}): {status_a} (Elo: {score_a_str}) | "
-            f"Prvsiyan V1 ({ref_b}): {status_b} (Elo: {score_b_str}) | "
-            f"Diff (V1 - V2): {diff_str}"
+            f"Prvsiyan V3 ({ref_a}): {status_a} (Elo: {score_a_str}) | "
+            f"Prvsiyan V2 ({ref_b}): {status_b} (Elo: {score_b_str}) | "
+            f"Diff (V3 - V2): {diff_str}"
         )
 
         time.sleep(900)
