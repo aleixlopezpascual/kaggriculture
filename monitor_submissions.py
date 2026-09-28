@@ -1,14 +1,14 @@
-import subprocess
 import json
-import time
-import os
+import subprocess
 import sys
+import time
+from pathlib import Path
 
-TARGET_A = 56467787  # Jaxa 2802 Variant B (H24, L2, U10)
-TARGET_B = 56490949  # Shepherd Sovereign: Herd-Safe Sovereign Engine (Sept 23 SOTA)
+TARGET_A = 56621217  # Prvsiyan Global SELL-Slot Challenger V2
+TARGET_B = 56531885  # Prvsiyan Moon Counts Melons V1
 
-LOG_WORKSPACE = "docs/superpowers/plans/kaggriculture_monitor.log"
-LOG_PRIVATE = "/Users/aleix.lopez/.gemini/tmp/kaggriculture/memory/monitor.log"
+LOG_WORKSPACE = Path("docs/superpowers/plans/kaggriculture_monitor.log")
+LOG_PRIVATE = Path("/Users/aleix.lopez/.gemini/tmp/kaggriculture/memory/monitor.log")
 
 
 def log_message(msg: str):
@@ -16,28 +16,21 @@ def log_message(msg: str):
     formatted = f"[{timestamp}] {msg}\n"
     print(formatted.strip())
     # Log to workspace
-    os.makedirs(os.path.dirname(LOG_WORKSPACE), exist_ok=True)
-    with open(LOG_WORKSPACE, "a", encoding="utf-8") as f:
+    LOG_WORKSPACE.parent.mkdir(parents=True, exist_ok=True)
+    with LOG_WORKSPACE.open("a", encoding="utf-8") as f:
         f.write(formatted)
     # Log to private memory folder
-    os.makedirs(os.path.dirname(LOG_PRIVATE), exist_ok=True)
+    LOG_PRIVATE.parent.mkdir(parents=True, exist_ok=True)
     try:
-        with open(LOG_PRIVATE, "a", encoding="utf-8") as f:
+        with LOG_PRIVATE.open("a", encoding="utf-8") as f:
             f.write(formatted)
-    except IOError:
+    except OSError:
         pass
 
 
 def fetch_submissions():
+    cmd = ["kaggle", "competitions", "submissions", "kaggriculture", "--format", "json"]
     try:
-        cmd = [
-            "kaggle",
-            "competitions",
-            "submissions",
-            "kaggriculture",
-            "--format",
-            "json",
-        ]
         res = subprocess.run(cmd, capture_output=True, text=True, check=True)
         return json.loads(res.stdout)
     except Exception as e:
@@ -48,8 +41,8 @@ def fetch_submissions():
 def monitor_ab_loop(ref_a: int, ref_b: int):
     log_message(
         f"Starting Active Duel Monitor:\n"
-        f"  - Jaxa Variant B: Ref {ref_a}\n"
-        f"  - Shepherd Sovereign: Ref {ref_b}"
+        f"  - Prvsiyan V2: Ref {ref_a}\n"
+        f"  - Prvsiyan V1: Ref {ref_b}"
     )
 
     while True:
@@ -79,9 +72,9 @@ def monitor_ab_loop(ref_a: int, ref_b: int):
 
         log_message(
             f"[Live Matchmaking] "
-            f"Jaxa B ({ref_a}): {status_a} (Elo: {score_a_str}) | "
-            f"Shepherd Sovereign ({ref_b}): {status_b} (Elo: {score_b_str}) | "
-            f"Diff (Shepherd - Jaxa): {diff_str}"
+            f"Prvsiyan V2 ({ref_a}): {status_a} (Elo: {score_a_str}) | "
+            f"Prvsiyan V1 ({ref_b}): {status_b} (Elo: {score_b_str}) | "
+            f"Diff (V1 - V2): {diff_str}"
         )
 
         time.sleep(900)
