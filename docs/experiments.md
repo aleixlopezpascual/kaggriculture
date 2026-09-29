@@ -6,12 +6,17 @@
 > * **Execution Security:** Agent runners execute candidate Python in-process via `exec`, with NO sandbox. You must only run reviewed and trusted source snapshots.
 > * **Source Authorship & Licensing:** The captured Kaggle sources bundled in this repository may contain submitter-authored modifications alongside inherited, third-party, or open-source components described in their own notices. The bundled copies are strictly hash-pinned captures of the linked public outputs; do not assume all code was originally authored by the listed Kaggle notebook author. We retain Apache/NOTICE attribution detail where present, without making broader unsupported licensing claims.
 
-> **Data Provenance Snapshot (Retrieved 2026-09-25 15:55 CEST (+0200))**[36]
-> Kaggle CLI Command: `kaggle competitions submissions kaggriculture --format json --page-size 100`[36]
-> * **Latest-Two Tracked #1 (Newest):** Prvsiyan Moon Counts Melons (Ref `56531885`), Status: COMPLETE, Public Score: 2093.9, Private: blank (125 completed public episodes, 1 completed validation episode)[36]
-> * **Latest-Two Tracked #2 (Second-Newest):** Shepherd Sovereign (Ref `56490949`), Status: COMPLETE, Public Score: 2034.7, Private: blank (284 completed public episodes, 1 completed validation episode; already uploaded; no re-upload)[36]
-> * **Third / Older (Not in Tracked Pair):** Jaxa 2802 Variant B (Ref `56467787`), Status: COMPLETE, Public Score: 1680.8, Private: blank[36]
-> *(Note: The top two entries represent Kaggle's active two-submission tracking rule for live evaluation, not leaderboard rank.)*[36]
+> **CURRENT Active Pool (Retrieved 2026-09-29 16:30 UTC)**
+> * **Latest-Two Tracked #1 (Newest):** Meta V5 (Ref `56676258`), COMPLETE, live rating **1829.9**, zero errors
+> * **Latest-Two Tracked #2:** Meta V4 (Ref `56670729`), COMPLETE, live rating **1841.3** <- our best-ever result, and the displayed leaderboard score
+> * **Team standing:** rank **1312 / 10164**, score **1846.5**. Bronze cutoff is **1954.0** (+107.5).
+> * Retired: Prvsiyan V3.1, Moon Counts Melons `56531885` (**1725.3**), Shepherd Sovereign `56490949` (**1756.6**), Jaxa 2802 Variant B `56467787` (1680.8).
+>
+> **Superseded snapshot (2026-09-25 15:55 CEST) -- retained for history only.** It
+> recorded Moon Counts Melons at `2093.9` and Shepherd Sovereign at `2034.7`.[36]
+> Those were mid-flight, cold-start-inflated readings; both decayed to the
+> converged values above. See §13.10 for why early ratings overstate strength,
+> and §14.2 for the corrected table.
 
 This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design parameters, and post-mortem findings for every version of our agents.
 
@@ -1218,6 +1223,122 @@ and no rating divergence between the two agents.
 **Endgame decision: hold both slots unchanged through close.** Score is the
 best active submission, the two are within 28 points, every lever that
 survived scrutiny is already shipped, and late changes carry only downside.
+
+
+## Phase 14 -- Endgame reality check: where we actually stand
+
+Triggered by the right question: *"we are far from winning, no?"* Yes. This
+phase establishes by how much, why, and what remains possible.
+
+### 14.1 Actual position
+
+Rank **1312 / 10164**, score **1846.5**. The leader is at **2980.3** -- we are
+**1134 points** behind. Winning was never reachable. Kaggle medal cutoffs for
+a 10,164-team competition:
+
+| medal | rank cutoff | score | gap from us |
+|---|---|---|---|
+| gold | 30 | 2741.1 | +895 |
+| silver | 508 | 2181.6 | +335 |
+| **bronze** | **1016** | **1954.0** | **+107.5** |
+
+Bronze is the only target within reach of any plausible lever.
+
+### 14.2 The stale-ledger correction
+
+The workspace guidance recorded historical submissions as *Moon Counts Melons
+2093.9* and *Shepherd Sovereign 2034.7*. **Both are wrong.** Live values:
+
+| ref | agent | actual score |
+|---|---|---|
+| `56670729` | **Meta V4** | **1841.3** <- our best ever |
+| `56676258` | Meta V5 | 1829.9 |
+| `56490949` | Shepherd Sovereign | 1756.6 |
+| `56531885` | Moon Counts Melons | 1725.3 |
+
+There is nothing stronger in our own history to resurrect. Meta V4 *is* our
+high-water mark.
+
+### 14.3 Three public agents harvested and all rejected
+
+| candidate | author rank / score | verdict |
+|---|---|---|
+| yhay81 Shop Router 0909 | **137 / 2501.4** | **37.5%** vs our 8-agent panel (Meta V4: 87.5%) |
+| ahmedberatozer V38 | 408 / 2245.2 | **2-62** vs Meta V4, mean -$5,001 |
+| Shepherd Sovereign (ours) | -- / 1756.6 | **11-53** vs Meta V4 |
+
+**The yhay81 result is the important one.** Their author rating of 2501 is
+655 points above ours, which made this look like the single best lever
+available. It is not their public notebook. Proof: their live replay
+(`115302482`, seat 1, rating 2506) matches the notebook's 13 published tapes
+on **0.4% of steps**, with different hand counts at the same step. The public
+artifact is an older, weaker agent. **This re-confirms the 13.1 public-notebook
+ceiling by direct behavioural evidence rather than inference.**
+
+**Method to reuse:** for any public notebook, before adopting it, diff the
+author's live replay against the notebook's own actions. A tape agent gives a
+clean binary answer; a code agent can be compared on action-verb fingerprint.
+
+### 14.4 The small-sample trap, caught again
+
+An 8-match panel cell said Shepherd Sovereign beat Meta V4 **75-25**. A proper
+64-match paired A/B said Meta V4 wins **53-11**. The panel cell was 2 wins out
+of 8. *Panel cells are screening, never a verdict.*
+
+Reassuringly, the 64-match result **agrees with live ordering** (Shepherd
+1756.6 < Meta V4 1841.3). Adequately-powered local A/B does track live; the
+earlier worry that local testing is simply non-predictive was itself a
+small-sample artifact.
+
+### 14.5 We are already running the best public agent, verbatim
+
+tetsutani published a new notebook on 2026-09-28
+(`demand-preserving-turn-sale-timing`). Its build cell asserts:
+
+```
+EXPECTED_MAIN_SHA256 = "55be5d5f124c8daaaa63c1a29ba4aab096004909666f04748007603c67b7d2a8"
+```
+
+That is **byte-identical to our Meta V4 payload**. We are running the current
+public state of the art exactly, with a validated improvement layer on top.
+There is no better public code to adopt.
+
+### 14.6 The ladder's own noise floor is ~90 points
+
+jaxa623 (`2802-two-identical-agents-90-points-apart`) had one byte-identical
+archive live under two entries:
+
+```
+entry A (56272485)   91 games   W73 L18     rating 2857
+entry B (56276050)  119 games   W88 L26 T4  rating 2786
+```
+
+Same sha256, **~90 rating points apart**, differing only in which opponents
+they were drawn against. Their conclusion, which we adopt: *"the ladder decides
+nothing under 90 points."*
+
+**This reframes our whole position.** Our 107.5-point gap to bronze is barely
+above the noise floor for *identical agents*. It follows that:
+
+1. Our Meta V4 / Meta V5 pair differing by 11 points is meaningless (13.11 was
+   right to call it unresolvable, for a second independent reason).
+2. Each submission is effectively a **draw** from a distribution, and bronze
+   sits roughly 2.4 standard deviations above our observed mean.
+3. A fresh resubmission of the same bytes is a genuine, if low-probability,
+   lottery ticket -- and its cost is bounded at ~11 points, because the
+   retired slot is replaced by Meta V5 at 1829.9.
+
+### 14.7 Conclusion
+
+We are at the ceiling of the available material. Every lever tested across
+Phases 13 and 14 -- quadrant expansion, crop mix, anti-idle harvesting, three
+public agents, and our own submission history -- has been rejected on
+evidence. The one shipped improvement (Meta V5) is validated but too small to
+close a 107-point gap that is itself inside the ladder's noise band.
+
+The only remaining lever is **resubmission variance**: re-drawing the same
+validated bytes for a fresh Elo sample. Expected value is positive but the
+probability of reaching bronze on any single draw is low (order 1%).
 
 
 ## Sources
