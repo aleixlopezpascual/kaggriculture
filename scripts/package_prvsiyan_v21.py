@@ -51,9 +51,10 @@ def build_and_verify_v21_package():
         print(f"  ✓ {doc:14s}: present")
 
     main_src = (pkg_dir / "main.py").read_text(encoding="utf-8")
-    assert 'V21_OPENING_STEP0 = (("BUY_PRODUCT", "WHEAT", 10), ("SELL", "WHEAT", 5))' in main_src, (
-        "main.py does not carry the restored BUY 10 / SELL 5 opening"
-    )
+    assert (
+        'V21_OPENING_STEP0 = (("BUY_PRODUCT", "WHEAT", 10), ("SELL", "WHEAT", 5))'
+        in main_src
+    ), "main.py does not carry the restored BUY 10 / SELL 5 opening"
     print("  ✓ opening       : BUY 10 / SELL 5 (restored)")
 
     tar_out_path = Path("submission/prvsiyan_v21_submission.tar.gz").resolve()

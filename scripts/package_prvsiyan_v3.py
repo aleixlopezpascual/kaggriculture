@@ -55,9 +55,7 @@ def build_and_verify_v3_package():
 
     with (
         tar_out_path.open("wb") as f_out,
-        tarfile.open(
-            fileobj=f_out, mode="w:gz", format=tarfile.GNU_FORMAT
-        ) as tar,
+        tarfile.open(fileobj=f_out, mode="w:gz", format=tarfile.GNU_FORMAT) as tar,
     ):
         for fname in tar_files:
             fpath = pkg_dir / fname
@@ -119,8 +117,7 @@ def build_and_verify_v3_package():
         "archive_bytes": tar_size,
         "archive_sha256": tar_hash,
         "components": {
-            k: hashlib.sha256((pkg_dir / k).read_bytes()).hexdigest()
-            for k in tar_files
+            k: hashlib.sha256((pkg_dir / k).read_bytes()).hexdigest() for k in tar_files
         },
         "simulation_validation": {
             "seed": 848617604,

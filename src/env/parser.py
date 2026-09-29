@@ -10,6 +10,7 @@ def parse_world_state(obs: dict) -> WorldState:
 
     if is_official_kaggle:
         from src.utils.market import update_market_state
+
         update_market_state(obs)
 
         player_idx = obs.get("player", 0)
@@ -109,9 +110,14 @@ def parse_world_state(obs: dict) -> WorldState:
                             )
                         )
                         occupied.add((x, y))
-                    elif kind in {"COOP", "PASTURE", "WEED", "LOCKED", "SHED"}:
-                        occupied.add((x, y))
-                    elif kind == "TILLED":
+                    elif kind in {
+                        "COOP",
+                        "PASTURE",
+                        "WEED",
+                        "LOCKED",
+                        "SHED",
+                        "TILLED",
+                    }:
                         occupied.add((x, y))
 
         # Generate tilled_tiles as all unoccupied unlocked coordinates

@@ -1,11 +1,14 @@
-"""Large-Scale Local Tournament Runner: SOTA Public Meta Benchmark (September 23, 2026)."""
+"""Large-Scale Local Tournament Runner.
+
+SOTA Public Meta Benchmark (September 23, 2026).
+"""
 
 import importlib.util
 import json
-import os
 import sys
 import time
 from pathlib import Path
+
 from kaggle_environments import make
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -26,7 +29,9 @@ CANDIDATES = {
     "Thomas 2945 Farm": "competitors/notebooks/thomas_2945_main.py",
     "Herd-Safe Race": "competitors/notebooks/herd_safe_main.py",
     "V57 Invariant": "competitors/notebooks/v57_main.py",
-    "Jaxa 2802 Variant B": "competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py",
+    "Jaxa 2802 Variant B": (
+        "competitors/notebooks/jaxa_2802_router/main_variant_b_h24.py"
+    ),
 }
 
 
@@ -49,9 +54,7 @@ def run_match(seed: int, name_0: str, name_1: str, turns: int = 720):
         fn_0 = load_agent_fn(CANDIDATES[name_0])
         fn_1 = load_agent_fn(CANDIDATES[name_1])
 
-        env = make(
-            "kaggriculture", configuration={"episodeSteps": turns, "seed": seed}
-        )
+        env = make("kaggriculture", configuration={"episodeSteps": turns, "seed": seed})
         env.run([fn_0, fn_1])
 
         g0 = float(env.state[0].reward if env.state[0].reward is not None else 0.0)
@@ -112,13 +115,18 @@ def main():
         results.append(res)
         w_tag = f"Winner: {res['winner']}" if res["winner"] != "Tie" else "TIE"
         print(
-            f"[{idx:2d}/{total_matches}] Seed {seed:4d} | {a0[:18]:18s} vs {a1[:18]:18s} | "
-            f"Gold: {res['gold_0']:10,.0f} vs {res['gold_1']:10,.0f} | {w_tag} ({res['duration']:.2f}s)"
+            f"[{idx:2d}/{total_matches}] Seed {seed:4d} | "
+            f"{a0[:18]:18s} vs {a1[:18]:18s} | "
+            f"Gold: {res['gold_0']:10,.0f} vs {res['gold_1']:10,.0f} | "
+            f"{w_tag} ({res['duration']:.2f}s)"
         )
 
     elapsed = time.time() - t0
     print("-" * 80)
-    print(f"Tournament completed in {elapsed:.1f}s ({elapsed/total_matches:.2f}s per match).")
+    print(
+        f"Tournament completed in {elapsed:.1f}s "
+        f"({elapsed/total_matches:.2f}s per match)."
+    )
     print("=" * 80)
 
     stats = {
@@ -133,7 +141,10 @@ def main():
         for name in agent_names
     }
 
-    head_to_head = {a0: {a1: {"W": 0, "L": 0, "T": 0} for a1 in agent_names if a0 != a1} for a0 in agent_names}
+    head_to_head = {
+        a0: {a1: {"W": 0, "L": 0, "T": 0} for a1 in agent_names if a0 != a1}
+        for a0 in agent_names
+    }
 
     for r in results:
         if not r["success"]:
@@ -167,7 +178,8 @@ def main():
     print("\n" + " " * 22 + "FINAL SOTA TOURNAMENT STANDINGS")
     print("-" * 115)
     print(
-        f"{'Agent Name':22s} | {'Wins':4s} | {'Loss':4s} | {'Tie':3s} | {'Win Rate':8s} | "
+        f"{'Agent Name':22s} | {'Wins':4s} | {'Loss':4s} | "
+        f"{'Tie':3s} | {'Win Rate':8s} | "
         f"{'Local Avg Gold':14s} | {'Avg Margin':11s} | {'Kaggle Public Benchmark':25s}"
     )
     print("-" * 115)
@@ -176,7 +188,8 @@ def main():
         agent_names,
         key=lambda x: (
             stats[x]["wins"] / max(1, stats[x]["matches"]),
-            (stats[x]["gold_scored"] - stats[x]["gold_conceded"]) / max(1, stats[x]["matches"]),
+            (stats[x]["gold_scored"] - stats[x]["gold_conceded"])
+            / max(1, stats[x]["matches"]),
         ),
         reverse=True,
     )
@@ -190,33 +203,40 @@ def main():
         avg_margin = (s["gold_scored"] - s["gold_conceded"]) / m
         lb_elo = KAGGLE_ELO_MAP.get(name, "N/A")
 
-        summary_rows.append({
-            "rank": rank,
-            "agent": name,
-            "wins": s["wins"],
-            "losses": s["losses"],
-            "ties": s["ties"],
-            "win_rate": round(win_rate, 1),
-            "avg_gold": round(avg_gold, 1),
-            "avg_margin": round(avg_margin, 1),
-            "benchmark_elo": lb_elo,
-        })
+        summary_rows.append(
+            {
+                "rank": rank,
+                "agent": name,
+                "wins": s["wins"],
+                "losses": s["losses"],
+                "ties": s["ties"],
+                "win_rate": round(win_rate, 1),
+                "avg_gold": round(avg_gold, 1),
+                "avg_margin": round(avg_margin, 1),
+                "benchmark_elo": lb_elo,
+            }
+        )
 
         print(
-            f"{name:22s} | {s['wins']:4d} | {s['losses']:4d} | {s['ties']:3d} | {win_rate:7.1f}% | "
+            f"{name:22s} | {s['wins']:4d} | {s['losses']:4d} | "
+            f"{s['ties']:3d} | {win_rate:7.1f}% | "
             f"${avg_gold:13,.0f} | {avg_margin:+11,.0f} | {lb_elo:25s}"
         )
     print("-" * 115)
 
     output_path = PROJECT_ROOT / "docs" / "sota_tournament_results_2026_09_23.json"
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump({
-            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-            "matches_count": total_matches,
-            "seeds": seeds,
-            "standings": summary_rows,
-            "head_to_head": head_to_head,
-        }, f, indent=2)
+    with output_path.open("w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+                "matches_count": total_matches,
+                "seeds": seeds,
+                "standings": summary_rows,
+                "head_to_head": head_to_head,
+            },
+            f,
+            indent=2,
+        )
     print(f"\nDetailed SOTA tournament results saved to: {output_path}")
 
 

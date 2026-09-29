@@ -82,8 +82,10 @@ class HeuristicAgent(BaseAgent):
             if qty > 0:
                 sell_orders.append(("SELL", item, qty))
 
-        # Sort sell orders using price impact logic (falls back to static premium sorting if offline)
+        # Sort sell orders using price impact logic (falls back to static
+        # premium sorting if offline)
         from src.utils.market import rank_sell_orders
+
         sell_orders = rank_sell_orders(sell_orders)
         farm_actions.extend(sell_orders)
 
@@ -100,7 +102,13 @@ class HeuristicAgent(BaseAgent):
             tile for tile in empty_tilled_tiles if tile not in crop_coords
         ]
 
-        seed_prices = {"Wheat": 10, "Carrot": 20, "Tomato": 50, "Strawberry": 100, "Melon": 80}
+        seed_prices = {
+            "Wheat": 10,
+            "Carrot": 20,
+            "Tomato": 50,
+            "Strawberry": 100,
+            "Melon": 80,
+        }
 
         # Buy seeds for crop deficits (stop buying seeds near the end of the match)
         if not target.is_liquidating and state.turn < 710:

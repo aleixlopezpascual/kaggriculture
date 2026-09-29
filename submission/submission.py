@@ -438,6 +438,7 @@ def parse_world_state(obs: dict) -> WorldState:
     is_official_kaggle = "farms" in obs
 
     if is_official_kaggle:
+
         update_market_state(obs)
 
         player_idx = obs.get("player", 0)
@@ -537,9 +538,14 @@ def parse_world_state(obs: dict) -> WorldState:
                             )
                         )
                         occupied.add((x, y))
-                    elif kind in {"COOP", "PASTURE", "WEED", "LOCKED", "SHED"}:
-                        occupied.add((x, y))
-                    elif kind == "TILLED":
+                    elif kind in {
+                        "COOP",
+                        "PASTURE",
+                        "WEED",
+                        "LOCKED",
+                        "SHED",
+                        "TILLED",
+                    }:
                         occupied.add((x, y))
 
         # Generate tilled_tiles as all unoccupied unlocked coordinates
@@ -728,11 +734,7 @@ def sort_market_commands(commands: list[dict]) -> list[dict]:
 
 # === KAITO'S PRICE-IMPACT SELLER PORT ===
 
-_LATEST_MARKET_STATE = {
-    "inventory": {},
-    "prices": {},
-    "unlocked_shops": ()
-}
+_LATEST_MARKET_STATE = {"inventory": {}, "prices": {}, "unlocked_shops": ()}
 
 _PRICE_FLOOR = 1
 _DEMAND_ALPHA = 0.25
@@ -798,9 +800,7 @@ def update_market_state(obs: dict) -> None:
 
     town_data = obs.get("town", {}) or {}
     unlocked_raw = town_data.get("unlocked_shops", []) or []
-    _LATEST_MARKET_STATE["unlocked_shops"] = tuple(
-        str(s).upper() for s in unlocked_raw
-    )
+    _LATEST_MARKET_STATE["unlocked_shops"] = tuple(str(s).upper() for s in unlocked_raw)
 
 
 def _shape(name: str, value: float) -> float:
@@ -821,7 +821,9 @@ def _market_price(item: str, inventory: int) -> int:
     params = _MARKET_PARAMS.get(item)
     if not params:
         return 1
-    base, equilibrium, scale, below_func, below_target, above_func, above_target = params
+    base, equilibrium, scale, below_func, below_target, above_func, above_target = (
+        params
+    )
     if inventory < equilibrium:
         amplitude = below_target * base / _shape(below_func, scale)
         price = base + amplitude * _shape(below_func, equilibrium - inventory)
@@ -838,20 +840,20 @@ def _demand_per_day(item_upper: str, unlocked_shops: tuple[str, ...]) -> float:
     for shop in unlocked_shops:
         products = _SHOP_PRODUCTS.get(shop, ())
         if item_upper in products:
-            demand += (turns_per_day / shop_interval) * (
-                2 if len(products) == 1 else 1
-            )
+            demand += (turns_per_day / shop_interval) * (2 if len(products) == 1 else 1)
     if item_upper != "FERTILIZER":
         center_interval = 24
-        demand += (turns_per_day / center_interval)
+        demand += turns_per_day / center_interval
     return demand
 
 
 def _impact_score(item_upper: str, quantity: int) -> float:
     current_inventory = int(_LATEST_MARKET_STATE["inventory"].get(item_upper, 10000))
-    current_quote = float(_LATEST_MARKET_STATE["prices"].get(
-        item_upper, _market_price(item_upper, current_inventory)
-    ))
+    current_quote = float(
+        _LATEST_MARKET_STATE["prices"].get(
+            item_upper, _market_price(item_upper, current_inventory)
+        )
+    )
     later_quote = float(_market_price(item_upper, current_inventory + quantity))
     return float(quantity) * max(0.0, current_quote - later_quote)
 
@@ -869,7 +871,9 @@ def _order_score(item_upper: str, quantity: int) -> float:
     return score * (1.0 + _DEMAND_ALPHA * urgency)
 
 
-def rank_sell_orders(sell_orders: list[tuple[str, str, int]]) -> list[tuple[str, str, int]]:
+def rank_sell_orders(
+    sell_orders: list[tuple[str, str, int]],
+) -> list[tuple[str, str, int]]:
     """Ranks and sorts sell orders using Kaito's price-impact scoring algorithm.
 
     Falls back to normal static premium-goods ordering if no market state is active.
@@ -882,10 +886,7 @@ def rank_sell_orders(sell_orders: list[tuple[str, str, int]]) -> list[tuple[str,
     rows = []
     for index, (action, item, qty) in enumerate(sell_orders):
         item_upper = _ITEM_NAME_MAP.get(str(item).upper(), str(item).upper())
-        if item_upper in _MARKET_PARAMS:
-            score = _order_score(item_upper, qty)
-        else:
-            score = 0.0
+        score = _order_score(item_upper, qty) if item_upper in _MARKET_PARAMS else 0.0
         rows.append((score, -index, (action, item, qty)))
 
     rows.sort(reverse=True)
@@ -1018,23 +1019,36 @@ class BoundedSaleReservation:
             avail_stock = dict(state.farm.inventory)
             # Subtract currently scheduled sales to get safe surplus
             for action in adjusted_actions:
-                if isinstance(action, tuple) and len(action) == 3 and action[0] == "SELL":
+                if (
+                    isinstance(action, tuple)
+                    and len(action) == 3
+                    and action[0] == "SELL"
+                ):
                     item, qty = action[1], action[2]
                     avail_stock[item] = max(0, avail_stock.get(item, 0) - qty)
 
             # Check future tape actions
-            for f_action in future_actions_tape[:5]: # lookahead limit of 5
-                if isinstance(f_action, tuple) and len(f_action) == 3 and f_action[0] == "SELL":
+            for f_action in future_actions_tape[:5]:  # lookahead limit of 5
+                if (
+                    isinstance(f_action, tuple)
+                    and len(f_action) == 3
+                    and f_action[0] == "SELL"
+                ):
                     f_item, f_qty = f_action[1], f_action[2]
 
                     # Exclude items needed for animal/seed purchase/feeding
-                    if any(act[0] == "BUY_PRODUCT" and act[1] == f_item for act in current_actions):
+                    if any(
+                        act[0] == "BUY_PRODUCT" and act[1] == f_item
+                        for act in current_actions
+                    ):
                         continue
 
                     if avail_stock.get(f_item, 0) >= f_qty:
                         # Pull sale early
                         adjusted_actions.insert(0, ("SELL", f_item, f_qty))
-                        self.debt_records[f_item] = self.debt_records.get(f_item, 0) + f_qty
+                        self.debt_records[f_item] = (
+                            self.debt_records.get(f_item, 0) + f_qty
+                        )
                         avail_stock[f_item] -= f_qty
 
         return adjusted_actions
@@ -1147,7 +1161,9 @@ class HeuristicAgent(BaseAgent):
             if qty > 0:
                 sell_orders.append(("SELL", item, qty))
 
-        # Sort sell orders using price impact logic (falls back to static premium sorting if offline)
+        # Sort sell orders using price impact logic (falls back to static
+        # premium sorting if offline)
+
         sell_orders = rank_sell_orders(sell_orders)
         farm_actions.extend(sell_orders)
 
@@ -1164,7 +1180,13 @@ class HeuristicAgent(BaseAgent):
             tile for tile in empty_tilled_tiles if tile not in crop_coords
         ]
 
-        seed_prices = {"Wheat": 10, "Carrot": 20, "Tomato": 50, "Strawberry": 100, "Melon": 80}
+        seed_prices = {
+            "Wheat": 10,
+            "Carrot": 20,
+            "Tomato": 50,
+            "Strawberry": 100,
+            "Melon": 80,
+        }
 
         # Buy seeds for crop deficits (stop buying seeds near the end of the match)
         if not target.is_liquidating and state.turn < 710:
@@ -1552,11 +1574,13 @@ def get_fibonacci_wage(n: int) -> int:
 
 
 class EscalationAgent(HeuristicAgent):
-    """Dynamic Escalation Agent with Target Persistence, Seed Inventory guards, and Drop-off routing.
+    """Dynamic Escalation Agent with Target Persistence, Seed Inventory guards,
+    and Drop-off routing.
 
     Scales crop volume based on gold, uses exact Fibonacci curves for labor scaling,
-    executes animal purchases at correct official costs, and uses persisted targeting to ensure
-    workers do not thrash. Integrates mid-day cargo drop-off routing to maximize cash flow.
+    executes animal purchases at correct official costs, and uses persisted
+    targeting to ensure workers do not thrash. Integrates mid-day cargo drop-off
+    routing to maximize cash flow.
     """
 
     def __init__(self, crop_to_plant: str = "Strawberry"):
@@ -1584,7 +1608,8 @@ class EscalationAgent(HeuristicAgent):
                 crop_count = 22
                 budget_seeds = 400.0
 
-            # End-game liquidation: stop buying seeds after Turn 660 to ensure cashout before Turn 720
+            # End-game liquidation: stop buying seeds after Turn 660 to ensure
+            # cashout before Turn 720
             is_liq = state.turn >= 660
             if is_liq:
                 crop_count = 0
@@ -1620,9 +1645,13 @@ class EscalationAgent(HeuristicAgent):
 
         while (
             len(state.farm.workers) + farm_actions.count("HIRE_WORKER") < target_workers
-            and gold_available >= get_fibonacci_wage(current_hands + farm_actions.count("HIRE_WORKER") + 1) + target.budget_reserved_for_seeds
+            and gold_available
+            >= get_fibonacci_wage(current_hands + farm_actions.count("HIRE_WORKER") + 1)
+            + target.budget_reserved_for_seeds
         ):
-            wage = get_fibonacci_wage(current_hands + farm_actions.count("HIRE_WORKER") + 1)
+            wage = get_fibonacci_wage(
+                current_hands + farm_actions.count("HIRE_WORKER") + 1
+            )
             farm_actions.append("HIRE_WORKER")
             gold_available -= wage
 
@@ -1660,7 +1689,13 @@ class EscalationAgent(HeuristicAgent):
                 current_seeds = state.farm.seed_inventory.get(crop_type, 0)
                 deficit = target_count - current_planted - current_seeds
                 if deficit > 0:
-                    seed_prices = {"Wheat": 10, "Carrot": 20, "Tomato": 50, "Strawberry": 100, "Melon": 80}
+                    seed_prices = {
+                        "Wheat": 10,
+                        "Carrot": 20,
+                        "Tomato": 50,
+                        "Strawberry": 100,
+                        "Melon": 80,
+                    }
                     cost = seed_prices.get(crop_type, 10) * deficit
                     if gold_available >= cost:
                         farm_actions.append(("BUY_SEED", crop_type, deficit))
@@ -1671,6 +1706,7 @@ class EscalationAgent(HeuristicAgent):
         for item, qty in state.farm.inventory.items():
             if qty > 0:
                 sell_orders.append(("SELL", item, qty))
+
         sell_orders = rank_sell_orders(sell_orders)
         farm_actions.extend(sell_orders)
 
@@ -1681,12 +1717,17 @@ class EscalationAgent(HeuristicAgent):
             farm_actions = [("BUY_PRODUCT", "Wheat", 30)]
         elif state.turn == 2:
             # Sell the resold wheat + any other inventory
-            has_wheat_sale = any(act[0] == "SELL" and act[1] == "Wheat" for act in farm_actions)
+            has_wheat_sale = any(
+                act[0] == "SELL" and act[1] == "Wheat" for act in farm_actions
+            )
             if not has_wheat_sale and state.farm.inventory.get("Wheat", 0) > 0:
-                farm_actions.append(("SELL", "Wheat", state.farm.inventory.get("Wheat", 0)))
+                farm_actions.append(
+                    ("SELL", "Wheat", state.farm.inventory.get("Wheat", 0))
+                )
             # Re-rank to maintain pricing optimality
             sell_orders = [act for act in farm_actions if act[0] == "SELL"]
             other_acts = [act for act in farm_actions if act[0] != "SELL"]
+
             sell_orders = rank_sell_orders(sell_orders)
             farm_actions = other_acts + sell_orders
 
@@ -1711,22 +1752,42 @@ class EscalationAgent(HeuristicAgent):
                 # Validate target
                 valid = False
                 if task_type == "HARVEST":
-                    valid = any(c.x == tx and c.y == ty and c.growth_stage == 3 for c in state.crops)
+                    valid = any(
+                        c.x == tx and c.y == ty and c.growth_stage == 3
+                        for c in state.crops
+                    )
                 elif task_type == "WATER":
-                    valid = any(c.x == tx and c.y == ty and (c.moisture <= 30 or not c.is_watered) for c in state.crops)
+                    valid = any(
+                        c.x == tx
+                        and c.y == ty
+                        and (c.moisture <= 30 or not c.is_watered)
+                        for c in state.crops
+                    )
                 elif task_type == "PLANT":
                     # Must actually have seeds to plant!
                     has_seeds = state.farm.seed_inventory.get(self.crop_to_plant, 0) > 0
-                    valid = (tx, ty) in empty_tilled_tiles and has_seeds and not target.is_liquidating and state.turn < 715
+                    valid = (
+                        (tx, ty) in empty_tilled_tiles
+                        and has_seeds
+                        and not target.is_liquidating
+                        and state.turn < 715
+                    )
                 elif task_type == "DROP":
                     # Valid if still carrying items
                     valid = len(worker.carrying) > 0
                 elif task_type == "PICKUP":
                     # Valid if we don't have Wheat, and shed has Wheat
-                    valid = "Wheat" not in worker.carrying and state.farm.inventory.get("Wheat", 0) > 0
+                    valid = (
+                        "Wheat" not in worker.carrying
+                        and state.farm.inventory.get("Wheat", 0) > 0
+                    )
                 elif task_type == "FEED":
-                    # Valid if we have Wheat, and animal at (tx, ty) exists and is hungry
-                    valid = "Wheat" in worker.carrying and any(a.x == tx and a.y == ty and a.hunger >= 50 for a in state.animals)
+                    # Valid if we have Wheat, and animal at (tx, ty) exists
+                    # and is hungry
+                    valid = "Wheat" in worker.carrying and any(
+                        a.x == tx and a.y == ty and a.hunger >= 50
+                        for a in state.animals
+                    )
 
                 if valid:
                     # Re-assign same target
@@ -1735,7 +1796,11 @@ class EscalationAgent(HeuristicAgent):
 
                     if task_type == "DROP":
                         if abs(worker.x - 4) + abs(worker.y - 4) <= 1:
-                            worker_actions[wid] = ("DROP", worker.carrying[0], len(worker.carrying))
+                            worker_actions[wid] = (
+                                "DROP",
+                                worker.carrying[0],
+                                len(worker.carrying),
+                            )
                         else:
                             path = find_shortest_path(worker.x, worker.y, 4, 4)
                             if path:
@@ -1759,8 +1824,13 @@ class EscalationAgent(HeuristicAgent):
                             elif task_type == "PLANT":
                                 best_crop = self.crop_to_plant
                                 max_deficit = 0
-                                for crop_type, target_count in target.crop_priorities.items():
-                                    current_planted = active_crop_counts.get(crop_type, 0)
+                                for (
+                                    crop_type,
+                                    target_count,
+                                ) in target.crop_priorities.items():
+                                    current_planted = active_crop_counts.get(
+                                        crop_type, 0
+                                    )
                                     deficit = target_count - current_planted
                                     if deficit > max_deficit:
                                         max_deficit = deficit
@@ -1909,7 +1979,11 @@ class EscalationAgent(HeuristicAgent):
             if len(worker.carrying) > 0:
                 self.worker_targets[wid] = (4, 4, "DROP")
                 if abs(worker.x - 4) + abs(worker.y - 4) <= 1:
-                    worker_actions[wid] = ("DROP", worker.carrying[0], len(worker.carrying))
+                    worker_actions[wid] = (
+                        "DROP",
+                        worker.carrying[0],
+                        len(worker.carrying),
+                    )
                 else:
                     path = find_shortest_path(worker.x, worker.y, 4, 4)
                     if path:
@@ -1955,9 +2029,15 @@ class EscalationAgent(HeuristicAgent):
                     if best_harvest:
                         assigned_tasks.add((best_harvest.x, best_harvest.y))
                         if best_dist <= 1:
-                            worker_actions[wid] = ("HARVEST", best_harvest.x, best_harvest.y)
+                            worker_actions[wid] = (
+                                "HARVEST",
+                                best_harvest.x,
+                                best_harvest.y,
+                            )
                         else:
-                            path = find_shortest_path(worker.x, worker.y, best_harvest.x, best_harvest.y)
+                            path = find_shortest_path(
+                                worker.x, worker.y, best_harvest.x, best_harvest.y
+                            )
                             if path:
                                 worker_actions[wid] = path[0]
                             else:
@@ -1974,7 +2054,11 @@ class EscalationAgent(HeuristicAgent):
                                 worker_actions[wid] = ("PASS",)
 
             # No purchases/hiring in terminal steps, only sales
-            farm_actions = [act for act in farm_actions if isinstance(act, tuple) and len(act) == 3 and act[0] == "SELL"]
+            farm_actions = [
+                act
+                for act in farm_actions
+                if isinstance(act, tuple) and len(act) == 3 and act[0] == "SELL"
+            ]
 
         # Wrap farm_actions with BoundedSaleReservation
         future_tape = []
@@ -1983,7 +2067,9 @@ class EscalationAgent(HeuristicAgent):
                 # Mock a future scheduled sale of these items
                 future_tape.append(("SELL", item, qty))
 
-        farm_actions = self.reserver.process_turn_with_future(state, farm_actions, future_tape)
+        farm_actions = self.reserver.process_turn_with_future(
+            state, farm_actions, future_tape
+        )
 
         return {"worker_actions": worker_actions, "farm_actions": farm_actions}
 

@@ -49,11 +49,7 @@ out = {{
 print(json.dumps(out))
 """
     try:
-        raw = (
-            subprocess.check_output([sys.executable, "-c", code])
-            .decode()
-            .strip()
-        )
+        raw = subprocess.check_output([sys.executable, "-c", code]).decode().strip()
         res = json.loads(raw)
         return {
             "match_id": match_id,
@@ -84,9 +80,7 @@ print(json.dumps(out))
 def main():
     v3_path = str(Path("submission/prvsiyan_v3_package/main.py").resolve())
     v2_path = str(Path("submission/prvsiyan_v2_package/main.py").resolve())
-    shep_path = str(
-        Path("competitors/notebooks/shepherd_sovereign_main.py").resolve()
-    )
+    shep_path = str(Path("competitors/notebooks/shepherd_sovereign_main.py").resolve())
     decem_path = str(
         Path(
             "docs/experiments/agent_selection/decem_evaluation/decem_tape_agent.py"
@@ -105,25 +99,29 @@ def main():
     for opp_name, opp_path in opponents:
         for seed in CONFIRMATION_SEEDS:
             # Seat 0: V3 as Player 0
-            tasks.append((
-                match_counter,
-                v3_path,
-                opp_path,
-                seed,
-                "Prvsiyan_V3",
-                opp_name,
-            ))
+            tasks.append(
+                (
+                    match_counter,
+                    v3_path,
+                    opp_path,
+                    seed,
+                    "Prvsiyan_V3",
+                    opp_name,
+                )
+            )
             match_counter += 1
 
             # Seat 1: V3 as Player 1
-            tasks.append((
-                match_counter,
-                opp_path,
-                v3_path,
-                seed,
-                opp_name,
-                "Prvsiyan_V3",
-            ))
+            tasks.append(
+                (
+                    match_counter,
+                    opp_path,
+                    v3_path,
+                    seed,
+                    opp_name,
+                    "Prvsiyan_V3",
+                )
+            )
             match_counter += 1
 
     n_seeds = len(CONFIRMATION_SEEDS)

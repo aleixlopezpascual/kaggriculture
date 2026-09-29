@@ -22,11 +22,7 @@ def sort_market_commands(commands: list[dict]) -> list[dict]:
 
 # === KAITO'S PRICE-IMPACT SELLER PORT ===
 
-_LATEST_MARKET_STATE = {
-    "inventory": {},
-    "prices": {},
-    "unlocked_shops": ()
-}
+_LATEST_MARKET_STATE = {"inventory": {}, "prices": {}, "unlocked_shops": ()}
 
 _PRICE_FLOOR = 1
 _DEMAND_ALPHA = 0.25
@@ -92,9 +88,7 @@ def update_market_state(obs: dict) -> None:
 
     town_data = obs.get("town", {}) or {}
     unlocked_raw = town_data.get("unlocked_shops", []) or []
-    _LATEST_MARKET_STATE["unlocked_shops"] = tuple(
-        str(s).upper() for s in unlocked_raw
-    )
+    _LATEST_MARKET_STATE["unlocked_shops"] = tuple(str(s).upper() for s in unlocked_raw)
 
 
 def _shape(name: str, value: float) -> float:
@@ -115,7 +109,9 @@ def _market_price(item: str, inventory: int) -> int:
     params = _MARKET_PARAMS.get(item)
     if not params:
         return 1
-    base, equilibrium, scale, below_func, below_target, above_func, above_target = params
+    base, equilibrium, scale, below_func, below_target, above_func, above_target = (
+        params
+    )
     if inventory < equilibrium:
         amplitude = below_target * base / _shape(below_func, scale)
         price = base + amplitude * _shape(below_func, equilibrium - inventory)
@@ -132,20 +128,20 @@ def _demand_per_day(item_upper: str, unlocked_shops: tuple[str, ...]) -> float:
     for shop in unlocked_shops:
         products = _SHOP_PRODUCTS.get(shop, ())
         if item_upper in products:
-            demand += (turns_per_day / shop_interval) * (
-                2 if len(products) == 1 else 1
-            )
+            demand += (turns_per_day / shop_interval) * (2 if len(products) == 1 else 1)
     if item_upper != "FERTILIZER":
         center_interval = 24
-        demand += (turns_per_day / center_interval)
+        demand += turns_per_day / center_interval
     return demand
 
 
 def _impact_score(item_upper: str, quantity: int) -> float:
     current_inventory = int(_LATEST_MARKET_STATE["inventory"].get(item_upper, 10000))
-    current_quote = float(_LATEST_MARKET_STATE["prices"].get(
-        item_upper, _market_price(item_upper, current_inventory)
-    ))
+    current_quote = float(
+        _LATEST_MARKET_STATE["prices"].get(
+            item_upper, _market_price(item_upper, current_inventory)
+        )
+    )
     later_quote = float(_market_price(item_upper, current_inventory + quantity))
     return float(quantity) * max(0.0, current_quote - later_quote)
 
@@ -163,7 +159,9 @@ def _order_score(item_upper: str, quantity: int) -> float:
     return score * (1.0 + _DEMAND_ALPHA * urgency)
 
 
-def rank_sell_orders(sell_orders: list[tuple[str, str, int]]) -> list[tuple[str, str, int]]:
+def rank_sell_orders(
+    sell_orders: list[tuple[str, str, int]],
+) -> list[tuple[str, str, int]]:
     """Ranks and sorts sell orders using Kaito's price-impact scoring algorithm.
 
     Falls back to normal static premium-goods ordering if no market state is active.
@@ -176,10 +174,7 @@ def rank_sell_orders(sell_orders: list[tuple[str, str, int]]) -> list[tuple[str,
     rows = []
     for index, (action, item, qty) in enumerate(sell_orders):
         item_upper = _ITEM_NAME_MAP.get(str(item).upper(), str(item).upper())
-        if item_upper in _MARKET_PARAMS:
-            score = _order_score(item_upper, qty)
-        else:
-            score = 0.0
+        score = _order_score(item_upper, qty) if item_upper in _MARKET_PARAMS else 0.0
         rows.append((score, -index, (action, item, qty)))
 
     rows.sort(reverse=True)

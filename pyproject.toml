@@ -15,6 +15,8 @@ exclude = '''
     | build
     | dist
     | submission
+    | competitors
+    | docs
   )/
 )
 '''
@@ -27,12 +29,23 @@ exclude = [
     ".mypy_cache",
     ".ruff_cache",
     ".venv",
+    # Vendored third-party captures and frozen submission packages. These are
+    # byte-pinned and verified by SHA-256 at runtime, so reformatting them
+    # would break their integrity guards and invalidate experiment provenance.
     "submission",
+    "competitors",
+    "docs",
 ]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "UP", "B", "C4", "SIM", "PTH"]
 ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+# Arena runners must extend sys.path to reach the project root and the vendored
+# competitor packages before those modules can be imported, so module-level
+# imports legitimately follow executable statements here.
+"src/arena/*.py" = ["E402"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

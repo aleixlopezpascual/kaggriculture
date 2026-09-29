@@ -1,4 +1,7 @@
-"""Compare Jaxa V48 Clear-Queue vs a standard public baseline like EXP-173 v45 Fusion Router."""
+"""Compare Jaxa V48 Clear-Queue vs a standard public baseline.
+
+The baseline used is EXP-173 v45 Fusion Router.
+"""
 
 import sys
 from pathlib import Path

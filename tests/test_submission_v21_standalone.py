@@ -76,9 +76,7 @@ def test_opening_retains_five_wheat_feed_buffer():
         for verb, item, qty in module.V21_OPENING_STEP0
         if verb == "BUY_PRODUCT"
     }
-    sold = {
-        item: qty for verb, item, qty in module.V21_OPENING_STEP0 if verb == "SELL"
-    }
+    sold = {item: qty for verb, item, qty in module.V21_OPENING_STEP0 if verb == "SELL"}
 
     assert bought["WHEAT"] - sold["WHEAT"] == 5
 

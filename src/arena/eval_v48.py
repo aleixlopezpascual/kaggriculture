@@ -1,7 +1,6 @@
 """Local Tournament Benchmark for Jaxa V48 Clear-Queue."""
 
 import sys
-import time
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]

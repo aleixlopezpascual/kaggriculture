@@ -1,6 +1,5 @@
 """Kaggriculture Dynamic Escalation Agent."""
 
-from dataclasses import replace
 from src.agents.heuristic import HeuristicAgent
 from src.env.state import StrategicTarget, WorldState
 from src.utils.routing import find_shortest_path, manhattan_distance
@@ -20,11 +19,13 @@ def get_fibonacci_wage(n: int) -> int:
 
 
 class EscalationAgent(HeuristicAgent):
-    """Dynamic Escalation Agent with Target Persistence, Seed Inventory guards, and Drop-off routing.
+    """Dynamic Escalation Agent with Target Persistence, Seed Inventory guards,
+    and Drop-off routing.
 
     Scales crop volume based on gold, uses exact Fibonacci curves for labor scaling,
-    executes animal purchases at correct official costs, and uses persisted targeting to ensure
-    workers do not thrash. Integrates mid-day cargo drop-off routing to maximize cash flow.
+    executes animal purchases at correct official costs, and uses persisted
+    targeting to ensure workers do not thrash. Integrates mid-day cargo drop-off
+    routing to maximize cash flow.
     """
 
     def __init__(self, crop_to_plant: str = "Strawberry"):
@@ -52,7 +53,8 @@ class EscalationAgent(HeuristicAgent):
                 crop_count = 22
                 budget_seeds = 400.0
 
-            # End-game liquidation: stop buying seeds after Turn 660 to ensure cashout before Turn 720
+            # End-game liquidation: stop buying seeds after Turn 660 to ensure
+            # cashout before Turn 720
             is_liq = state.turn >= 660
             if is_liq:
                 crop_count = 0
@@ -88,9 +90,13 @@ class EscalationAgent(HeuristicAgent):
 
         while (
             len(state.farm.workers) + farm_actions.count("HIRE_WORKER") < target_workers
-            and gold_available >= get_fibonacci_wage(current_hands + farm_actions.count("HIRE_WORKER") + 1) + target.budget_reserved_for_seeds
+            and gold_available
+            >= get_fibonacci_wage(current_hands + farm_actions.count("HIRE_WORKER") + 1)
+            + target.budget_reserved_for_seeds
         ):
-            wage = get_fibonacci_wage(current_hands + farm_actions.count("HIRE_WORKER") + 1)
+            wage = get_fibonacci_wage(
+                current_hands + farm_actions.count("HIRE_WORKER") + 1
+            )
             farm_actions.append("HIRE_WORKER")
             gold_available -= wage
 
@@ -128,7 +134,13 @@ class EscalationAgent(HeuristicAgent):
                 current_seeds = state.farm.seed_inventory.get(crop_type, 0)
                 deficit = target_count - current_planted - current_seeds
                 if deficit > 0:
-                    seed_prices = {"Wheat": 10, "Carrot": 20, "Tomato": 50, "Strawberry": 100, "Melon": 80}
+                    seed_prices = {
+                        "Wheat": 10,
+                        "Carrot": 20,
+                        "Tomato": 50,
+                        "Strawberry": 100,
+                        "Melon": 80,
+                    }
                     cost = seed_prices.get(crop_type, 10) * deficit
                     if gold_available >= cost:
                         farm_actions.append(("BUY_SEED", crop_type, deficit))
@@ -140,6 +152,7 @@ class EscalationAgent(HeuristicAgent):
             if qty > 0:
                 sell_orders.append(("SELL", item, qty))
         from src.utils.market import rank_sell_orders
+
         sell_orders = rank_sell_orders(sell_orders)
         farm_actions.extend(sell_orders)
 
@@ -150,13 +163,18 @@ class EscalationAgent(HeuristicAgent):
             farm_actions = [("BUY_PRODUCT", "Wheat", 30)]
         elif state.turn == 2:
             # Sell the resold wheat + any other inventory
-            has_wheat_sale = any(act[0] == "SELL" and act[1] == "Wheat" for act in farm_actions)
+            has_wheat_sale = any(
+                act[0] == "SELL" and act[1] == "Wheat" for act in farm_actions
+            )
             if not has_wheat_sale and state.farm.inventory.get("Wheat", 0) > 0:
-                farm_actions.append(("SELL", "Wheat", state.farm.inventory.get("Wheat", 0)))
+                farm_actions.append(
+                    ("SELL", "Wheat", state.farm.inventory.get("Wheat", 0))
+                )
             # Re-rank to maintain pricing optimality
             sell_orders = [act for act in farm_actions if act[0] == "SELL"]
             other_acts = [act for act in farm_actions if act[0] != "SELL"]
             from src.utils.market import rank_sell_orders
+
             sell_orders = rank_sell_orders(sell_orders)
             farm_actions = other_acts + sell_orders
 
@@ -181,22 +199,42 @@ class EscalationAgent(HeuristicAgent):
                 # Validate target
                 valid = False
                 if task_type == "HARVEST":
-                    valid = any(c.x == tx and c.y == ty and c.growth_stage == 3 for c in state.crops)
+                    valid = any(
+                        c.x == tx and c.y == ty and c.growth_stage == 3
+                        for c in state.crops
+                    )
                 elif task_type == "WATER":
-                    valid = any(c.x == tx and c.y == ty and (c.moisture <= 30 or not c.is_watered) for c in state.crops)
+                    valid = any(
+                        c.x == tx
+                        and c.y == ty
+                        and (c.moisture <= 30 or not c.is_watered)
+                        for c in state.crops
+                    )
                 elif task_type == "PLANT":
                     # Must actually have seeds to plant!
                     has_seeds = state.farm.seed_inventory.get(self.crop_to_plant, 0) > 0
-                    valid = (tx, ty) in empty_tilled_tiles and has_seeds and not target.is_liquidating and state.turn < 715
+                    valid = (
+                        (tx, ty) in empty_tilled_tiles
+                        and has_seeds
+                        and not target.is_liquidating
+                        and state.turn < 715
+                    )
                 elif task_type == "DROP":
                     # Valid if still carrying items
                     valid = len(worker.carrying) > 0
                 elif task_type == "PICKUP":
                     # Valid if we don't have Wheat, and shed has Wheat
-                    valid = "Wheat" not in worker.carrying and state.farm.inventory.get("Wheat", 0) > 0
+                    valid = (
+                        "Wheat" not in worker.carrying
+                        and state.farm.inventory.get("Wheat", 0) > 0
+                    )
                 elif task_type == "FEED":
-                    # Valid if we have Wheat, and animal at (tx, ty) exists and is hungry
-                    valid = "Wheat" in worker.carrying and any(a.x == tx and a.y == ty and a.hunger >= 50 for a in state.animals)
+                    # Valid if we have Wheat, and animal at (tx, ty) exists
+                    # and is hungry
+                    valid = "Wheat" in worker.carrying and any(
+                        a.x == tx and a.y == ty and a.hunger >= 50
+                        for a in state.animals
+                    )
 
                 if valid:
                     # Re-assign same target
@@ -205,7 +243,11 @@ class EscalationAgent(HeuristicAgent):
 
                     if task_type == "DROP":
                         if abs(worker.x - 4) + abs(worker.y - 4) <= 1:
-                            worker_actions[wid] = ("DROP", worker.carrying[0], len(worker.carrying))
+                            worker_actions[wid] = (
+                                "DROP",
+                                worker.carrying[0],
+                                len(worker.carrying),
+                            )
                         else:
                             path = find_shortest_path(worker.x, worker.y, 4, 4)
                             if path:
@@ -229,8 +271,13 @@ class EscalationAgent(HeuristicAgent):
                             elif task_type == "PLANT":
                                 best_crop = self.crop_to_plant
                                 max_deficit = 0
-                                for crop_type, target_count in target.crop_priorities.items():
-                                    current_planted = active_crop_counts.get(crop_type, 0)
+                                for (
+                                    crop_type,
+                                    target_count,
+                                ) in target.crop_priorities.items():
+                                    current_planted = active_crop_counts.get(
+                                        crop_type, 0
+                                    )
                                     deficit = target_count - current_planted
                                     if deficit > max_deficit:
                                         max_deficit = deficit
@@ -379,7 +426,11 @@ class EscalationAgent(HeuristicAgent):
             if len(worker.carrying) > 0:
                 self.worker_targets[wid] = (4, 4, "DROP")
                 if abs(worker.x - 4) + abs(worker.y - 4) <= 1:
-                    worker_actions[wid] = ("DROP", worker.carrying[0], len(worker.carrying))
+                    worker_actions[wid] = (
+                        "DROP",
+                        worker.carrying[0],
+                        len(worker.carrying),
+                    )
                 else:
                     path = find_shortest_path(worker.x, worker.y, 4, 4)
                     if path:
@@ -425,9 +476,15 @@ class EscalationAgent(HeuristicAgent):
                     if best_harvest:
                         assigned_tasks.add((best_harvest.x, best_harvest.y))
                         if best_dist <= 1:
-                            worker_actions[wid] = ("HARVEST", best_harvest.x, best_harvest.y)
+                            worker_actions[wid] = (
+                                "HARVEST",
+                                best_harvest.x,
+                                best_harvest.y,
+                            )
                         else:
-                            path = find_shortest_path(worker.x, worker.y, best_harvest.x, best_harvest.y)
+                            path = find_shortest_path(
+                                worker.x, worker.y, best_harvest.x, best_harvest.y
+                            )
                             if path:
                                 worker_actions[wid] = path[0]
                             else:
@@ -444,7 +501,11 @@ class EscalationAgent(HeuristicAgent):
                                 worker_actions[wid] = ("PASS",)
 
             # No purchases/hiring in terminal steps, only sales
-            farm_actions = [act for act in farm_actions if isinstance(act, tuple) and len(act) == 3 and act[0] == "SELL"]
+            farm_actions = [
+                act
+                for act in farm_actions
+                if isinstance(act, tuple) and len(act) == 3 and act[0] == "SELL"
+            ]
 
         # Wrap farm_actions with BoundedSaleReservation
         future_tape = []
@@ -452,7 +513,9 @@ class EscalationAgent(HeuristicAgent):
             if qty > 0:
                 # Mock a future scheduled sale of these items
                 future_tape.append(("SELL", item, qty))
-        
-        farm_actions = self.reserver.process_turn_with_future(state, farm_actions, future_tape)
+
+        farm_actions = self.reserver.process_turn_with_future(
+            state, farm_actions, future_tape
+        )
 
         return {"worker_actions": worker_actions, "farm_actions": farm_actions}

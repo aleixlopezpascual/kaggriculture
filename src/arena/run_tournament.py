@@ -1,11 +1,9 @@
 """Kaggriculture Head-to-Head Agent Tournament Runner."""
 
 import sys
-import os
 import time
-import json
-import concurrent.futures
 from pathlib import Path
+
 from kaggle_environments import make
 
 # Add project root and C++ source directory to Python path
@@ -13,14 +11,14 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.append(str(PROJECT_ROOT))
 sys.path.append(str(PROJECT_ROOT / "competitors" / "six_day_agent_source"))
 
-from src.agents.heuristic import HeuristicAgent
-from src.agents.mcts import MCTSAgent
-from src.agents.escalation import EscalationAgent
-from src.env.parser import parse_world_state
-from src.agents.base import BaseAgent
 from agent_main import agent as six_day_agent_fn
 from agent_main_v2 import agent as six_day_agent_fn_v2
 
+from src.agents.base import BaseAgent
+from src.agents.escalation import EscalationAgent
+from src.agents.heuristic import HeuristicAgent
+from src.agents.mcts import MCTSAgent
+from src.env.parser import parse_world_state
 
 ITEM_NAME_MAP = {
     "Wheat": "WHEAT",
@@ -160,7 +158,9 @@ def wrap_agent(agent_instance: BaseAgent):
 
             farmer_x = farmer_worker_state.x if farmer_worker_state else 4
             farmer_y = farmer_worker_state.y if farmer_worker_state else 4
-            farmer_action = translate_worker_action(farmer_action_local, farmer_x, farmer_y)
+            farmer_action = translate_worker_action(
+                farmer_action_local, farmer_x, farmer_y
+            )
 
             # Worker 2+ (Hired Hands)
             hands_actions = []
@@ -175,7 +175,9 @@ def wrap_agent(agent_instance: BaseAgent):
                             break
                     hand_x = hand_worker_state.x if hand_worker_state else 4
                     hand_y = hand_worker_state.y if hand_worker_state else 4
-                    hands_actions.append(translate_worker_action(act_local, hand_x, hand_y))
+                    hands_actions.append(
+                        translate_worker_action(act_local, hand_x, hand_y)
+                    )
 
             market_actions_local = joint_actions.get("farm_actions", [])
             market_actions = translate_farm_actions(market_actions_local)
@@ -187,6 +189,7 @@ def wrap_agent(agent_instance: BaseAgent):
             }
         except Exception as e:
             import traceback
+
             print(f"\n[AGENT EXCEPTION in {agent_instance.__class__.__name__}]: {e}")
             traceback.print_exc()
             return {"farmer": ["PASS"], "hands": [], "market": []}
@@ -200,12 +203,13 @@ import importlib.util
 def load_competitor_agent(name: str, filename: str):
     """Loads a compiled or extracted competitor agent from our notebooks directory."""
     path = PROJECT_ROOT / "competitors" / "notebooks" / filename
-    
-    # Temporarily append the module's parent directory to sys.path to resolve local imports (e.g. multi-file agents)
+
+    # Temporarily append the module's parent directory to sys.path to resolve
+    # local imports (e.g. multi-file agents)
     module_dir = str(path.parent)
     if module_dir not in sys.path:
         sys.path.insert(0, module_dir)
-        
+
     spec = importlib.util.spec_from_file_location(name, str(path))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -229,7 +233,9 @@ def get_agent_callable(agent_name: str):
     elif agent_name == "Three-Day Shop Router (Original)":
         return load_competitor_agent("three_day_agent", "three_day_main.py")
     elif agent_name == "Three-Day Shop Router v2":
-        return load_competitor_agent("three_day_optimized_agent", "three_day_optimized.py")
+        return load_competitor_agent(
+            "three_day_optimized_agent", "three_day_optimized.py"
+        )
     elif agent_name == "Thomas 93.8% Router":
         return load_competitor_agent("thomas_agent", "thomas_router.py")
     elif agent_name == "Lynn Mathematical Router":
@@ -264,18 +270,14 @@ def get_agent_callable(agent_name: str):
         raise ValueError(f"Unknown agent name: {agent_name}")
 
 
-def run_single_match(
-    seed: int, agent_0_name: str, agent_1_name: str, turns: int = 720
-):
+def run_single_match(seed: int, agent_0_name: str, agent_1_name: str, turns: int = 720):
     """Runs a single head-to-head match between two fresh agent callables on a seed."""
     start_time = time.time()
     try:
         agent_0_fn = get_agent_callable(agent_0_name)
         agent_1_fn = get_agent_callable(agent_1_name)
 
-        env = make(
-            "kaggriculture", configuration={"episodeSteps": turns, "seed": seed}
-        )
+        env = make("kaggriculture", configuration={"episodeSteps": turns, "seed": seed})
         env.run([agent_0_fn, agent_1_fn])
 
         gold_0 = float(env.state[0].reward if env.state[0].reward is not None else 0.0)
@@ -289,13 +291,18 @@ def run_single_match(
             "agent_1": agent_1_name,
             "gold_0": gold_0,
             "gold_1": gold_1,
-            "winner": agent_0_name if gold_0 > gold_1 else (agent_1_name if gold_1 > gold_0 else "Tie"),
+            "winner": (
+                agent_0_name
+                if gold_0 > gold_1
+                else (agent_1_name if gold_1 > gold_0 else "Tie")
+            ),
             "duration": duration,
             "success": True,
             "error": None,
         }
     except Exception as e:
         import traceback
+
         return {
             "seed": seed,
             "agent_0": agent_0_name,
@@ -332,7 +339,10 @@ def main():
 
     print(f"Participants: {', '.join(agents)}")
     print(f"Seeds:        {seeds}")
-    print(f"Total Matches: {len(agents) * (len(agents) - 1) * len(seeds)} (each pair, both seat configurations)")
+    print(
+        f"Total Matches: {len(agents) * (len(agents) - 1) * len(seeds)} "
+        "(each pair, both seat configurations)"
+    )
     print("-" * 70)
 
     # Generate all match tasks (each pair of agents, both seats, each seed)
@@ -343,23 +353,34 @@ def main():
                 if i != j:
                     match_tasks.append((seed, a0, a1))
 
-    # 2. Run matches sequentially to avoid sys.stdout/sys.stderr redirection collisions in kaggle_environments
+    # 2. Run matches sequentially to avoid sys.stdout/sys.stderr redirection
+    # collisions in kaggle_environments
     results = []
     print("Running tournament sequentially to prevent standard stream conflicts...")
-    
+
     start_tournament = time.time()
     for index, (seed, a0, a1) in enumerate(match_tasks, 1):
-        print(f"[{index}/{len(match_tasks)}] Running: Seed {seed} | {a0} vs {a1}...", end="", flush=True)
+        print(
+            f"[{index}/{len(match_tasks)}] Running: Seed {seed} | {a0} vs {a1}...",
+            end="",
+            flush=True,
+        )
         res = run_single_match(seed, a0, a1)
         results.append(res)
         if res["success"]:
             winner_str = f"Winner: {res['winner']}" if res["winner"] != "Tie" else "Tie"
             print(
-                f"\r[{index}/{len(match_tasks)}] Match Seed {seed:5d} | {a0:18s} vs {a1:18s} | "
-                f"Gold: {res['gold_0']:10,.0f} vs {res['gold_1']:10,.0f} | {winner_str} ({res['duration']:.1f}s)"
+                f"\r[{index}/{len(match_tasks)}] Match Seed {seed:5d} | "
+                f"{a0:18s} vs {a1:18s} | "
+                f"Gold: {res['gold_0']:10,.0f} vs {res['gold_1']:10,.0f} | "
+                f"{winner_str} ({res['duration']:.1f}s)"
             )
         else:
-            print(f"\r[{index}/{len(match_tasks)}] Match Seed {seed:5d} | {a0:18s} vs {a1:18s} | FAILED: {res['error'].splitlines()[0]}")
+            print(
+                f"\r[{index}/{len(match_tasks)}] Match Seed {seed:5d} | "
+                f"{a0:18s} vs {a1:18s} | "
+                f"FAILED: {res['error'].splitlines()[0]}"
+            )
 
     duration_total = time.time() - start_tournament
     print("-" * 70)
@@ -441,7 +462,8 @@ def main():
         avg_margin = (s["gold_scored"] - s["gold_conceded"]) / matches
 
         print(
-            f"{agent:20s} | {s['wins']:4d} | {s['losses']:6d} | {s['ties']:4d} | {win_pct:5.1f}% | "
+            f"{agent:20s} | {s['wins']:4d} | {s['losses']:6d} | "
+            f"{s['ties']:4d} | {win_pct:5.1f}% | "
             f"{avg_gold:12,.0f} | {avg_margin:+10,.0f}"
         )
     print("-" * 70)
@@ -449,7 +471,9 @@ def main():
     # 5. Display Head-to-Head Matrix
     print("\n" + " " * 20 + "HEAD-TO-HEAD MATCHUP MATRIX")
     print("-" * 70)
-    print(f"{'Agent (Row) vs Opp (Col)':25s} | " + " | ".join(f"{a:18s}" for a in agents))
+    print(
+        f"{'Agent (Row) vs Opp (Col)':25s} | " + " | ".join(f"{a:18s}" for a in agents)
+    )
     print("-" * 70)
     for a0 in agents:
         row_cells = []
