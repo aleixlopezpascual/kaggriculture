@@ -541,6 +541,92 @@ Two follow-up studies were run to answer the open questions left by Phase 4: (a)
 *   **Caveat:** The expired Artifactory token is an account-level issue outside this repository and remains unfixed; anything genuinely requiring the private index will still fail until it is rotated.
 
 
+## Phase 8 -- Why local dominance never predicted live rating (2026-09-29)
+
+**Question.** Our local panel reported ~88% win rates while V2.1 sat at 1662.9
+on the ladder. Which number was lying?
+
+**Answer: the local one.** The local opponent panel was made of strawmen.
+
+### 8.1 Evidence from 752 live episodes
+
+Fetched every match for all five submissions via the Kaggle
+`competitions.EpisodeService/ListEpisodes` endpoint. V2.1's win rate decomposes
+sharply by opponent strength:
+
+| opponent Elo | matches | V2.1 win rate |
+| --- | --- | --- |
+| < 1600 | 46 | 80.4% |
+| 1600-1700 | 41 | 48.8% |
+| 1700-1800 | 2 | 0% |
+| 1800+ | 3 | 0% |
+
+V2.1 is *correctly* rated, not underrated. V3.1's headline 72.7% is a
+matchmaking artifact -- its median opponent was rated **777**.
+
+Two alarms were investigated and **dismissed**: the 12.6% "error rate" was a
+platform incident (all 17 episodes batch-killed in a two-minute window after
+hanging 2-4h, hitting both our agents at once), and there is no silent-PASS
+failure in live play (minimum live gold $60,282).
+
+### 8.2 The local panel contained duplicates and broken agents
+
+SHA-256 comparison of the 25-opponent panel found files masquerading as
+distinct agents:
+
+- `jaxa_2802_router/main.py` == `main_variant_b_h24.py`
+- `reyhan_dynamic_router.py` == `v45_fusion_router.py`
+- `v48_main.py` / `v43_main.py` differ in bytes yet produce identical medians
+
+### 8.3 The loader trap (root cause of several "weak" opponents)
+
+Agents that define many nested `def agent(...)` and use `globals().pop('agent')`
+are mis-bound by the kaggle_environments **file** loader: it selects a shadowed
+inner fallback that returns `PASS` every turn. The agent still imports and runs
+correctly when loaded as a module, so the failure is invisible unless you
+inspect mid-match actions.
+
+`MarketShock-M1-WR1K` scored **$3,000** (the PASS signature) as a file, and
+**$89,248** through a thin import-and-re-export wrapper. Any panel entry should
+be checked for constant-PASS behaviour before its result is trusted.
+
+### 8.4 Benchmark against the genuine current meta
+
+Top public notebooks were decoded with an AST-based extractor that never
+executes untrusted code. Integrity was confirmed: the recovered payloads match
+the `EXPECTED_MAIN_SHA256` values the notebooks declare.
+
+The public meta has **converged onto a single engine**. `top-2-master-engine-v4`
+and `the-2965-master-hybrid-engine` are byte-identical; `harvest-ledger` has a
+different hash but produced **32/32 identical match outcomes**;
+`demand-preserving-turn-sale-timing` carries the same
+`step1009_..._fixedsell_closure` variant string.
+
+128 fresh-seed matches, both seats:
+
+| candidate | opponent | n | win% | median margin |
+| --- | --- | --- | --- | --- |
+| V2.1 | **meta2965 (real meta)** | 16 | **12.5%** | **-$400** |
+| V2.1 | thomas_2945 (old panel) | 16 | 87.5% | +$2,587 |
+| V2.1 | peak_2950 (old panel) | 16 | 93.8% | +$1,191 |
+| V3.1 | **meta2965 (real meta)** | 16 | **12.5%** | **-$578** |
+| V3.1 | thomas_2945 (old panel) | 16 | 87.5% | +$1,452 |
+| V3.1 | peak_2950 (old panel) | 16 | 81.2% | +$786 |
+
+### 8.5 Conclusions
+
+1. **The local panel was the bug.** ~88% against the old panel and 12.5%
+   against the real meta, from the same agent, on the same harness.
+2. **V3.1 is not an improvement.** It is line-for-line no better than V2.1
+   against the real meta (12.5% both) and slightly worse overall
+   (48.4% vs 51.6%). It should not be promoted on current evidence.
+3. **The gameplay gap is small.** We lose to the top meta by a median of
+   **$400 on ~$113k, about 0.35%** -- consistently, but narrowly. The ~1,390
+   Elo gap reflects reliably losing coin-flips, not being outclassed.
+4. Absolute gold is a weak proxy for skill (corr(opponent Elo, gold) = +0.243).
+   Optimising for gold against weak opponents is not the lever.
+
+
 ## Sources
 
 [36] https://www.kaggle.com/competitions/kaggriculture/submissions
