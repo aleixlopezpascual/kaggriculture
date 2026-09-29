@@ -712,6 +712,78 @@ would convert a large share of those draws into wins, which is far higher
 leverage than chasing absolute gold.
 
 
+## Phase 10 -- Attempts to improve on the meta head (2026-09-29)
+
+Phase 9 noted that mirror matches between identical engines resolve as **exact
+ties** (verified on 4 seeds: margin $0 every time), so a small consistent edge
+would convert draws into wins. Four levers were tried. **All four were
+rejected on evidence.**
+
+### 10.1 Mapping the live code path
+
+The clean `Chassis` / `DEFAULT_SETTINGS` architecture at the top of `main.py`
+is **dead code** in the shipped agent. Proof: flipping `"front_run"` to `False`
+changed nothing (margin $0, byte-identical outcome). The live entry is the
+`step1009` wrapper chain at the file tail.
+
+`sys.settrace` on a single call showed **229 live functions**; per-layer
+telemetry showed ~22 of 142 wrapper layers actually fire.
+
+### 10.2 Rejected: earlier terminal liquidation
+
+`_terminal_liquidation` dumps the shed on step >= 718. Shifting it one step
+earlier to front-run the opponent's dump produced **no change on any seed**.
+Reason: the engine already drains the shed at steps 716-717 via the start712
+planner, leaving only ~2 FERTILIZER at 718. The layer is already a no-op.
+
+### 10.3 Rejected: larger `_s793_reorder` search budget
+
+The sell-order local search is worth **$2,241 per match** and its 800-eval
+budget truncates on 12 turns, which looked like free value.
+
+| budget | truncations | search gain | margin | worst step |
+| --- | --- | --- | --- | --- |
+| 800 (ship) | 12 | $2,241 | $0 | 97 ms |
+| 6,000 | 11 | $2,241 | $0 | 233 ms |
+| 20,000 | **0** | **$2,241** | $0 | **523 ms** |
+
+Eliminating every truncation produced **exactly the same gain**. The budget was
+never binding on anything that mattered, and the latency cost is 5x.
+
+### 10.4 Rejected: running the `_S1002` fixpoint to convergence
+
+`_S1002` iterates `_s793_reorder` to a fixpoint capped at 34 passes and hits
+that cap twice per match. Layers 1003-1009 are seven hand-stacked *single extra
+passes*, i.e. the authors were manually extending an unconverged fixpoint, so
+raising the cap looked principled.
+
+Raising it to 120 did change behaviour and converted a mirror tie into a win --
+but by **$4**, while worst-case step latency went 71 ms -> 307 ms. The `maxed`
+counter rose 2 -> 3, indicating the iteration is cycling rather than converging
+(consistent with the `_S834` "orbit" logic).
+
+**Why $4 is not enough:** across 735 paired live episodes, exact ties are only
+**2.99%** and margins under $50 only **4.76%**. A $4 edge flips almost nothing,
+so this trades a negligible gain for real rerun-timeout risk.
+
+### 10.5 Counter-scan: no exploitable weakness
+
+192 matches, 24 de-duplicated opponents, 0 errors. Meta V4 wins **88.0%**
+overall with **no systematic counter**; the worst case is `cha22` at 50%
+(4-0-4), which is parity rather than a sweep.
+
+Critically it beats **`jaxa_original` 8-0** -- the archetype that previously
+held a 24-0 record against our entire lineage.
+
+### 10.6 Conclusion
+
+The meta engine is genuinely well optimised; its remaining slack is guarded by
+either no-ops or latency cliffs. Shipping an unvalidated tweak would risk a
+validated ~top-tier agent for single-dollar margins, so **Meta V4 ships
+unmodified**. This is the Phase 6 "slightly better local model" lesson applied
+before deployment rather than after.
+
+
 ## Sources
 
 [36] https://www.kaggle.com/competitions/kaggriculture/submissions
