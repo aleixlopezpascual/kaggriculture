@@ -838,6 +838,97 @@ slot is a one-way move, and waiting buys the one fact that settles it while
 still leaving roughly 20h of convergence runway.
 
 
+## Phase 12 -- Public-meta research sweep and the live-data unlock (2026-09-29)
+
+A sweep of current Kaggle notebooks and discussions, asking whether anything
+public beats what we run. Nothing does -- but the sweep produced a tooling
+discovery that corrected a false belief we had been acting on.
+
+### 12.1 The unlock: live data needs no authentication
+
+destbreso's *X-ray your agent* notebook uses public endpoints we had been
+failing to reach. Earlier attempts hit 403/404 because we were calling the
+wrong routes. These need **no API token**:
+
+| route | payload | returns |
+| --- | --- | --- |
+| `LeaderboardService/GetLeaderboard` | `{"competitionId":147734}` | all 10,156 ranked rows |
+| `EpisodeService/ListEpisodes` | `{"submissionId":N}` | both players' rewards + `updatedScore` |
+| `kaggleusercontent.com/episodes/{id}.json` | GET, follow redirects | full 720-step replay (~32 MB) |
+
+The replay CDN answers **HTTP 301** without `-L`, which is why it previously
+looked unavailable. Wired up as `src/arena/live_standing.py`.
+
+### 12.2 Our Elo tracker was lagging by ~570 points
+
+The tracker reported Meta V4 at **1396**. The public leaderboard had it at
+**1964** at the same moment. Every earlier convergence estimate in this session
+was therefore reading a stale number, and the tracker is superseded.
+
+True position at 2026-09-29 10:48 UTC: **rank 839-1121 of 10,156**, score
+oscillating **1945-2077**, leader at **3054.9**.
+
+### 12.3 Meta V4 is genuinely competitive, and has converged
+
+| metric | Meta V4 | board #1 | board #2 |
+| --- | --- | --- | --- |
+| win rate | **88-93%** | 93% | 94% |
+| episodes | 17 | 115 | 115 |
+| gold vs its opponents | **+$8.6k** | +$13.7k | +$15.3k |
+
+Its win rate sits in the same band as the top two agents; the rating gap is
+substantially **sampling**, not skill -- it has played 17 episodes against
+their 115.
+
+The rating walk (`1582 -> 1753 -> 1873 -> 1958 -> 2077 -> 1964 -> 2061 -> 1945`)
+is now **oscillating rather than rising**, so Meta V4 has essentially
+converged near ~2000 rather than still climbing toward the leaders.
+
+### 12.4 V3.1 is confirmed safe to replace
+
+Phase 11 held the second slot open because V3.1 was unconverged. With 42
+episodes it has **plateaued at ~1290** (+3/episode) while Meta V4 reached
+~2000. The hedge argument is now dead.
+
+Note V3.1's median gold (**$108,160**) is *higher* than Meta V4's ($98,398)
+while its win rate is lower (83% vs 88%). This is the same marginal-median trap
+recorded in Phase 9: gold medians across different opponent samples do not
+rank agents. **Win rate is the metric.**
+
+### 12.5 New agents found and tested -- none is an upgrade
+
+`guruprasaathas111/game-theoretic-master-discrete-optimization` embeds a
+**genuinely different engine** ("V49", 437,804 bytes, SHA-256
+`ed89be8c...` matching the author's declared digest -- not a fork of our
+1,196,081-byte head).
+
+Duelled on 24 fresh seeds in both seats: **Meta V4 wins 44-4 (91.7%)**, 0
+errors, no PASS-bot episodes.
+
+Also reviewed: *Harvest Ledger*, *A Song of Ice and Fire*, *Kaggricult-Man*,
+*What 2600+ Farms Do Differently*. No engine outperforming our head.
+
+### 12.6 One novel mechanic, deliberately not used
+
+`leoprovorov/god-s-mode-hacked-stores` reports that farm actions consume the
+**same RNG stream** as shop draws, so a legal one-cell `DIG` immediately before
+an unlock changed the next shop in **98 of 128 paired interventions (76.6%)**.
+
+This contradicts our workspace rule that `DIG` is a no-op: it is a no-op
+*economically* but has a real RNG side effect.
+
+Not adopted. The author states positive score impact is **"not measured yet"**,
+and projected directed control covers only **10-18%** of matches. With roughly
+a day remaining, wiring an unproven exploit into a converged agent is
+strictly negative expected value.
+
+### 12.7 Conclusion
+
+The sweep found no stronger public agent, so Meta V4 remains our head. Its real
+standing is far better than our instrumentation claimed, it has converged near
+~2000, and V3.1 is now provably a dead slot rather than a live hedge.
+
+
 ## Sources
 
 [36] https://www.kaggle.com/competitions/kaggriculture/submissions
