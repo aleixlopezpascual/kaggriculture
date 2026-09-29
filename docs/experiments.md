@@ -50,6 +50,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v27** | `56490949` | `competitors/notebooks/shepherd_sovereign_main.py` | **Shepherd Sovereign: Herd-Safe Sovereign Engine** | $82,074 | **1756.6** | Complete (Retired - Third / Older) |
 | **v28** | `56531885` | `prvsiyan_kaggriculture_submission.tar.gz` | **Prvsiyan Moon Counts Melons** (Local confirmation candidate; Apache-2.0) | $99,568 | **1818.2** | **Active (Latest-Two Tracked Pair)** |
 | **v29** | `56621217` | `prvsiyan_v2_submission.tar.gz` | **Prvsiyan Global SELL-Slot Challenger V2** (Multiset permutation search; verified direct loader) | **$102,849** | **600.0 (Init)** | **Active (Latest-Two Tracked)** |
+| **v31** | N/A | `prvsiyan_v31_submission.tar.gz` | **Prvsiyan V3.1** (V3 lot metering + restored BUY 10 / SELL 5 opening) | **$84,318** (seed 848617604) | N/A | **Local candidate (slot-2 proposal)** |
 | **v30** | `56654308` | `prvsiyan_v21_submission.tar.gz` | **Prvsiyan V2.1 Restored Opening** (V2 + documented BUY 10 / SELL 5 step-0 wheat opening) | **$85,326** (seed 848617604) | **600.0 (Init)** | **Active (Latest-Two Tracked)** |
 
 ---
@@ -495,6 +496,30 @@ Two follow-up studies were run to answer the open questions left by Phase 4: (a)
     Both are decided by razor-thin cash differences — `arsgorynich` even carries a *positive* average margin despite a losing record. This is a qualitatively different signature from the Jaxa counter, which was a structural **-$18,058** blowout. These are near-tie coin-flip matchups, not exploitable mechanisms.
 *   **Conclusion:** the local opponent pool is **saturated**. With 88.3% overall, 12-0 against 18 of 25 opponents, and no remaining structural counter, further local tournament optimization has hit sharply diminishing returns. The gap between our live rating (~1,700) and the ladder top (~3,000) is therefore **not** explained by anything the local pool can measure.
 *   **Live convergence (V2.1, Ref `56654308`):** 600.0 -> 1062.2 -> 1459.5 -> 1540.7 -> **1625.3**, overtaking V3 (`56644701`, 1593.7) and still climbing toward V2's retired 1692.0. Tracked by `track_elo.py` into an append-only JSONL series.
+
+
+### Phase 6: V3.1 Second-Slot Candidate — Propagating the Opening Fix to the Metering Lineage (2026-09-29)
+
+*   **Motivation:** With V2.1 (`56654308`) established as the strongest half of the active pair, the second slot was still held by V3 (`56644701`, 1,593.7), the weakest active agent. A direct re-upload of V2 was considered and **rejected on evidence**: `submission/prvsiyan_v3_package/baseline.py` and `submission/prvsiyan_v2_package/baseline.py` are the *same frozen file* (`178ae0f7...`), so **both V2 and V3 carry the identical defective `V9_OPENING_STEP0 = BUY 20 / SELL 15`**. Re-uploading V2 would have reintroduced the exact defect Phase 4 removed, while still paying the full ~12h re-convergence cost from 600.
+*   **Candidate:** `submission/prvsiyan_v31_package/` applies the same native-constant rebind used by V2.1 to the V3 stack, so V3.1 = P2 optimizer + lot metering + restored opening. `baseline.py`, `optimizer.py`, and `meter.py` remain **byte-identical** to V3.
+*   **Validation (276 matches, 6 fresh disjoint seeds, both seats, 0 errors, all `DONE`):**
+
+    | Opponent | V3 | **V3.1** | V2.1 |
+    | :--- | :---: | :---: | :---: |
+    | Jaxa Variant B | 0-12 (-$7,510) | **12-0 (+$6,227)** | 12-0 (+$6,433) |
+    | Jaxa Original | 0-12 (-$7,510) | **12-0 (+$6,227)** | 12-0 (+$6,433) |
+    | Shepherd | 4-8 | 4-8 | 10-2 |
+    | Peak 2950 | 10-2 | 10-2 | 10-2 |
+    | V57 | 6-6 | 6-6 | 12-0 |
+    | Arsgorynich | 4-8 | **4-8** | 2-10 |
+    | Cha22 | 8-4 | 8-4 | 8-4 |
+    | **Panel total** | **38.1%** (-$2,080) | **66.7%** (+$1,849) | **78.6%** (+$2,051) |
+
+*   **Q1 — does the fix carry over? Yes, decisively.** V3.1 lifts the V3 panel rate from 38.1% to **66.7%**, clears both Jaxa variants 0-12 -> **12-0**, and beats its own parent V3 **12-0** head-to-head. The opening defect was lineage-wide, not V2-specific.
+*   **Q2 — is V3.1 differentiated from V2.1? Only marginally.** V2.1 beats V3.1 **12-0** head-to-head (-$381 average) and leads the panel 78.6% vs 66.7%. V3.1's sole advantage is versus Arsgorynich (4-8 vs V2.1's 2-10). Lot metering does not add meaningful portfolio diversity once the opening is fixed.
+*   **Cha22 and Arsgorynich are confirmed NOT structural counters.** Phase 5b measured V2.1 at 2-10 versus Cha22 and 4-8 versus Arsgorynich; on this independent seed set the same pairings measured **8-4** and **2-10** respectively. The sign flips across seed sets, confirming the Phase 5b diagnosis that these are seed-sensitive coin-flips rather than exploitable mechanisms, and that 12-match samples cannot resolve them.
+*   **Verification:** 9/9 new V3.1 tests pass; full suite **138 passed**, 1 skipped, with the same 2 pre-existing failures from the untracked `prvsiyan_v2_submission.tar.gz`. Reproducible archive built (`bb11b331...`), step-0 tape asserted, 720-turn validation `DONE` at ~7.5 ms/turn.
+*   **Operational Status:** **CONFIRMED_POSITIVE, NOT DEPLOYED.** Strictly superior to the V3 currently occupying the second slot; held pending explicit user approval for upload.
 
 
 ## Sources
