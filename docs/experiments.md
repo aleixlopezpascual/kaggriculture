@@ -50,7 +50,7 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 | **v27** | `56490949` | `competitors/notebooks/shepherd_sovereign_main.py` | **Shepherd Sovereign: Herd-Safe Sovereign Engine** | $82,074 | **1756.6** | Complete (Retired - Third / Older) |
 | **v28** | `56531885` | `prvsiyan_kaggriculture_submission.tar.gz` | **Prvsiyan Moon Counts Melons** (Local confirmation candidate; Apache-2.0) | $99,568 | **1818.2** | **Active (Latest-Two Tracked Pair)** |
 | **v29** | `56621217` | `prvsiyan_v2_submission.tar.gz` | **Prvsiyan Global SELL-Slot Challenger V2** (Multiset permutation search; verified direct loader) | **$102,849** | **600.0 (Init)** | **Active (Latest-Two Tracked)** |
-| **v31** | N/A | `prvsiyan_v31_submission.tar.gz` | **Prvsiyan V3.1** (V3 lot metering + restored BUY 10 / SELL 5 opening) | **$84,318** (seed 848617604) | N/A | **Local candidate (slot-2 proposal)** |
+| **v31** | `56668154` | `prvsiyan_v31_submission.tar.gz` | **Prvsiyan V3.1** (V3 lot metering + restored BUY 10 / SELL 5 opening) | **$84,318** (seed 848617604) | **600.0 (Init)** | **Active (Latest-Two Tracked)** |
 | **v30** | `56654308` | `prvsiyan_v21_submission.tar.gz` | **Prvsiyan V2.1 Restored Opening** (V2 + documented BUY 10 / SELL 5 step-0 wheat opening) | **$85,326** (seed 848617604) | **600.0 (Init)** | **Active (Latest-Two Tracked)** |
 
 ---
@@ -519,7 +519,7 @@ Two follow-up studies were run to answer the open questions left by Phase 4: (a)
 *   **Q2 — is V3.1 differentiated from V2.1? Only marginally.** V2.1 beats V3.1 **12-0** head-to-head (-$381 average) and leads the panel 78.6% vs 66.7%. V3.1's sole advantage is versus Arsgorynich (4-8 vs V2.1's 2-10). Lot metering does not add meaningful portfolio diversity once the opening is fixed.
 *   **Cha22 and Arsgorynich are confirmed NOT structural counters.** Phase 5b measured V2.1 at 2-10 versus Cha22 and 4-8 versus Arsgorynich; on this independent seed set the same pairings measured **8-4** and **2-10** respectively. The sign flips across seed sets, confirming the Phase 5b diagnosis that these are seed-sensitive coin-flips rather than exploitable mechanisms, and that 12-match samples cannot resolve them.
 *   **Verification:** 9/9 new V3.1 tests pass; full suite **138 passed**, 1 skipped, with the same 2 pre-existing failures from the untracked `prvsiyan_v2_submission.tar.gz`. Reproducible archive built (`bb11b331...`), step-0 tape asserted, 720-turn validation `DONE` at ~7.5 ms/turn.
-*   **Operational Status:** **CONFIRMED_POSITIVE, NOT DEPLOYED.** Strictly superior to the V3 currently occupying the second slot; held pending explicit user approval for upload.
+*   **Live Deployment (2026-09-29 08:0x UTC):** **CONFIRMED_POSITIVE & DEPLOYED.** Uploaded `prvsiyan_v31_submission.tar.gz` (SHA-256 `bb11b331087071fb31e80123469ad7338731871ff9be4e217b22dfd3f1e8fcdc`, Apache-2.0 and NOTICE included) at explicit user request as **Ref `56668154`**; validation passed (`SubmissionStatus.COMPLETE`, initial score `600.0`). Under the Two-Agent Rule the active evaluation pair is now **Prvsiyan V2.1** (`56654308`, 1,668.8 and still climbing) and **Prvsiyan V3.1** (`56668154`), retiring **Prvsiyan V3** (`56644701`) at 1,583.9 to third/older. Both active agents now carry the restored opening, so the Jaxa-lineage counter is removed from the entire active portfolio.
 
 
 ## Sources
