@@ -1097,6 +1097,38 @@ Opening live record **W4 L0 T0**. The climb from 600 is the standard cold-start
 ramp for a new submission and is not yet evidence about final strength; the
 meaningful comparison is its plateau versus Meta V4's 1935.
 
+### 13.9 Replay-scraping exposure, and why ghosting is now wrong
+
+Our own replays are **publicly downloadable, unauthenticated and unthrottled**
+(`https://www.kaggleusercontent.com/episodes/{id}.json` with `curl -L`, ~33MB,
+full 720-step action tape). Meta V4 had 66 public episodes at the time of
+writing. This is verified, not theoretical -- it is the same pipeline we used
+to profile the rank-#1 agent in 13.1.
+
+Source is **not** exposed: tarball submissions are never published. Only
+behaviour leaks.
+
+The exposure is nevertheless low-value to an attacker:
+
+1. **Meta V4 is already public code** -- tetsutani's Apache-2.0 notebook
+   verbatim (sha `55be5d5f`). Scraping us yields something freely downloadable,
+   whose own author sits at rank 809. Only the V5 layer is genuinely private.
+2. **The attack was already industrialised and it failed.** georgymamarin's
+   public dataset bulk-harvested **227,712 episodes** with per-seat
+   fingerprints; we are already in it. Its output is the dead-meta artifact
+   disproved in 13.2 -- fingerprints discriminate winners at only 54-60%, and
+   the "elite profile" evaporates under a 7-day cut. Behaviour cloning on this
+   corpus demonstrably does not work.
+3. **Imitation flows uphill.** The top three sit ~1,100 Elo above us and have
+   no reason to copy an agent rated 1935.
+
+**This reverses the standing "leaderboard ghosting" rule for the endgame.**
+Hiding the strongest agent is correct mid-competition, but the competition
+score is the best *active* submission -- so ghosting now simply forfeits the
+score. The capped downside of being copied is a small behavioural edge; the
+downside of going dark is our entire standing. **Decision: no defensive
+action, both slots stay live through close.**
+
 
 ## Sources
 
