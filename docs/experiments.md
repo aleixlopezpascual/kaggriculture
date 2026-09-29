@@ -6,11 +6,13 @@
 > * **Execution Security:** Agent runners execute candidate Python in-process via `exec`, with NO sandbox. You must only run reviewed and trusted source snapshots.
 > * **Source Authorship & Licensing:** The captured Kaggle sources bundled in this repository may contain submitter-authored modifications alongside inherited, third-party, or open-source components described in their own notices. The bundled copies are strictly hash-pinned captures of the linked public outputs; do not assume all code was originally authored by the listed Kaggle notebook author. We retain Apache/NOTICE attribution detail where present, without making broader unsupported licensing claims.
 
-> **CURRENT Active Pool (Retrieved 2026-09-29 16:30 UTC)**
-> * **Latest-Two Tracked #1 (Newest):** Meta V5 (Ref `56676258`), COMPLETE, live rating **1829.9**, zero errors
-> * **Latest-Two Tracked #2:** Meta V4 (Ref `56670729`), COMPLETE, live rating **1841.3** <- our best-ever result, and the displayed leaderboard score
-> * **Team standing:** rank **1312 / 10164**, score **1846.5**. Bronze cutoff is **1954.0** (+107.5).
-> * Retired: Prvsiyan V3.1, Moon Counts Melons `56531885` (**1725.3**), Shepherd Sovereign `56490949` (**1756.6**), Jaxa 2802 Variant B `56467787` (1680.8).
+> **CURRENT Active Pool (Retrieved 2026-09-29 23:28 UTC)**
+> * **Scored #1 (older):** Meta V4 draw A (Ref `56681683`), COMPLETE, live rating **1779.2**, 103 eps, zero errors
+> * **Scored #2 (newer):** Meta V4 draw B (Ref `56681689`), COMPLETE, live rating **1741.0**, 96 eps, zero errors
+> * Both are the identical payload sha `55be5d5f`. **Displayed score = 1779.1, rank 1455 / 10178.** Bronze cutoff **1918.6** (+139.5).
+> * **The resubmission ratchet (§14.8) lost.** Both draws landed below the Meta V4 they replaced (`56670729`, **1841.3**), costing ~62 points and 135 places. See §14.10 for the outcome and §14.11 for the reasoning error.
+> * Three identical-payload draws measured **1841.3 / 1779.2 / 1741.0** -- a 100-point spread confirming the ~90-point ladder noise floor from our own data.
+> * Retired: Meta V4 `56670729` (1841.3, our best-ever), Meta V5 `56676258` (~1810), Prvsiyan V3.1, Moon Counts Melons `56531885` (**1725.3**), Shepherd Sovereign `56490949` (**1756.6**), Jaxa 2802 Variant B `56467787` (1680.8).
 >
 > **Superseded snapshot (2026-09-25 15:55 CEST) -- retained for history only.** It
 > recorded Moon Counts Melons at `2093.9` and Shepherd Sovereign at `2034.7`.[36]
@@ -1377,7 +1379,85 @@ at **equal episode count**, never raw current rating, because the younger
 submission is cold-start inflated. Do not act on a gap under ~90 points
 (§14.6) unless the equal-N curves separate consistently.
 
-### 14.9 Conclusion
+### 14.10 Outcome of the ratchet: the gamble lost
+
+Read-back at **2026-09-29 23:28 UTC**, both draws converged:
+
+| ref | draw | eps | rating | drift | mean opp |
+|---|---|---|---|---|---|
+| `56681683` | A | 103 | **1779.2** | -0.7/ep | 1690 |
+| `56681689` | B | 96 | **1741.0** | -2.2/ep | 1635 |
+| `56670729` | *V4 (retired)* | 110 | *1841.3* | +0.1/ep | 1826 |
+
+Both landed **below** the submission they replaced. Displayed score fell from
+**1841.4 to 1779.1**, and team rank from **1320 to 1455 / 10178**. Zero errors
+throughout; this was a rating outcome, not a technical failure.
+
+**This was a real loss and the decision that caused it was mine.** The §14.8
+reasoning was sound in expectation but I drew from the unfavourable tail twice.
+
+**The compensation is a proper variance measurement, from our own data.**
+Three independent draws of one byte-identical payload (sha `55be5d5f`):
+
+```
+1841.3   1779.2   1741.0      mean 1787   sd ~50   spread 100
+```
+
+A **100-point spread on identical bytes** independently reproduces jaxa623's
+90-point finding (§14.6) using our own submissions. This is now the best-
+evidenced number in the ledger, and it retires the §13.11 worry that our
+V4/V5 gap of 11 points meant variance was small -- 11 points was simply two
+draws landing close together by chance.
+
+**Where this leaves the medal.** Bronze is now **1918.6** (the cutoff moves as
+the field strengthens near the deadline). Against mean 1787 and sd 50, bronze
+sits **+2.6 sd** away. A single draw reaches it with probability ~0.5%; the
+best of two, ~1%. The lottery is real but the ticket is poor.
+
+**Caveat that matters for any further attempt:** our three draws fell in
+submission order -- 1841, 1779, 1741. That is equally consistent with a
+**downward trend** (the field strengthens as rivals ship their best agents
+before close, dragging a fixed-strength agent's equilibrium rating down) as
+with pure noise. drawB was still drifting -2.2/ep at read-back. If the trend
+reading is right, fresh draws are drawn from a *falling* mean and
+resubmitting is negative EV, not positive.
+
+**Decision for the final day.** The §14.8 ratchet rule says submit only if the
+older active draw is the weaker one. It is not: drawA (older) 1779.2 beats
+drawB (newer) 1741.0, so a single submission would retire our **best**
+remaining draw. Under the rule as written: **hold.**
+
+Submitting *two* fresh draws would sidestep the ordering problem and is
+positive EV under the pure-noise reading (`E[max of 2] ~ 1815` vs 1779 held),
+but negative under the trend reading, and it cannot realistically reach
+bronze either way. Given that no medal is attainable at 1779, 1815, or 1841,
+the remaining choice is close to value-neutral. **Recommended: hold**, and
+accept 1779 as the final standing rather than spend further draws chasing a
+~1% outcome.
+
+### 14.11 What I would do differently
+
+Recorded because the reasoning error is more reusable than the result.
+
+1. **I optimised the wrong objective.** I argued from `P(bronze) = 0` being
+   unacceptable and concluded any variance was worth buying. But bronze was
+   +113 against sd 50 -- a 2.3-sigma event at ~1% -- while the *expected* cost
+   was a near-certain regression to the mean from a draw (1841) that was
+   already above it. **Buying variance only pays when the target is inside
+   reach of the variance you are buying.** Mine was not.
+2. **I ignored regression to the mean.** V4's 1841.3 was the highest of our
+   draws. Replacing the best observed sample with fresh draws has negative
+   expected value *by construction*, whatever the variance. I should have
+   computed `E[max of 2 new] = 1787 + 0.56*50 = 1815 < 1841` before
+   submitting -- the answer was available from the estimate I already had.
+3. **I let a defensible tiebreak run unsupervised.** The user was away and I
+   proceeded on "decide, don't ask". The §14.8 argument was defensible, but it
+   spent a scarce irreversible resource (2 of 5 daily submissions, near the
+   deadline) to chase a ~1% outcome. Irreversible and scarce should raise the
+   bar for autonomous action, not lower it.
+
+**The standing rule now:** never replace your best-observed live submission to
+chase variance unless the target is within ~1 sd. Verified levers only.
 
 We are at the ceiling of the available material. Every lever tested across
 Phases 13 and 14 -- quadrant expansion, crop mix, anti-idle harvesting, three
@@ -1385,13 +1465,16 @@ public agents, and our own submission history -- has been rejected on
 evidence. The one shipped improvement (Meta V5) was validated offline but did
 not reproduce live, losing to Meta V4 at every equal-N checkpoint.
 
-The only remaining lever was **resubmission variance**, and §14.8 has now
-played it: both scored slots hold independent draws of the best-validated
-payload. Bronze remains unlikely, but it is no longer impossible, which is a
-strict improvement over a fixed 1841.4.
+The only remaining lever was **resubmission variance**, and §14.8 played it.
+**It lost** (§14.10): both fresh draws landed below the Meta V4 they replaced,
+costing ~62 points and 135 places. The reasoning error is dissected in §14.11 --
+in short, replacing your best-observed sample to chase variance is negative EV
+by construction, and bronze was never inside the variance band anyway.
 
-Final state: nothing further to build. Monitor the two draws and apply the
-§14.8 ratchet rule on 2026-09-30 only if the older draw is the weaker one.
+Final state: nothing further to build, and per the §14.8 ratchet rule the
+correct action on the final day is **hold** -- the older active draw is the
+better one, so any single submission would destroy it. Final standing is
+expected to be ~1779, rank ~1455 / 10178. No medal.
 
 
 ## Sources
