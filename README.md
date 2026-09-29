@@ -53,6 +53,40 @@ Market orders are executed in a sequential clearance queue. Agents prioritizing 
 
 ---
 
+## Development Setup
+
+This project depends only on **public PyPI**. It does not use, and does not need,
+any private or corporate package index.
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+```
+
+**If your shell exports `PIP_INDEX_URL` / `UV_INDEX_URL` pointing at a private
+index** (e.g. a corporate Artifactory), installs here will fail — typically with
+an `HTTP 401` on *every* package, including the index root, once the embedded
+token expires. That credential is unrelated to this project. Override it for the
+install:
+
+```bash
+PIP_INDEX_URL=https://pypi.org/simple PIP_EXTRA_INDEX_URL= \
+  .venv/bin/python -m pip install -r requirements.txt
+```
+
+Verify the toolchain:
+
+```bash
+.venv/bin/ruff check .     # lint
+.venv/bin/black --check .  # formatting
+.venv/bin/python -m pytest # tests
+```
+
+Note: `.venv/bin/python` has `kaggle-environments` installed, so no `PYTHONPATH`
+override is needed when running the arena, the compiler, or the tests.
+
+---
+
 ## 🏆 Historical Live Submissions & Standings Snapshot (Dated 2026-09-25 15:55 CEST (+0200))
 
 *(Historical dated snapshot as of 2026-09-25 15:55 CEST (+0200); not a live-current standing. No submission was made during this documentation update.)*

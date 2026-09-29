@@ -16,6 +16,8 @@ This manual defines rules, constraints, and boundaries for AI agents (Cursor, Ro
 1. **Strict pytest Rule:** You MUST run `pytest` and confirm that all unit tests pass before proposing any task as complete.
 2. **Strict Linting Rule:** You MUST verify formatting using `black --check .` and `ruff check .`. Do not leave lint warnings unfixed.
 3. **Compilation Parity:** After changing any source file in `src/`, always run `python submission/compile_submission.py` to regenerate the unified standalone script. Ensure the compiled output compiles without errors.
+4. **Toolchain:** Run these via `.venv/bin/...`. If the venv is missing or empty, provision it per the "Development Setup" section of `README.md`. This project uses public PyPI only — if installs fail with `HTTP 401`, a private-index `PIP_INDEX_URL`/`UV_INDEX_URL` is set in the environment; override it as documented rather than treating the linters as unavailable.
+5. **Lint Scope:** `competitors/`, `docs/`, and `submission/` are excluded from `ruff`/`black` in `pyproject.toml`. They are vendored, byte-pinned captures whose SHA-256 hashes are verified at runtime — **never reformat them**, as this breaks the integrity guards.
 
 ---
 
