@@ -929,6 +929,144 @@ standing is far better than our instrumentation claimed, it has converged near
 ~2000, and V3.1 is now provably a dead slot rather than a live hedge.
 
 
+## Phase 13 -- Why Meta V4 stalled, and the one lever that survived (2026-09-29)
+
+Meta V4 converged at **1960.5** (rank 1050/10158, drift -0/episode, W25 L13
+**T10** over 48 episodes). The leader is 3069.4. This phase asked what the top
+of the board does that we do not.
+
+### 13.1 We are exactly at the public-notebook ceiling
+
+Joining the leaderboard's `teams` array to submission IDs identifies who is
+actually above us:
+
+| who | rank | score |
+|---|---|---|
+| #1 `M & M & P & Q` (private, 4-person merge) | 1 | 3054.9 |
+| #2 `DECEM` (private) | 2 | 3007.4 |
+| best *public-notebook author* (`aurax7`) | 220 | 2409.3 |
+| **`tetsutani` -- author of the engine we run** | **809** | **2074.2** |
+| our Meta V4 | ~1050 | ~1960 |
+
+We perform as well as the author of our own engine. The top of the board is
+private teams, roughly 1,000 Elo above the best public notebook. **There is no
+residual value in Meta V4 tuning, and no public agent to adopt.**
+
+Confirming the second half: `dmitriigluzdov/kaggriculture-7-turn-rescue`
+(title claims "historical LB 2800+"; the author's live team rating is 2338)
+was extracted from its notebook -- `main.py`, 1,033,759 bytes, SHA-256
+`4889137f...` matching the author's declared `candidate_source_sha256`.
+Duelled on 16 fresh seeds in both seats: **Meta V4 wins 24-8 (75.0%)**,
+p=0.007.
+
+### 13.2 The coarse meta is fully converged -- crop mix is a dead lever
+
+The `georgymamarin/kaggriculture-episodes` corpus (455,424 seat-rows, 227,712
+episodes) carries per-seat fingerprints. Over **all time**, elite farms looked
+radically different from ours -- 0 carrot, double melon, 27% fewer tiles, a
+bigger crew. That looked like a large, actionable edge.
+
+It is not. Restricted to the **last seven days**, every band is identical:
+
+| band (last 7d) | n | tiles | wheat | carrot | melon | straw | crew |
+|---|---|---|---|---|---|---|---|
+| elite 2700+ | 169 | 239 | 154 | 40 | 12 | 33 | 12 |
+| 2400-2700 | 3,804 | 239 | 154 | 40 | 12 | 33 | 12 |
+| ours 1900-2200 | 15,633 | 239 | 154 | 40 | 12 | 33 | 12 |
+
+The melon/no-carrot portfolio is a **dead meta from the older era**. Today the
+whole ladder plays one line, so the ~1,000-Elo spread is **not** strategic --
+it is micro-execution. Median final gold is also flat across bands ($94.6k
+elite vs $96.9k ours), which is the marginal-median trap again: **gold medians
+do not rank agents; head-to-head does.**
+
+This also explains why our local arena compresses the elite pool into a ~1%
+gold band. The arena is not broken -- **the agents genuinely are near-identical.**
+
+### 13.3 The idle-rate correlation is real and not causal
+
+Six top-agent replays were profiled. The winning seat idled less in **6 of 6**:
+
+| metric | winners | losers | our Meta V4 |
+|---|---|---|---|
+| PASS (idle) % | 1.8-4.5 (mean 3.1) | 6.3-10.0 (mean 8.1) | **6.7** |
+| FERTILIZE | mean 209 | mean 110 | **116** |
+| HARVEST | mean 490 | mean 449 | **429** |
+
+Our fingerprint is the *losing* seat, almost exactly. A Step1010 wrapper was
+built to convert idle hand-turns into work legal on the hand's own tile.
+
+It **lost 0-48** (p=7e-15, mean -$856), while doing exactly what it claimed
+(idle 7.2% -> 4.5%, HARVEST 433 -> 512).
+
+Ablating the sub-actions isolates the damage:
+
+| mode | record | mean margin |
+|---|---|---|
+| **harvest** | **0-16** | **-$947** |
+| water | 2W 0L 14T | +$13 |
+| upkeep | 2W 0L 14T | +$7 |
+
+**Opportunistic harvesting is the whole loss.** `yield_units > 0` means "has
+*some* yield", not "is at max yield" -- crops keep accumulating, and the engine
+waits deliberately. This corrects the workspace note that a crop is harvestable
+iff `yield_units > 0`: true for *legality*, wrong as an *economic* trigger.
+
+So winners idle less **because** a larger farm offers more work. Idle rate is a
+symptom, not a cause.
+
+### 13.4 The lever that survived: free upkeep on idle hands
+
+Dropping the harvest branch leaves `safe` mode -- water an unwatered crop, or
+collect fertiliser / care for an animal, only when the hand is already idle and
+already standing on that tile. It never displaces an action the engine chose;
+it only ever rewrites `PASS`.
+
+Validated across **four independent seed batches** (paired, both seats):
+
+| batch | n | W | L | T |
+|---|---|---|---|---|
+| 1 | 96 | 14 | 4 | 78 |
+| 2 (replication) | 96 | 10 | 8 | 78 |
+| 3 | 192 | 23 | 11 | 158 |
+| 4 (shipped default) | 32 | 5 | 5 | 22 |
+| **pooled** | **416** | **52** | **28** | **336** |
+
+- decided-game win rate **65.0%**, 95% Wilson CI **53.5-75.3%** (excludes 50%)
+- sign test **p = 0.0097**
+- net **+24 wins over 416 matches = +5.8%** match-winrate swing
+- mean margin only **+$5** -- it does not build a bigger farm, it **breaks ties**
+
+Batch 2 alone was *not* significant (p=0.81), and batch 1 alone looked stronger
+than the truth (p=0.031). Only pooling across independent batches is
+trustworthy here, because **81% of mirror matches end in an exact tie**. That
+tie rate is the point: live, Meta V4 ties **10 of 48** episodes (21%).
+
+### 13.5 A shipping bug caught before submission
+
+The generated package defaulted to `S1010_MODE=all`, which *includes* the
+catastrophic harvest branch. Kaggle sets no environment variable, so the 0-48
+variant would have shipped. The default is now `safe`, and batch 4 above is a
+fresh A/B of the actual built artifact with no env var set.
+
+### 13.6 Artifacts
+
+`submission/build_meta_v5.py` concatenates the **unmodified** Meta V4 payload
+(SHA `55be5d5f...`, verified at build time) with the Step1010 patch, so
+provenance stays hash-checkable. Meta V4 itself is never edited.
+
+- `meta_v5_package/main.py` SHA `d5a9c1bf...`
+- `meta_v5_submission.tar.gz` SHA `e5fe4dcd...`
+
+### 13.7 Conclusion
+
+Three of four candidate levers were **rejected on evidence**: no public agent
+beats our head, crop mix is a dead meta, and anti-idle harvesting is actively
+harmful. The surviving lever is small but real and carries no downside path --
+it is wrapped in try/except, never displaces a chosen action, and adds
+negligible latency.
+
+
 ## Sources
 
 [36] https://www.kaggle.com/competitions/kaggriculture/submissions
