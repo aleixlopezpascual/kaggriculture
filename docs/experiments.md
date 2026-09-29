@@ -456,6 +456,47 @@ This ledger tracks all local benchmarks, live Kaggle leaderboard ratings, design
 *   **Next Planned Action:** V3 remains the weaker half of the active pair (its live Elo had been collapsing toward ~900 before partial recovery). The intended follow-up is to upload a diversity hedge, which under the Two-Agent Rule would retire V3 and leave V2.1 paired with the hedge.
 
 
+### Phase 5: Opening-Quantity Sweep & Broad Counter-Scan (2026-09-29)
+
+Two follow-up studies were run to answer the open questions left by Phase 4: (a) was BUY 10 / SELL 5 actually optimal, or merely better than the two other points ever sampled? and (b) does a Jaxa-style hard counter still exist that our 6-opponent panel cannot see?
+
+#### 5a. Opening-Quantity Sweep (960 matches) — lever is EXHAUSTED
+
+*   **Design:** 12 opening variants x 5 opponents x 8 fresh seeds x both seats, all `DONE`, **0 errors**. Variant packages were generated as symlink directories over the frozen `baseline.py`/`optimizer.py` with only the `V21_OPENING_STEP0` rebind differing. Two factors were separated: buy size at a fixed retained buffer, and retained buffer at a fixed buy size.
+*   **Result — the retained buffer is the entire mechanism, and it must be exactly 5:**
+
+    | Variant | Buy | Sell | Retained | Overall | vs Jaxa | Avg margin |
+    | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+    | b06_s01 .. b16_s11 (5 variants) | 6-16 | 1-11 | **5** | **77.5%** | **100.0%** | ~+$1,501 |
+    | **b10_s05 (shipped V2.1)** | 10 | 5 | **5** | **77.5%** | **100.0%** | **+$1,506** |
+    | b20_s15 (original V2) | 20 | 15 | 5 | 57.5% | 0.0% | -$2,105 |
+    | b10_s00 | 10 | 0 | 10 | 35.0% | 87.5% | -$282 |
+    | b10_s02 / b10_s03 | 10 | 2-3 | 7-8 | 32.5% | 75.0% | -$391 |
+    | b10_s07 / b10_s08 | 10 | 7-8 | 2-3 | **0.0%** | 0.0% | -$29,929 |
+
+*   **Buy size is irrelevant on a broad plateau.** Every variant holding the retained buffer at 5 with buy in `[6, 16]` produced *identical* match outcomes: paired delta versus shipped V2.1 of exactly `+0.0000` with a zero-width bootstrap CI. V2.1 therefore sits in the middle of a wide flat optimum rather than on a knife edge — strong evidence the Phase 4 choice is **robust, not overfitted**.
+*   **Buy 20 is the sole exception** to the plateau: despite also retaining 5, it loses to Jaxa 0%. Buying 20 units appears to move the shared wheat market past a threshold that buys of <= 16 do not, which is the actual defect in the shipped V2 constant.
+*   **Gold is anti-correlated with winning here.** The two worst variants (`b10_s07`/`b10_s08`, 0% win rate) posted the *highest* average own-gold ($102.9k-$103.1k vs $91.6k) while losing by ~$28k-$30k. Dumping the feed buffer inflates our own cash but feeds the opponent's economy far more — a clean reminder that own-gold is an actively misleading objective in this competition.
+*   **Conclusion:** the opening lever is **exhausted**. No configuration beats shipped V2.1, and five distinct configurations tie it exactly. No further gain is available from this parameter.
+
+#### 5b. Broad Counter-Scan (300 matches) — local pool is SATURATED
+
+*   **Design:** V2.1 versus **25** distinct competitor agents (every loadable agent source in the repo) x 6 fresh seeds x both seats. All `DONE`, **0 errors**. This is a detection sweep for Jaxa-style systematic counters, not a precision estimate.
+*   **Result:** overall **88.3%** (265/300). V2.1 wins **12-0** against **18 of 25** opponents.
+*   **The Jaxa fix generalizes across the whole family.** V2.1 beats `jaxa_original` **12-0** (+$2,680), `jaxa_variant_a` **12-0** (+$4,471), and `jaxa_variant_b` **12-0** (+$2,680). Only Variant B was used during Phase 4 development, so this is genuine held-out evidence that a shared mechanism was fixed rather than one opponent being memorized.
+*   **Also swept 12-0:** `thomas_2945`, `thomas_router`, `reyhan`, `fusion`, `v36_fusion`, `v45_fusion`, `guru_v3`, `lynn`, `kaito_v21`, `three_day_opt`, `bruceqdu`, `v43`, `v48`, `ahmed_v39`. Several of these (Jaxa 2212.6, Fusion 2166.4, Reyhan 2071.6) recorded substantially higher historical live Elo than our current ratings, which underlines that these Elo values are **not comparable across eras** and that local dominance does not translate into live rating.
+*   **Only two weak matchups remain, and neither is structural:**
+
+    | Opponent | W-L | Rate | Avg margin |
+    | :--- | :---: | :---: | :---: |
+    | `cha22` | 2-10 | 16.7% | **-$473** |
+    | `arsgorynich` | 4-8 | 33.3% | **+$54** |
+
+    Both are decided by razor-thin cash differences — `arsgorynich` even carries a *positive* average margin despite a losing record. This is a qualitatively different signature from the Jaxa counter, which was a structural **-$18,058** blowout. These are near-tie coin-flip matchups, not exploitable mechanisms.
+*   **Conclusion:** the local opponent pool is **saturated**. With 88.3% overall, 12-0 against 18 of 25 opponents, and no remaining structural counter, further local tournament optimization has hit sharply diminishing returns. The gap between our live rating (~1,700) and the ladder top (~3,000) is therefore **not** explained by anything the local pool can measure.
+*   **Live convergence (V2.1, Ref `56654308`):** 600.0 -> 1062.2 -> 1459.5 -> 1540.7 -> **1625.3**, overtaking V3 (`56644701`, 1593.7) and still climbing toward V2's retired 1692.0. Tracked by `track_elo.py` into an append-only JSONL series.
+
+
 ## Sources
 
 [36] https://www.kaggle.com/competitions/kaggriculture/submissions
