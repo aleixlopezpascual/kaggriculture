@@ -627,6 +627,91 @@ different hash but produced **32/32 identical match outcomes**;
    Optimising for gold against weak opponents is not the lever.
 
 
+## Phase 9 -- Adopting the public meta head (2026-09-29)
+
+**Context.** Phase 8 established that our local panel was unrepresentative and
+that V2.1/V3.1 win only ~12.5% against the extracted public meta. Before
+spending the remaining window on micro-optimisation, the margin was traced and
+the meta engine was evaluated as a submission in its own right.
+
+### 9.1 Where the margin is actually lost
+
+Money trace vs the meta on seed 411205837 (60-turn buckets):
+
+| turn | ours | meta | diff |
+| --- | --- | --- | --- |
+| 240 | 2,779 | 2,794 | -15 |
+| 480 | 62,040 | 62,071 | **-31** |
+| 719 | 139,538 | 139,753 | -215 |
+
+Through turn 480 the agents are effectively **tied** (-$31 on $62k); early and
+mid-game sell volumes match almost exactly (739 vs 737 units). The entire
+deficit forms during **endgame liquidation (turns 480-720)**.
+
+The game is strongly **coupled** through the town market, not a parallel solo
+race: against a PASS bot on seed 867240155 our agent earns $209,639, but only
+$68,855 against the meta. Both agents sell into the same demand curve.
+
+### 9.2 The meta engine is decisively stronger
+
+160 fresh-seed matches, both seats, **0 errors, every episode `DONE`**:
+
+| matchup | our win rate | median margin | sign-test p |
+| --- | --- | --- | --- |
+| V2.1 vs meta | 12.5% | -$689 | 1.6e-12 |
+| V3.1 vs meta | 13.8% | -$846 | 1.0e-11 |
+
+Note the trap: our **median gold is higher** ($91,790 vs $89,724) while we lose
+87.5% of matches. We lose narrowly and consistently and win rarely and large --
+the exact profile that destroys an Elo rating while looking healthy on gold.
+This is further confirmation that gold is the wrong optimisation target.
+
+### 9.3 The public meta has converged
+
+`demand-preserving-turn-sale-timing` and `the-2965-master-hybrid-engine` are
+published as separate notebooks by different authors, yet head-to-head over 40
+matches they produced **38 exact ties**; the only two non-ties were +/-$116 on a
+single seed. The top of the leaderboard is effectively one shared engine.
+
+`NOTICE.txt` documents the lineage: shiiin9 -> Ahmed Berat Ozer -> Thomas
+Tschinkel -> Yusuke Hayashi -> aurax7, refreshed by Dmitrii Gluzdov. **Our own
+Prvsiyan line descends from this same public chain.**
+
+### 9.4 Submission-readiness gates
+
+| gate | result |
+| --- | --- |
+| licence | Apache-2.0; `LICENSE.txt` + `NOTICE.txt` shipped verbatim |
+| payload integrity | SHA-256 `55be5d5f...` == author's declared `EXPECTED_MAIN_SHA256` |
+| dependencies | stdlib only; no third-party imports |
+| runtime file reads | none (the single `open()` is dead code behind `path = None`) |
+| self-verification | none (no `hashlib` / `__file__`), so annotation is safe |
+| latency | ~7.8 ms/step for both agents; overage budget stayed at 60s |
+| archive | byte-reproducible; build script refuses to run if `main.py` changed |
+
+### 9.5 Live deployment
+
+Uploaded `meta_v4_submission.tar.gz` (archive SHA-256 `97299287...`) at explicit
+user request as **Ref `56670729`**.
+
+Under the Two-Agent Rule the active pair becomes **Meta V4** (`56670729`) and
+**Prvsiyan V3.1** (`56668154`, 1,137.0), retiring **Prvsiyan V2.1**
+(`56654308`) at 1,659.1.
+
+**Accepted risk:** this retires our 1,659.1 floor while Meta V4 converges from
+600. Confirmed that the leaderboard reports the best *active* submission -- V1
+retired at 1,725.3 yet the board showed V2.1's 1,662.9 -- so the displayed score
+dips until convergence. With ~38h to close and ~12h typical convergence, there
+is enough runway.
+
+### 9.6 Next lever
+
+Because the meta field is a converged monoculture, mirror matches resolve as
+near-exact ties. A small, genuinely consistent edge applied on top of the meta
+would convert a large share of those draws into wins, which is far higher
+leverage than chasing absolute gold.
+
+
 ## Sources
 
 [36] https://www.kaggle.com/competitions/kaggriculture/submissions
