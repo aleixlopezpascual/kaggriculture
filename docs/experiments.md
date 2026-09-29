@@ -1059,7 +1059,7 @@ fresh A/B of the actual built artifact with no env var set.
 provenance stays hash-checkable. Meta V4 itself is never edited.
 
 - `meta_v5_package/main.py` SHA `d5a9c1bf...`
-- `meta_v5_submission.tar.gz` SHA `e5fe4dcd...`
+- `meta_v5_submission.tar.gz` SHA `22791cad...`
 
 ### 13.7 Conclusion
 
@@ -1068,6 +1068,34 @@ beats our head, crop mix is a dead meta, and anti-idle harvesting is actively
 harmful. The surviving lever is small but real and carries no downside path --
 it is wrapped in try/except, never displaces a chosen action, and adds
 negligible latency.
+
+### 13.8 Deployment (2026-09-29 13:02 UTC)
+
+Meta V5 submitted with user approval as Ref **`56676258`**, retiring Prvsiyan
+V3.1 (`56668154`, 1322.9). Active matchmaking pool is now:
+
+| slot | ref | agent |
+|---|---|---|
+| 1 | `56670729` | Meta V4 (converged ~1935) |
+| 2 | `56676258` | **Meta V5** (new, climbing from 600) |
+
+Because the competition score is the best *active* submission and Meta V4 is
+unchanged, this is a free option: V5 can only add upside.
+
+Validation passed (`SubmissionStatus.COMPLETE`). First live episodes, all
+`COMPLETED` with **zero errors or timeouts**:
+
+| episode | result | our gold | opponent | rating |
+|---|---|---|---|---|
+| 115241096 | self-play validation | $71,884 | $72,541 | 600 |
+| 115242737 | WIN | $110,479 | $30,084 | 600 -> 709 |
+| 115244088 | WIN | $161,193 | $91,637 | 709 -> 818 |
+| 115245488 | WIN | $129,336 | $98,003 | 818 -> 893 |
+| 115246835 | WIN | $79,551 | $37,612 | 893 -> 996 |
+
+Opening live record **W4 L0 T0**. The climb from 600 is the standard cold-start
+ramp for a new submission and is not yet evidence about final strength; the
+meaningful comparison is its plateau versus Meta V4's 1935.
 
 
 ## Sources
