@@ -784,6 +784,60 @@ unmodified**. This is the Phase 6 "slightly better local model" lesson applied
 before deployment rather than after.
 
 
+## Phase 11 -- Choosing the second submission slot (2026-09-29)
+
+Team score is the best **active** submission and only the latest two stay
+active, so the second slot is a free option. The question was what to put in
+it. Three candidates existed: keep V3.1, promote the strongest rival agent, or
+submit a second copy of Meta V4.
+
+### 11.1 No rival agent is stronger
+
+The Phase 10 counter-scan gave every one of 24 opponents a losing record
+against Meta V4. The single parity result was `cha22` at 4-4, but eight matches
+cannot separate "equal" from "much worse", so it was re-tested properly on 24
+fresh seeds, both seats.
+
+| metric | result |
+| --- | --- |
+| record | Meta V4 **36-12** |
+| win rate | **75.0%** (95% Wilson CI 61.2-85.1%) |
+| sign test | p = 3.6e-4 |
+| median margin | $412 |
+| errors / non-DONE | 0 / 0 |
+| cha22 PASS-bot episodes | 0 |
+
+`cha22`'s parity was sampling noise. The loader-trap check was included because
+a mis-bound agent scores about $3,000 and would look weak for reasons unrelated
+to its policy; none were found, so the result is trustworthy.
+
+### 11.2 Why a duplicate is the rational occupant
+
+A second copy adds no skill. Its value is purely **variance harvesting**: Elo
+is a noisy random walk, so two independent walks of the same agent converge to
+the same true rating by different paths, and taking the best active submission
+keeps the luckier one. For two walks with noise sigma the expected maximum is
+about `mu + 0.56*sigma`, i.e. roughly +25-35 Elo, at **zero strength risk**
+because the agent is already validated.
+
+### 11.3 Why it was NOT submitted yet
+
+V3.1 is still an unconverged hedge. Both signals say Meta V4 converges higher
+-- it wins 86.2% head-to-head, and live it climbs about twice as fast at equal
+age (1396 at ~40 min versus V3.1's 744) -- but the hedge costs nothing to hold
+while the climb is still steep.
+
+An earlier claim in this session that "V3.1 converges near 1200" was
+**unfounded** and is retracted: V3.1 was only two hours into its walk, still
+rising, and holds a live 8-3 record (72.7%), better than V2.1's 62.9%. V3.1 is
+not a weak agent in absolute terms; it is specifically *dominated head-to-head*
+by Meta V4, which is a different and narrower claim.
+
+Decision: hold the submission until Meta V4's curve flattens. Converting the
+slot is a one-way move, and waiting buys the one fact that settles it while
+still leaving roughly 20h of convergence runway.
+
+
 ## Sources
 
 [36] https://www.kaggle.com/competitions/kaggriculture/submissions
