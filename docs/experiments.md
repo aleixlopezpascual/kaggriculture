@@ -1076,7 +1076,7 @@ V3.1 (`56668154`, 1322.9). Active matchmaking pool is now:
 
 | slot | ref | agent |
 |---|---|---|
-| 1 | `56670729` | Meta V4 (converged ~1935) |
+| 1 | `56670729` | Meta V4 (see 13.10 -- not converged; peaked 2092, decaying) |
 | 2 | `56676258` | **Meta V5** (new, climbing from 600) |
 
 Because the competition score is the best *active* submission and Meta V4 is
@@ -1128,6 +1128,54 @@ score is the best *active* submission -- so ghosting now simply forfeits the
 score. The capped downside of being copied is a small behavioural edge; the
 downside of going dark is our entire standing. **Decision: no defensive
 action, both slots stay live through close.**
+
+
+### 13.10 Correction: Meta V4 had not converged -- cold-start inflation
+
+**This corrects 12.3 and 13.0's claim that Meta V4 "converged at 1960.5,
+drift -0/episode".** That reading was taken at **48 rated episodes** and was an
+artifact of too small a sample. At **86** rated episodes the picture is
+different:
+
+| | rated eps | record | decided WR | peak | now | drift |
+|---|---|---|---|---|---|---|
+| Meta V4 | 86 | W30 L32 T24 | 48% | **2092** | **1848.5** | -2.7/ep |
+| Meta V5 | 26 | W15 L4 T7 | 79% | 1871 | 1793.1 | -4.2/ep |
+
+Meta V4 peaked at 2092 and has been **declining ever since**, still falling. Its
+record splits sharply by experience:
+
+- first 25 rated episodes: **82%** decided win rate
+- after 25: **30%**
+
+This is **cold-start Elo inflation**, not a regression in the agent. A new
+submission starts at 600 and is matched against weak opponents while the
+ladder locates it; those early wins overpay, and the rating then decays toward
+the true level as matchmaking sharpens.
+
+**Methodological rule: never call a submission converged before ~60 rated
+episodes, and never compare two submissions at unequal experience.** At equal
+N the two agents are statistically indistinguishable:
+
+| | first 25 rated eps |
+|---|---|
+| Meta V4 | W18 L4 T3 -> 82% decided |
+| Meta V5 | W15 L3 T7 -> 83% decided |
+
+V5's rating sits ~158 below V4's at the same episode count purely because it
+drew **weaker opponents** (mean 1474 vs 1582), so each win paid less Elo. V5 is
+therefore still inside the same inflated phase V4 has already exited, and
+should be expected to settle *near* V4 rather than above it.
+
+The local A/B predicted a small (+6.5% decided) tie-breaking edge for V5. Live
+evidence is **consistent with that but cannot resolve it** -- an effect that
+size requires far more episodes than the cold-start noise band of +/-150 allows.
+
+Both submissions show **zero non-COMPLETED episodes**: no errors, no timeouts.
+The Step1010 layer is mechanically sound in production.
+
+Monitoring instrument: `live_monitor.py` (session files) reports record,
+drift, mean opponent strength, the error canary, and the equal-N comparison.
 
 
 ## Sources
