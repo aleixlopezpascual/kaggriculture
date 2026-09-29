@@ -1022,7 +1022,7 @@ collect fertiliser / care for an animal, only when the hand is already idle and
 already standing on that tile. It never displaces an action the engine chose;
 it only ever rewrites `PASS`.
 
-Validated across **four independent seed batches** (paired, both seats):
+Validated across **five independent seed batches** (paired, both seats):
 
 | batch | n | W | L | T |
 |---|---|---|---|---|
@@ -1030,11 +1030,14 @@ Validated across **four independent seed batches** (paired, both seats):
 | 2 (replication) | 96 | 10 | 8 | 78 |
 | 3 | 192 | 23 | 11 | 158 |
 | 4 (shipped default) | 32 | 5 | 5 | 22 |
-| **pooled** | **416** | **52** | **28** | **336** |
+| 5 (confirmation, shipped default) | 256 | 33 | 13 | 210 |
+| **pooled** | **672** | **85** | **41** | **546** |
 
-- decided-game win rate **65.0%**, 95% Wilson CI **53.5-75.3%** (excludes 50%)
-- sign test **p = 0.0097**
-- net **+24 wins over 416 matches = +5.8%** match-winrate swing
+- decided-game win rate **67.5%**, 95% Wilson CI **58.9-75.0%** (excludes 50%)
+- sign test **p = 0.00011**
+- net **+44 wins over 672 matches = +6.5%** match-winrate swing
+- batch 5 is a fully independent replication of the *built artifact* with no
+  env var set (`p = 0.0045` standalone), run over 336 distinct seeds in total
 - mean margin only **+$5** -- it does not build a bigger farm, it **breaks ties**
 
 Batch 2 alone was *not* significant (p=0.81), and batch 1 alone looked stronger

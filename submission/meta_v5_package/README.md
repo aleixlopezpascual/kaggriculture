@@ -42,16 +42,17 @@ stays reproducible. **The shipped default is `safe`, which excludes it.**
 
 ## Validation
 
-Paired A/B versus stock Meta V4, both seats, four independent seed batches
-(416 matches over 208 distinct seeds):
+Paired A/B versus stock Meta V4, both seats, five independent seed batches
+(672 matches over 336 distinct seeds):
 
 | | |
 | --- | --- |
-| record | W52 L28 T336 |
-| decided-game win rate | 65.0% |
-| 95% Wilson CI | 53.5% - 75.3% (excludes 50%) |
-| sign test | p = 0.0097 |
+| record | W85 L41 T546 |
+| decided-game win rate | 67.5% |
+| 95% Wilson CI | 58.9% - 75.0% (excludes 50%) |
+| sign test | p = 0.00011 |
 | mean margin | +$5 |
+| worst step latency | 72.8 ms (stock V4: 71.9 ms) |
 
 The mean margin is tiny by design: 81% of mirror matches end in an *exact*
 tie, and this layer converts a share of those ties into wins rather than
