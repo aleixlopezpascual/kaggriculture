@@ -1178,6 +1178,48 @@ Monitoring instrument: `live_monitor.py` (session files) reports record,
 drift, mean opponent strength, the error canary, and the equal-N comparison.
 
 
+### 13.11 V4 converged at 1846; the ladder cannot resolve V5 before close
+
+Follow-up read at 109 / 49 rated episodes:
+
+| | rated eps | record | decided WR | rating | drift |
+|---|---|---|---|---|---|
+| Meta V4 | 109 | W37 L39 T33 | 49% | **1846.5** | **+0.0/ep** |
+| Meta V5 | 49 | W23 L13 T13 | 64% | 1818.1 | -1.6/ep |
+
+Meta V4's drift has flattened from -2.7/ep to **+0.0/ep**. *This* is the real
+plateau, and it lands at **1846**, not the 1960 claimed at 48 episodes -- direct
+confirmation of the >=60-episode rule added in 13.10.
+
+**V5's headline 64% is an artifact, not an edge.** Its mean opponent is 1657
+versus V4's 1827; a newer submission draws weaker opposition. Two controlled
+cuts remove the confound:
+
+| cut | Meta V4 | Meta V5 |
+|---|---|---|
+| last 25 eps (mean opp ~1840 both) | 50% decided | 44-47% decided |
+| all eps vs opponents >=1700 | 41% (n=99) | 43% (n=36) |
+
+Fisher exact on the >=1700 subset: **p = 1.00**. On like-for-like opposition
+the two agents are **statistically indistinguishable**.
+
+**Power analysis -- why this cannot be settled live.** Detecting the +6.5pp
+decided-win-rate edge measured locally requires roughly **n ~ 900 decided
+games** at 80% power. V5 has **23** against strong opposition and is
+accumulating a few dozen per hour. With ~32h to close we will not approach
+that. This is not a null result; it is an **underpowered** one.
+
+The practical consequence: the 672-match paired local A/B (p=0.00011) remains
+the *only* instrument able to resolve an effect this size, which is precisely
+why it was built. The live ladder's job here is narrower and it has done it --
+it confirms **no harm**: 158 combined episodes, zero errors, zero timeouts,
+and no rating divergence between the two agents.
+
+**Endgame decision: hold both slots unchanged through close.** Score is the
+best active submission, the two are within 28 points, every lever that
+survived scrutiny is already shipped, and late changes carry only downside.
+
+
 ## Sources
 
 [36] https://www.kaggle.com/competitions/kaggriculture/submissions
