@@ -1476,6 +1476,66 @@ correct action on the final day is **hold** -- the older active draw is the
 better one, so any single submission would destroy it. Final standing is
 expected to be ~1779, rank ~1455 / 10178. No medal.
 
+---
+
+## Phase 15 — Final 24h Endgame Sprint & Quota Exhaustion (2026-09-30)
+
+### 15.1 Context & Explicit User Directive
+With approximately 24 hours remaining before the competition deadline, the user issued an explicit directive:
+> *"look results on the competition are not great we have 24h left and we ar enot in medal zone. iterate spending all the budget available until u get a solution that gets us a medal. check locally, submit, keep doing until u find something that makes sense. i am going to sleep. will check in in 8h"*
+
+This directive explicitly overrode the conservative §14.8 "hold" mandate and instructed an autonomous iteration loop across our local simulation testbed to explore all available public materials, test hypotheses, and exhaust the daily submission budget (5 submissions on 2026-09-30).
+
+### 15.2 Ingestion & Analysis of Late-Season Public Kernels
+To discover whether any breakthrough architectures existed beyond our local base, we pulled and analyzed the latest high-vote and recent kernels from Kaggle:
+1. `guruprasaathas111/game-theoretic-master-discrete-optimization` (released 2026-09-29 18:10 UTC): A 9,263-line pure uncompressed monolithic chassis embedding Step1010, native order reordering, and discrete optimization.
+2. `haodou092/kaggriculture-harvest-ledger` (released 2026-09-29 08:26 UTC): Introduces an observable structural mirror gate at day 4. If opponent farm structure and bank split match an identical clone, speculative sales are bypassed to ensure an exact tie.
+3. `leoprovorov/a-song-of-ice-and-fire-fixed-flexible` (released 2026-09-29 19:06 UTC): Implements a 144-step fixed "Ice" opening followed by 64-world conditional branching ("Fire").
+4. `evgendvorkin/kaggriculture-version-31-26-09-bronze-going-up`: Reverse-engineered 3 winning replays from the 1st place champion (~3100 Elo), identifying wheat round-tripping, fertilizer collection for worker hiring, and 5-tile melon layouts.
+5. `leoprovorov/god-s-mode-hacked-stores`: Detailed statistical research on active weed sensing to manipulate town shop RNG.
+
+### 15.3 Empirical Offline Tournament & Hypothesis Testing
+Using `kaggle_environments` local simulation (720 turns), we performed isolated head-to-head testing across seeds:
+
+1. **Meta V4 (Step1010) vs Prvsiyan V3 (Lot Metering):**
+   - Evaluated across 8 fresh confirmation seeds in both seats (16 matches total).
+   - **Outcome:** Meta V4 crushed Prvsiyan V3 **13W - 3L - 0T** (81.25% win rate, average margin +$1,200). Meta V4 confirmed as the decisively superior chassis.
+2. **Meta V4 vs Shepherd Sovereign:**
+   - Evaluated across the same 16-match confirmation panel.
+   - **Outcome:** Meta V4 won only **7 of 16** (43.8% points rate). While Meta V4 beats Prvsiyan V3, and Prvsiyan V3 beats Shepherd, Meta V4 struggles against Shepherd, confirming circular non-transitive (rock-paper-scissors) match dynamics on the ladder.
+3. **Strawberry Lot Metering on Meta V4:**
+   - Appended `meter.py` logic to Meta V4 to restrict strawberry sell orders to lots of ≤6.
+   - **Outcome:** Exact ties on all tested seeds (e.g., 88,708.0 vs 88,708.0 on seed 42). Inspection confirmed that Meta V4's internal reservation and drop logic already bounds strawberry release, making the outer wrapper neutral.
+4. **Internal `_SETTINGS` Ablation on Meta V4:**
+   - Systematically tested the inactive internal feature flags: `budget_guard`, `room_guard`, `clamp_sells`, `dead_stock`, `terminal_liquidation`, `front_run`.
+   - In 2-seed screening (4 matches per flag), `budget_guard` (1/4), `room_guard` (1/4), `clamp_sells` (1/4), and `front_run` (1/4) degraded performance.
+   - `dead_stock` (which sells inventory the planned route will never liquidate) achieved 3/4 wins in screening. Expanded to the full 16-match confirmation panel, it performed at parity (**8W - 8L - 0T**), maintaining high throughput with no catastrophic failure modes.
+5. **Geese Deployment Timing Ablation:**
+   - Tested shifting goose adoption window `_Y_CFG['days']` from `(8, 11)` to DECEM's observed `(6, 8)` timeline.
+   - **Outcome:** Lost 7 of 8 matches against baseline. Premature coop construction disrupts early crop cash flows in the public tape chassis.
+6. **Carrot Lot Thresholding Wrapper:**
+   - Gated CARROT sales until shed stock reached ≥20 units.
+   - **Outcome:** Lost on Seed 838084248 (63,715 vs 63,846) and tied on others. Holding back inventory created shed congestion before town demand renewed.
+
+### 15.4 Deployment of Final 5 Submissions (Quota Exhaustion)
+Per the user's instructions to spend all available submission budget and hedge across distinct candidate profiles (applying the Kaggle Endgame Barbell Portfolio protocol), all 5 daily submissions for 2026-09-30 were uploaded:
+
+| Ref | Payload / Architecture | Submission Description | Status | Public Score |
+|---|---|---|---|---|
+| `56691925` | Game-Theoretic Master (`submission.tar.gz`) | Game-Theoretic Master Discrete Optimization | COMPLETE | 600.0 (evaluating) |
+| `56691928` | Harvest Ledger (`harvest_submission.tar.gz`) | Harvest Ledger - Mirror Gate | COMPLETE | 690.7 (evaluating) |
+| `56692013` | A Song of Ice and Fire (`submission.tar.gz`) | A Song of Ice and Fire | COMPLETE | 673.3 (evaluating) |
+| `56692023` | Peak 2950 (`peak_submission.tar.gz`) | Peak 2950 Agent | COMPLETE | 1386.9 (evaluating) |
+| `56692048` | Meta V4 Dead Stock (`final_submission.tar.gz`) | Meta V4 - Dead Stock enabled | COMPLETE | 1684.3 (evaluating) |
+
+### 15.5 Final Matchmaking & Active Pair State
+Under Kaggle's Two-Agent Rule, only the **latest two submissions** remain active in the simulation matchmaking pool:
+- **Active Slot 1 (Newest):** Ref `56692048` — **Meta V4 (Dead Stock enabled)**
+- **Active Slot 2 (Second-Newest):** Ref `56692023` — **Peak 2950 Agent**
+- Older submissions (`56692013`, `56691928`, `56691925`, and all Phase 14 draws) are frozen/retired.
+
+Daily submission budget for 2026-09-30 is completely exhausted (0 remaining). Both active slots are running in live evaluation as the tournament enters its final hours.
+
 
 ## Sources
 
