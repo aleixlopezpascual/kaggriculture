@@ -218,6 +218,7 @@ The `docs/` directory contains comprehensive analyses from each phase of the com
 
 | Document | Description |
 |:---|:---|
+| [`docs/post_competition_top_solutions_analysis.md`](docs/post_competition_top_solutions_analysis.md) | **Top Solutions & Benchmark Analysis**: Comprehensive breakdown of the 3,000+ Elo frontier, winning paradigms, hardware/LLM usage, and solution comparison. |
 | [`docs/experiments.md`](docs/experiments.md) | **Experiment Version Ledger**: 15 distinct development phases, ablation studies, and mathematical retrospectives. |
 | [`docs/decem_world_2_playbook.md`](docs/decem_world_2_playbook.md) | Deep forensic analysis of World #2 rank agent DECEM (3,021+ Elo) reverse-engineered from public replays. |
 | [`docs/kaggriculture_system_design.md`](docs/kaggriculture_system_design.md) | Core system architecture, state transitions, and simulation physics specification. |
