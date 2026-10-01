@@ -41,6 +41,20 @@ submission.tar.gz
 submission/*.tar.gz
 submission/*.zip
 
+# Credentials, Keys and Secrets
+.env*
+kaggle.json
+credentials.json
+client_secrets*.json
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Logs and local agent artifacts
+*.log
+.superpowers/
+
 # Replays and local logs
 replays/submission_2am_log.txt
 replays/*.json

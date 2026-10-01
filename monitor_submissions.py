@@ -8,7 +8,7 @@ TARGET_A = 56644701  # Prvsiyan Lot-Metered Challenger V3
 TARGET_B = 56621217  # Prvsiyan Global SELL-Slot Challenger V2
 
 LOG_WORKSPACE = Path("docs/superpowers/plans/kaggriculture_monitor.log")
-LOG_PRIVATE = Path("/Users/aleix.lopez/.gemini/tmp/kaggriculture/memory/monitor.log")
+LOG_PRIVATE = Path.home() / ".gemini/tmp/kaggriculture/memory/monitor.log"
 
 
 def log_message(msg: str):
